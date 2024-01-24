@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.vitalityvault.entities.User;
 import com.skilldistillery.vitalityvault.repositories.UserRepository;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 460350f808944968f22fcf1a071cc532c5fc71d6
 @Service
 public class AuthServiceImpl implements AuthService {
 	
