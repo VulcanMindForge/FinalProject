@@ -1,4 +1,4 @@
-package com.skilldistillery.vitalityvault.controllers.services;
+package com.skilldistillery.vitalityvault.services;
 
 import com.skilldistillery.vitalityvault.entities.User;
 

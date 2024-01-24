@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.vitalityvault.controllers.services.AuthService;
 import com.skilldistillery.vitalityvault.entities.User;
+import com.skilldistillery.vitalityvault.services.AuthService;
 
 import jakarta.servlet.http.HttpServletResponse;
 

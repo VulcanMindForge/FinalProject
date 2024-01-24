@@ -1,4 +1,4 @@
-package com.skilldistillery.vitalityvault.controllers.services;
+package com.skilldistillery.vitalityvault.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,8 +16,10 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User register(User user) {
-
-		return user;
+//		user.setEnabled(true);
+//		user.setRole("standard");
+//		user.setPassword(passEncoder.encode(user.getPassword()));
+		return userRepo.saveAndFlush(user);
 	}
 
 	@Override
