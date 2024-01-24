@@ -2,10 +2,11 @@ package com.skilldistillery.vitalityvault.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.skilldistillery.vitalityvault.entities.User;
 import com.skilldistillery.vitalityvault.repositories.UserRepository;
-
+@Service
 public class AuthServiceImpl implements AuthService {
 	
 	@Autowired
