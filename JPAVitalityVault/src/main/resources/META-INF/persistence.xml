@@ -8,11 +8,11 @@
 		
 	<properties>
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/FIXMEDB?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
+				value="jdbc:mysql://localhost:3306/vitalityvaultdb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
 			<property name="jakarta.persistence.jdbc.user"
-				value="FIXMEUSER" />
+				value="vitalityvault" />
 			<property name="jakarta.persistence.jdbc.password"
-				value="FIXMEPASS" />
+				value="vitalityvault" />
 			<property name="jakarta.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 
