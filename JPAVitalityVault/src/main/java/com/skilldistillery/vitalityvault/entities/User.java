@@ -1,7 +1,9 @@
 package com.skilldistillery.vitalityvault.entities;
 
+import java.sql.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,15 @@ public class User {
 	private String password;
 	private boolean enabled;
 	private String role;
+	@Column(name="first_name")
+	private String firstName;
+	@Column(name="last_name")
+	private String lastName;
+	private Date birthdate;
+	private String sex;
+	private String biography;
+	@Column(name="image_url")
+	private String imageUrl;
 	
 	public User() {
 		super();
@@ -51,6 +62,42 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public Date getBirthdate() {
+		return birthdate;
+	}
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public String getBiography() {
+		return biography;
+	}
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -69,7 +116,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
-				+ ", role=" + role + "]";
+				+ ", role=" + role + ", firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate
+				+ ", sex=" + sex + ", biography=" + biography + ", imageUrl=" + imageUrl + "]";
 	}
 	
 	
