@@ -7,10 +7,19 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema vitalityvaultdb
 -- -----------------------------------------------------
+-- 
+-- 
+-- 
+-- \
 DROP SCHEMA IF EXISTS `vitalityvaultdb` ;
 
 -- -----------------------------------------------------
 -- Schema vitalityvaultdb
+--
+-- 
+-- 
+-- 
+-- \
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `vitalityvaultdb` DEFAULT CHARACTER SET utf8 ;
 USE `vitalityvaultdb` ;
@@ -29,7 +38,198 @@ CREATE TABLE IF NOT EXISTS `user` (
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
   `birthdate` DATE NULL,
+  `sex` VARCHAR(45) NULL,
+  `biography` TEXT NULL,
+  `image_url` VARCHAR(2000) NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `category` ;
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` INT NOT NULL,
+  `name` TEXT(2000) NULL,
+  `description` TEXT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `log_entry_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `log_entry_type` ;
+
+CREATE TABLE IF NOT EXISTS `log_entry_type` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `description` TEXT(2000) NULL,
+  `image_url` VARCHAR(2000) NULL,
+  `category_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_log_entry_type_category1_idx` (`category_id` ASC),
+  CONSTRAINT `fk_log_entry_type_category1`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `unit`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `unit` ;
+
+CREATE TABLE IF NOT EXISTS `unit` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `log_entry`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `log_entry` ;
+
+CREATE TABLE IF NOT EXISTS `log_entry` (
+  `id` INT NOT NULL,
+  `log_entry_type_id` INT NOT NULL,
+  `create_date` DATETIME NULL,
+  `last_update` DATETIME NULL,
+  `entry_date` DATE NULL,
+  `description` TEXT NULL,
+  `degree` INT NULL,
+  `user_id` INT NOT NULL,
+  `amount` VARCHAR(45) NULL,
+  `unit_id` INT NOT NULL,
+  `entry_time` TIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_log_entry_log_entry_type1_idx` (`log_entry_type_id` ASC),
+  INDEX `fk_log_entry_user1_idx` (`user_id` ASC),
+  INDEX `fk_log_entry_unit1_idx` (`unit_id` ASC),
+  CONSTRAINT `fk_log_entry_log_entry_type1`
+    FOREIGN KEY (`log_entry_type_id`)
+    REFERENCES `log_entry_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_log_entry_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_log_entry_unit1`
+    FOREIGN KEY (`unit_id`)
+    REFERENCES `unit` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `trial`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `trial` ;
+
+CREATE TABLE IF NOT EXISTS `trial` (
+  `id` INT NOT NULL,
+  `create_date` DATETIME NULL,
+  `purpose` TEXT NULL,
+  `user_id` INT NOT NULL,
+  `last_update` DATETIME NULL,
+  `start_date` DATE NULL,
+  `end_date` DATE NULL,
+  `title` VARCHAR(100) NULL,
+  `published` TINYINT(1) NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_trial_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_trial_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `message`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `message` ;
+
+CREATE TABLE IF NOT EXISTS `message` (
+  `id` INT NOT NULL,
+  `content` TEXT(2000) NULL,
+  `date_time` DATETIME NULL,
+  `sender_id` INT NOT NULL,
+  `receiver_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_chat_user1_idx` (`sender_id` ASC),
+  INDEX `fk_chat_user2_idx` (`receiver_id` ASC),
+  CONSTRAINT `fk_chat_user1`
+    FOREIGN KEY (`sender_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_chat_user2`
+    FOREIGN KEY (`receiver_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `trial_has_log_entry_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `trial_has_log_entry_type` ;
+
+CREATE TABLE IF NOT EXISTS `trial_has_log_entry_type` (
+  `trial_id` INT NOT NULL,
+  `log_entry_type_id` INT NOT NULL,
+  PRIMARY KEY (`trial_id`, `log_entry_type_id`),
+  INDEX `fk_trial_has_log_entry_type_log_entry_type1_idx` (`log_entry_type_id` ASC),
+  INDEX `fk_trial_has_log_entry_type_trial1_idx` (`trial_id` ASC),
+  CONSTRAINT `fk_trial_has_log_entry_type_trial1`
+    FOREIGN KEY (`trial_id`)
+    REFERENCES `trial` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_trial_has_log_entry_type_log_entry_type1`
+    FOREIGN KEY (`log_entry_type_id`)
+    REFERENCES `log_entry_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `log_entry_type_comment`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `log_entry_type_comment` ;
+
+CREATE TABLE IF NOT EXISTS `log_entry_type_comment` (
+  `id` INT NOT NULL,
+  `content` TEXT NULL,
+  `content_date` DATETIME NULL,
+  `user_id` INT NOT NULL,
+  `log_entry_type_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_log_entry_type_comment_user1_idx` (`user_id` ASC),
+  INDEX `fk_log_entry_type_comment_log_entry_type1_idx` (`log_entry_type_id` ASC),
+  CONSTRAINT `fk_log_entry_type_comment_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_log_entry_type_comment_log_entry_type1`
+    FOREIGN KEY (`log_entry_type_id`)
+    REFERENCES `log_entry_type` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE = '';
@@ -48,7 +248,87 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'admin', 'admin', NULL, 'male', 'admin', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `category`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `category` (`id`, `name`, `description`) VALUES (1, 'Food', NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `log_entry_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `image_url`, `category_id`) VALUES (1, 'Oatmeal', NULL, NULL, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `unit`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `unit` (`id`, `name`) VALUES (1, 'cup');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `log_entry`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (1, 1, NULL, NULL, NULL, 'Brown Sugar', NULL, 1, '1', 1, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trial`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (1, NULL, 'testing', 1, NULL, NULL, NULL, 'TEST', 0);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `message`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `message` (`id`, `content`, `date_time`, `sender_id`, `receiver_id`) VALUES (1, 'test', NULL, 1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `trial_has_log_entry_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `trial_has_log_entry_type` (`trial_id`, `log_entry_type_id`) VALUES (1, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `log_entry_type_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `log_entry_type_comment` (`id`, `content`, `content_date`, `user_id`, `log_entry_type_id`) VALUES (1, 'Was good', '2024-01-25', 1, 1);
 
 COMMIT;
 
