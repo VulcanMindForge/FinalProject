@@ -1,19 +1,27 @@
 package com.skilldistillery.vitalityvault.services;
 
-import com.skilldistillery.vitalityvault.entities.User;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.skilldistillery.vitalityvault.entities.Unit;
+import com.skilldistillery.vitalityvault.repositories.UnitRepository;
 
 public class UnitServiceImpl implements UnitService {
+	
+	@Autowired
+	private UnitRepository unitRepo;
+	
 
 	@Override
-	public User register(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Unit> index() {
+		return unitRepo.findAll();
 	}
 
 	@Override
-	public User getUserByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Unit show(int unitId) {
+		return unitRepo.findById(unitId).get();
 	}
+
 
 }

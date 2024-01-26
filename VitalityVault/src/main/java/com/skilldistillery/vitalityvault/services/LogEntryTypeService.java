@@ -1,11 +1,16 @@
 package com.skilldistillery.vitalityvault.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import com.skilldistillery.vitalityvault.entities.User;
+import com.skilldistillery.vitalityvault.entities.LogEntryType;
 
 @Service
 public interface LogEntryTypeService {
-	public User register(User user);
-	public User getUserByUsername(String username);
+	public List <LogEntryType> index();
+	public LogEntryType show(int logEntryTypeId);
+	public LogEntryType create(LogEntryType logEntryType);
+	public LogEntryType update(int logEntryTypeId, LogEntryType logEntryType);
+	public boolean destroy(int logEntryTypeId);
 }
