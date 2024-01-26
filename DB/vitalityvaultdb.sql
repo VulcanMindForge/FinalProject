@@ -30,7 +30,7 @@ USE `vitalityvaultdb` ;
 DROP TABLE IF EXISTS `user` ;
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(2000) NOT NULL,
   `enabled` TINYINT(1) NOT NULL,
@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `sex` VARCHAR(45) NULL,
   `biography` TEXT NULL,
   `image_url` VARCHAR(2000) NULL,
+  `email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -51,7 +52,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `category` ;
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` TEXT(2000) NULL,
   `description` TEXT NULL,
   PRIMARY KEY (`id`))
@@ -64,7 +65,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `log_entry_type` ;
 
 CREATE TABLE IF NOT EXISTS `log_entry_type` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` TEXT(2000) NULL,
   `image_url` VARCHAR(2000) NULL,
@@ -85,7 +86,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `unit` ;
 
 CREATE TABLE IF NOT EXISTS `unit` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -97,7 +98,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `log_entry` ;
 
 CREATE TABLE IF NOT EXISTS `log_entry` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `log_entry_type_id` INT NOT NULL,
   `create_date` DATETIME NULL,
   `last_update` DATETIME NULL,
@@ -136,7 +137,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `trial` ;
 
 CREATE TABLE IF NOT EXISTS `trial` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `create_date` DATETIME NULL,
   `purpose` TEXT NULL,
   `user_id` INT NOT NULL,
@@ -161,7 +162,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `message` ;
 
 CREATE TABLE IF NOT EXISTS `message` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `content` TEXT(2000) NULL,
   `date_time` DATETIME NULL,
   `sender_id` INT NOT NULL,
@@ -212,7 +213,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `log_entry_type_comment` ;
 
 CREATE TABLE IF NOT EXISTS `log_entry_type_comment` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `content` TEXT NULL,
   `content_date` DATETIME NULL,
   `user_id` INT NOT NULL,
@@ -248,7 +249,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'admin', 'admin', NULL, 'male', 'admin', NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'admin', 'admin', NULL, 'male', 'admin', NULL, 'admin@admin.com');
 
 COMMIT;
 
