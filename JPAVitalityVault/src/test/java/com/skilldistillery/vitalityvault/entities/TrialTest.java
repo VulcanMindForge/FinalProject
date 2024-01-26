@@ -48,6 +48,7 @@ class TrialTest {
 		assertEquals("TEST", trial.getTitle());
 	}
 	
+
 	@Test
 	void test_Trial_User_ManyToOne() {
 		assertNotNull(trial.getUser());
@@ -61,5 +62,6 @@ class TrialTest {
 	}
 	
 	
+
 
 }
