@@ -46,5 +46,11 @@ class TrialTest {
 		assertNotNull(trial);
 		assertEquals("TEST", trial.getTitle());
 	}
+	
+	@Test
+	void test_Trial_User_ManyToOne() {
+		assertNotNull(trial.getUser());
+		assertEquals("admin", trial.getUser().getFirstName());
+	}
 
 }

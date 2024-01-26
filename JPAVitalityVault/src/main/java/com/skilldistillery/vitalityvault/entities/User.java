@@ -35,6 +35,12 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<LogEntry> logEntrys;
 
+	@OneToMany(mappedBy = "user")
+	private List<Trial> trials;
+
+	@OneToMany(mappedBy = "user")
+	private List<LogEntryTypeComment> comments;
+
 	public User() {
 		super();
 	}
@@ -58,6 +64,63 @@ public class User {
 			logEntrys.remove(logEntry);
 			logEntry.setUser(null);
 		}
+	}
+
+	public List<Trial> getTrials() {
+		return trials;
+	}
+
+	public void setTrials(List<Trial> trials) {
+		this.trials = trials;
+	}
+
+	public void addTrial(Trial trial) {
+		if (trials == null) {
+			trials = new ArrayList<>();
+		}
+		if (!trials.contains(trial)) {
+			trials.add(trial);
+			if (trial.getUser() != null) {
+				trial.getUser().removeTrial(trial);
+			}
+			trial.setUser(this);
+		}
+
+	}
+
+	public void removeTrial(Trial trial) {
+		if (trials != null && trials.contains(trial)) {
+			trials.remove(trial);
+			trial.setUser(null);
+		}
+	}
+
+	public List<LogEntryTypeComment> getComments() {
+		return comments;
+	}
+	public void addLogEntryTypeComment(LogEntryTypeComment comment) {
+		if (comments == null) {
+			comments = new ArrayList<>();
+		}
+		if (!comments.contains(comment)) {
+			comments.add(comment);
+			if (comment.getUser() != null) {
+				comment.getUser().removeLogEntryTypeComment(comment);
+			}
+			comment.setUser(this);
+		}
+		
+	}
+	
+	public void removeLogEntryTypeComment(LogEntryTypeComment comment) {
+		if (comments != null && comments.contains(comment)) {
+			comments.remove(comment);
+			comment.setUser(null);
+		}
+	}
+
+	public void setComments(List<LogEntryTypeComment> comments) {
+		this.comments = comments;
 	}
 
 	public List<LogEntry> getLogEntrys() {

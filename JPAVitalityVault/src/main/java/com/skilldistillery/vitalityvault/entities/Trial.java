@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Trial {
@@ -27,7 +29,9 @@ public class Trial {
 	private LocalDateTime endDate;
 	private String title;
 	private Boolean published;
-	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	public Trial() {
 		super();
@@ -81,6 +85,15 @@ public class Trial {
 	public void setPublished(Boolean published) {
 		this.published = published;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

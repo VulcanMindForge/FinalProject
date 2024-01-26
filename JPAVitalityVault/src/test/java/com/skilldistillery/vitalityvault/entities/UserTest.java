@@ -51,5 +51,15 @@ class UserTest {
 		assertNotNull(user.getLogEntrys());
 		assertTrue(user.getLogEntrys().size() > 0);
 	}
+	@Test
+	void test_User_trial_OneToMany() {
+		assertNotNull(user.getTrials());
+		assertTrue(user.getTrials().size() > 0);
+	}
+	@Test
+	void test_User_LogEntryTypeComment_OneToMany() {
+		assertNotNull(user.getComments());
+		assertTrue(user.getComments().size() > 0);
+	}
 
 }
