@@ -46,5 +46,11 @@ class UnitTest {
 		assertNotNull(unit);
 		assertEquals("cup", unit.getName());
 	}
+	
+	@Test
+	void test_Unit_LogEntry_OneToMany() {
+		assertNotNull(unit.getLogEntrys());
+		assertTrue(unit.getLogEntrys().size() > 0);
+	}
 
 }

@@ -1,11 +1,14 @@
 package com.skilldistillery.vitalityvault.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Category {
@@ -18,10 +21,47 @@ public class Category {
 	private String name;
 	
 	private String description;
+	
+	@OneToMany(mappedBy = "category")
+	private List<LogEntryType> logEntryTypes;
 
 	public Category() {
 		super();
 	}
+	
+	
+
+	public List<LogEntryType> getLogEntryTypes() {
+		return logEntryTypes;
+	}
+
+
+
+	public void setLogEntryTypes(List<LogEntryType> logEntryType) {
+		this.logEntryTypes = logEntryType;
+	}
+
+	public void addLogEntryType(LogEntryType logEntryType) {
+		if (logEntryTypes == null) {
+			logEntryTypes = new ArrayList<>();
+		}
+		
+		if (!logEntryTypes.contains(logEntryType)) {
+			logEntryTypes.add(logEntryType);
+			if (logEntryType.getCategory() != null) {
+				logEntryType.getCategory().removeLogEntryType(logEntryType);
+			}
+			logEntryType.setCategory(this);
+		}
+	}
+
+	public void removeLogEntryType(LogEntryType logEntryType) {
+		if (logEntryTypes != null && logEntryTypes.contains(logEntryType)) {
+			logEntryTypes.remove(logEntryType);
+			logEntryType.setCategory(null);
+		}
+	}
+	
 
 	public int getId() {
 		return id;

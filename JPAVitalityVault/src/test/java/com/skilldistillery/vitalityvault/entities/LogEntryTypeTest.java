@@ -2,6 +2,7 @@ package com.skilldistillery.vitalityvault.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -45,6 +46,18 @@ class LogEntryTypeTest {
 	void test_LogEntryType_entity_mapping() {
 		assertNotNull(logEntryType);
 		assertEquals("Oatmeal", logEntryType.getName());
+	}
+	
+	@Test
+	void test_logEntryType_Category_ManyToOne() {
+		assertNotNull(logEntryType.getCategory());
+		assertEquals("Food", logEntryType.getCategory().getName());
+	}
+	
+	@Test
+	void test_logEntryType_logEntry_OneToMany() {
+		assertNotNull(logEntryType.getLogEntrys());
+		assertTrue(logEntryType.getLogEntrys().size() > 0);
 	}
 
 }

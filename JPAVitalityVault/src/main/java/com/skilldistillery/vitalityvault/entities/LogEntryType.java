@@ -1,5 +1,7 @@
 package com.skilldistillery.vitalityvault.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -7,6 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,9 +29,53 @@ public class LogEntryType {
 	
 	@Column(name="image_url")
 	private String imageUrl;
+	
+	@ManyToOne
+	@JoinColumn(name="category_id")
+	private Category category;
+	
+	@OneToMany(mappedBy = "logEntryType")
+	private List<LogEntry> logEntrys;
 
 	public LogEntryType() {
 		super();
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
+	public List<LogEntry> getLogEntrys() {
+		return logEntrys;
+	}
+
+	public void setLogEntrys(List<LogEntry> logEntrys) {
+		this.logEntrys = logEntrys;
+	}
+
+	public void addLogEntry(LogEntry logEntry) {
+		if (logEntrys == null) {
+			logEntrys = new ArrayList<>();
+		}
+		
+		if (!logEntrys.contains(logEntry)) {
+			logEntrys.add(logEntry);
+			if (logEntry.getLogEntryType() != null) {
+				logEntry.getLogEntryType().removeLogEntry(logEntry);
+			}
+			logEntry.setLogEntryType(this);
+		}
+	}
+
+	public void removeLogEntry(LogEntry logEntry) {
+		if (logEntrys != null && logEntrys.contains(logEntry)) {
+			logEntrys.remove(logEntry);
+			logEntry.setLogEntryType(null);
+		}
 	}
 
 	public int getId() {

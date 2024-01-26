@@ -45,5 +45,11 @@ class CategoryTest {
 		assertNotNull(category);
 		assertEquals("Food", category.getName());
 	}
+	
+	@Test
+	void test_Category_logEntryType_OneToMany() {
+		assertNotNull(category.getLogEntryTypes());
+		assertTrue(category.getLogEntryTypes().size() > 0);
+	}
 
 }

@@ -45,5 +45,11 @@ class UserTest {
 		assertNotNull(user);
 		assertEquals("admin", user.getUsername());
 	}
+	
+	@Test
+	void test_User_entryLog_OneToMany() {
+		assertNotNull(user.getLogEntrys());
+		assertTrue(user.getLogEntrys().size() > 0);
+	}
 
 }

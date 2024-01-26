@@ -10,36 +10,78 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="log_entry")
+@Table(name = "log_entry")
 public class LogEntry {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="create_date")
+
+	@Column(name = "create_date")
 	private LocalDateTime createDate;
-	
-	@Column(name="last_update")
+
+	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
-	
-	@Column(name="entry_date")
+
+	@Column(name = "entry_date")
 	private Date entryDate;
-	
+
 	private String description;
-	
+
 	private Integer degree;
-	
+
 	private String amount;
-	
-	@Column(name="entry_time")
+
+	@Column(name = "entry_time")
 	private Time entryTime;
+
+	@ManyToOne
+	@JoinColumn(name = "log_entry_type_id")
+	private LogEntryType logEntryType;
+
+	@ManyToOne
+	@JoinColumn(name = "unit_id")
+	private Unit unit;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public LogEntry() {
 		super();
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
+	public LogEntryType getLogEntryType() {
+		return logEntryType;
+	}
+
+	public void setLogEntryType(LogEntryType logEntryType) {
+		this.logEntryType = logEntryType;
+	}
+
+	public void setDegree(Integer degree) {
+		this.degree = degree;
 	}
 
 	public int getId() {
@@ -129,7 +171,5 @@ public class LogEntry {
 				+ entryDate + ", description=" + description + ", degree=" + degree + ", amount=" + amount
 				+ ", entryTime=" + entryTime + "]";
 	}
-	
-	
-	
+
 }

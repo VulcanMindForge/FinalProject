@@ -45,5 +45,22 @@ class LogEntryTest {
 		assertNotNull(logEntry);
 		assertEquals("Brown Sugar", logEntry.getDescription());
 	}
+	
+	@Test
+	void test_logEntry_LogEntryType_ManyToOne() {
+		assertNotNull(logEntry.getLogEntryType());
+		assertEquals("Oatmeal", logEntry.getLogEntryType().getName());
+	}
+	
+	@Test
+	void test_logEntry_Unit_ManyToOne()  {
+		assertNotNull(logEntry.getUnit());
+		assertEquals("cup", logEntry.getUnit().getName());
+	}
 
+	@Test
+	void test_logEntry_User_ManyToOne()  {
+		assertNotNull(logEntry.getUser());
+		assertEquals("admin", logEntry.getUser().getFirstName());
+	}
 }

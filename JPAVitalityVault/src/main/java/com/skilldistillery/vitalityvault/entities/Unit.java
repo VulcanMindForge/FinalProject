@@ -1,11 +1,14 @@
 package com.skilldistillery.vitalityvault.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Unit {
@@ -13,11 +16,43 @@ public class Unit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
+
+	@OneToMany(mappedBy = "unit")
+	private List<LogEntry> logEntrys;
 
 	public Unit() {
 		super();
+	}
+
+	public List<LogEntry> getLogEntrys() {
+		return logEntrys;
+	}
+
+	public void setLogEntrys(List<LogEntry> logEntrys) {
+		this.logEntrys = logEntrys;
+	}
+	
+	public void addLogEntry(LogEntry logEntry) {
+		if (logEntrys == null) {
+			logEntrys = new ArrayList<>();
+		}
+		
+		if (!logEntrys.contains(logEntry)) {
+			logEntrys.add(logEntry);
+			if (logEntry.getLogEntryType() != null) {
+				logEntry.getLogEntryType().removeLogEntry(logEntry);
+			}
+			logEntry.setUnit(this);
+		}
+	}
+
+	public void removeLogEntry(LogEntry logEntry) {
+		if (logEntrys != null && logEntrys.contains(logEntry)) {
+			logEntrys.remove(logEntry);
+			logEntry.setUnit(null);
+		}
 	}
 
 	public int getId() {
