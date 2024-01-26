@@ -28,6 +28,10 @@ public class LogEntryTypeComment {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="log_entry_type_id")
+	private LogEntryType logEntryType;
 
 	public int getId() {
 		return id;
@@ -59,6 +63,14 @@ public class LogEntryTypeComment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public LogEntryType getLogEntryType() {
+		return logEntryType;
+	}
+
+	public void setLogEntryType(LogEntryType logEntryType) {
+		this.logEntryType = logEntryType;
 	}
 
 	@Override

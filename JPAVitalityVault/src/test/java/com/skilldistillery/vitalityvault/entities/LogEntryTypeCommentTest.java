@@ -51,5 +51,10 @@ class LogEntryTypeCommentTest {
 		assertNotNull(logEntryTypeComment.getUser());
 		assertEquals("admin", logEntryTypeComment.getUser().getFirstName());
 	}
+	@Test
+	void test_LogEntryTypeComment_logEntryType_ManyToOne() {
+		assertNotNull(logEntryTypeComment.getLogEntryType());
+		assertEquals("Oatmeal", logEntryTypeComment.getLogEntryType().getName());
+	}
 
 }

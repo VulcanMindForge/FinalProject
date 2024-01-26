@@ -36,6 +36,9 @@ public class LogEntryType {
 	
 	@OneToMany(mappedBy = "logEntryType")
 	private List<LogEntry> logEntrys;
+	
+	@OneToMany(mappedBy = "logEntryType")
+	private List<LogEntryTypeComment> logEntryTypeComments;
 
 	public LogEntryType() {
 		super();
@@ -75,6 +78,34 @@ public class LogEntryType {
 		if (logEntrys != null && logEntrys.contains(logEntry)) {
 			logEntrys.remove(logEntry);
 			logEntry.setLogEntryType(null);
+		}
+	}
+
+	public List<LogEntryTypeComment> getLogEntryTypeComments() {
+		return logEntryTypeComments;
+	}
+
+	public void setLogEntryTypeComments(List<LogEntryTypeComment> logEntryTypeComments) {
+		this.logEntryTypeComments = logEntryTypeComments;
+	}
+	public void addLogEntryTypeComment(LogEntryTypeComment logEntryTypeComment) {
+		if (logEntryTypeComments == null) {
+			logEntryTypeComments = new ArrayList<>();
+		}
+		
+		if (!logEntryTypeComments.contains(logEntryTypeComment)) {
+			logEntryTypeComments.add(logEntryTypeComment);
+			if (logEntryTypeComment.getLogEntryType() != null) {
+				logEntryTypeComment.getLogEntryType().removeLogEntryTypeComment(logEntryTypeComment);
+			}
+			logEntryTypeComment.setLogEntryType(this);
+		}
+	}
+	
+	public void removeLogEntryTypeComment(LogEntryTypeComment logEntryTypeComment) {
+		if (logEntryTypeComments != null && logEntryTypeComments.contains(logEntryTypeComment)) {
+			logEntryTypeComments.remove(logEntryTypeComment);
+			logEntryTypeComment.setLogEntryType(null);
 		}
 	}
 
