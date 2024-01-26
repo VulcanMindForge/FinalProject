@@ -2,6 +2,7 @@ package com.skilldistillery.vitalityvault.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -52,5 +53,13 @@ class TrialTest {
 		assertNotNull(trial.getUser());
 		assertEquals("admin", trial.getUser().getFirstName());
 	}
+
+	@Test
+	void test_Trial_LogEntryType_ManyToMany() {
+		assertNotNull(trial.getLogEntryTypes());
+		assertTrue(trial.getLogEntryTypes().size()>0);
+	}
+	
+	
 
 }

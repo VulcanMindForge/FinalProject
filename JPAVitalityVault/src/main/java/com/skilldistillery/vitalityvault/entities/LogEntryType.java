@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -39,6 +40,9 @@ public class LogEntryType {
 	
 	@OneToMany(mappedBy = "logEntryType")
 	private List<LogEntryTypeComment> logEntryTypeComments;
+	
+	@ManyToMany(mappedBy = "logEntryTypes")
+	private List<Trial> trials;
 
 	public LogEntryType() {
 		super();
@@ -141,6 +145,33 @@ public class LogEntryType {
 		this.imageUrl = imageUrl;
 	}
 
+	public List<Trial> getTrials() {
+		return trials;
+	}
+
+	public void setTrials(List<Trial> trials) {
+		this.trials = trials;
+	}
+
+	public void addTrial(Trial trial) {
+		if (trials == null) {
+			trials = new ArrayList<>();
+		}
+		if (!trials.contains(trial)) {
+			trials.add(trial);
+			trial.addLogEntryType(this);
+		}
+	}
+
+	public void removeTrial(Trial trial) {
+		if (trials != null && trials.contains(trial)) {
+			trials.remove(trial);
+			trial.removeLogEntryType(null);
+		}
+	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

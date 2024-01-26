@@ -65,4 +65,11 @@ class LogEntryTypeTest {
 		assertTrue(logEntryType.getLogEntryTypeComments().size() > 0);
 	}
 
+	@Test
+	void test_LogEntryType_trials_ManyToMany() {
+		assertNotNull(logEntryType.getTrials());
+		assertTrue(logEntryType.getTrials().size()>0);
+	}
+	
+	
 }

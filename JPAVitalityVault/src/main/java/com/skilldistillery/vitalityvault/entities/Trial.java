@@ -1,7 +1,8 @@
 package com.skilldistillery.vitalityvault.entities;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -10,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -32,6 +35,10 @@ public class Trial {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
+	
+	@ManyToMany
+	@JoinTable(name = "trial_has_log_entry_type", joinColumns = @JoinColumn(name = "trial_id"), inverseJoinColumns = @JoinColumn(name = "log_entry_type_id"))
+	private List<LogEntryType> logEntryTypes;
 	
 	public Trial() {
 		super();
@@ -94,6 +101,30 @@ public class Trial {
 		this.user = user;
 	}
 
+	public List<LogEntryType> getLogEntryTypes() {
+		return logEntryTypes;
+	}
+	public void setLogEntryTypes(List<LogEntryType> logEntryTypes) {
+		this.logEntryTypes = logEntryTypes;
+	}
+	
+	public void addLogEntryType(LogEntryType logEntryType) {
+		if (logEntryTypes == null) {
+			logEntryTypes = new ArrayList<>();
+		}
+		if (!logEntryTypes.contains(logEntryType)) {
+			logEntryTypes.add(logEntryType);
+			logEntryType.addTrial(this);
+		}
+	}
+
+	public void removeLogEntryType(LogEntryType logEntryType) {
+		if (logEntryTypes != null && logEntryTypes.contains(logEntryType)) {
+			logEntryTypes.remove(logEntryType);
+			logEntryType.removeTrial(null);
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
