@@ -1,4 +1,4 @@
-import { LogEntry } from "./log-entry";
+import { LogEntryType } from "./log-entry-type";
 import { User } from "./user";
 
 export class Trial {
@@ -11,7 +11,7 @@ export class Trial {
   title: string;
   published: string;
   user: User|null;
-  logEntry: LogEntry[];
+  logEntryType: LogEntryType[];
 
 
 
@@ -25,7 +25,7 @@ export class Trial {
     title: string = '',
     published: string = '',
     user: User|null=null,
-    logEntry: LogEntry[] = []
+    logEntryType: LogEntryType[] = []
 
   ) {
     this.id = id;
@@ -37,6 +37,6 @@ export class Trial {
     this.title = title;
     this.published = published;
     this.user=user;
-    this.logEntry=logEntry;
+    this.logEntryType=logEntryType;
   }
 }

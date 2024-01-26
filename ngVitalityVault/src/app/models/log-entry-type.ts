@@ -9,9 +9,9 @@ export class LogEntryType {
   description: string;
   imageUrl: string;
   category: Category|null;
-  trial: Trial[] = [];
-  logEntryTypeComment: LogEntryTypeComment[] = [];
-  logEntry: LogEntry[] = []
+  trial: Trial[];
+  logEntryTypeComment: LogEntryTypeComment[];
+  logEntry: LogEntry[];
 
   constructor(
     id:number=0,
@@ -31,6 +31,5 @@ export class LogEntryType {
     this.trial= trial;
     this.logEntryTypeComment=logEntryTypeComment;
     this.logEntry=logEntry;
-
   }
 }
