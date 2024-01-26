@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,13 +33,17 @@ public class User {
 	private String biography;
 	@Column(name = "image_url")
 	private String imageUrl;
-
+	private String email;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<LogEntry> logEntrys;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Trial> trials;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<LogEntryTypeComment> comments;
 
@@ -217,6 +223,14 @@ public class User {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

@@ -15,14 +15,14 @@
         <li class="nav-item">
           <a class="nav-link" href="#/todo">Todo</a>
         </li>
-        <li class="nav-item" *ngIf="!loggedin">
+        <li class="nav-item" *ngIf="!checkLogin()">
           <a class="nav-link" href="#/register">Register</a>
         </li>
-        <li class="nav-item" *ngIf="!loggedin">
+        <li class="nav-item" *ngIf="!checkLogin()">
           <a class="nav-link" href="#/login">Login</a>
         </li>
       </ul>
-      <div *ngIf="loggedin">
+      <div *ngIf="checkLogin()">
         <app-logout></app-logout>
       </div>
     </div>

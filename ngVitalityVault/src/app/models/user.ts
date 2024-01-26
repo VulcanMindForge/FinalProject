@@ -14,6 +14,7 @@ export class User {
   sex: string;
   biography: string;
   imageUrl: string;
+  email: string;
   logEntry: LogEntry[];
   logEntryTypeComment: LogEntryTypeComment[];
   trial: Trial[];
@@ -31,6 +32,7 @@ export class User {
     sex: string = '',
     biography: string = '',
     imageUrl: string = '',
+    email: string = '',
     logEntry: LogEntry[] = [],
     logEntryTypeComment: LogEntryTypeComment[] = [],
     trial: Trial[] = []
@@ -47,6 +49,7 @@ export class User {
     this.sex = sex;
     this.biography = biography;
     this.imageUrl = imageUrl;
+    this.email = email;
     this.logEntry=logEntry;
     this.logEntryTypeComment=logEntryTypeComment;
     this.trial=trial;

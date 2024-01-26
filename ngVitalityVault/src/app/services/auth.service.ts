@@ -46,7 +46,7 @@ export class AuthService {
         return newUser;
       }),
       catchError((err: any) => {
-        console.log(err);
+        console.error(err);
         return throwError(
           () => new Error('AuthService.login(): error logging in user.')
         );
