@@ -46,5 +46,6 @@ class TrialTest {
 		assertNotNull(trial);
 		assertEquals("TEST", trial.getTitle());
 	}
+	
 
 }
