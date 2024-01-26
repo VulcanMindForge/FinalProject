@@ -1,4 +1,5 @@
 import { LogEntryType } from "./log-entry-type";
+import { Trial } from "./trial";
 import { Unit } from "./unit";
 import { User } from "./user";
 
@@ -15,9 +16,9 @@ export class LogEntry {
   user: User|null;
   unit: Unit|null;
 
+
   constructor(
     id:number=0,
-    logEntryType: LogEntryType|null=null,
     createDate: string = '',
     entryTime: string = '',
     lastUpdate: string = '',
@@ -25,8 +26,9 @@ export class LogEntry {
     description: string = '',
     degree: string = '',
     amount: string = '',
+    logEntryType: LogEntryType|null=null,
     user: User|null=null,
-    unit: Unit|null=null
+    unit: Unit|null=null,
   ) {
     this.id = id;
     this.logEntryType=logEntryType;

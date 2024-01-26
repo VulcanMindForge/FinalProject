@@ -1,3 +1,4 @@
+import { LogEntry } from "./log-entry";
 import { User } from "./user";
 
 export class Trial {
@@ -10,6 +11,8 @@ export class Trial {
   title: string;
   published: string;
   user: User|null;
+  logEntry: LogEntry[];
+
 
 
   constructor(
@@ -21,7 +24,9 @@ export class Trial {
     endDate: string = '',
     title: string = '',
     published: string = '',
-    user: User|null=null
+    user: User|null=null,
+    logEntry: LogEntry[] = []
+
   ) {
     this.id = id;
     this.createDate = createDate;
@@ -32,5 +37,6 @@ export class Trial {
     this.title = title;
     this.published = published;
     this.user=user;
+    this.logEntry=logEntry;
   }
 }

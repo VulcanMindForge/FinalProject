@@ -1,3 +1,6 @@
+import { LogEntry } from './log-entry';
+import { LogEntryTypeComment } from './log-entry-type-comment';
+import { Trial } from './trial';
 export class User {
   // email: string;
   id:number;
@@ -11,6 +14,9 @@ export class User {
   sex: string;
   biography: string;
   imageUrl: string;
+  logEntry: LogEntry[];
+  logEntryTypeComment: LogEntryTypeComment[];
+  trial: Trial[];
 
   constructor(
     // email: string = '',
@@ -24,7 +30,10 @@ export class User {
     birthdate: string = '',
     sex: string = '',
     biography: string = '',
-    imageUrl: string = ''
+    imageUrl: string = '',
+    logEntry: LogEntry[] = [],
+    logEntryTypeComment: LogEntryTypeComment[] = [],
+    trial: Trial[] = []
   ) {
     // this.email = email;
     this.id = id;
@@ -38,5 +47,8 @@ export class User {
     this.sex = sex;
     this.biography = biography;
     this.imageUrl = imageUrl;
+    this.logEntry=logEntry;
+    this.logEntryTypeComment=logEntryTypeComment;
+    this.trial=trial;
   }
 }
