@@ -8,18 +8,30 @@
   style=" background-color: lightblue"
   >
   <div class="card-body">
+    <h1 class="text-center ">Login</h1>
     <form (submit)="login(loginUser)">
       <div class="input-group mb-3">
         <label class="input-group-text" for="username">Username:</label>
         <input class="form-control" type="text" id="username" name="username" [(ngModel)]="loginUser.username" required>
       </div>
       <div class="input-group mb-3">
-        <label class="input-group-text"for="password">Password:</label>
-        <input class="form-control" type="password" id="password" name="password" [(ngModel)]="loginUser.password" required>
+      <label class="input-group-text"for="password">Password:</label>
+      <input class="form-control" type="password" id="password" name="password" [(ngModel)]="loginUser.password" required>
       </div>
-      <button class="btn btn-outline-dark btn-light"
-      type="submit">Login</button>
+      <div class="row">
+
+        <div class="col">
+          <button class="btn btn-outline-dark btn-light"
+          type="submit">Login</button>
+        </div>
+        <div class="col"></div>
+        <div class="col">
+          <a class="btn btn-outline-dark btn-light"
+          type="submit" href="#/register">Register</a>
+        </div>
+      </div>
     </form>
+
   </div>
 </div>
 <div class="col-4"></div>
