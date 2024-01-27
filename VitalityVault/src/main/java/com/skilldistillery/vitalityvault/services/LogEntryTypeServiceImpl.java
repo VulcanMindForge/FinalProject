@@ -2,11 +2,16 @@ package com.skilldistillery.vitalityvault.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.skilldistillery.vitalityvault.entities.LogEntryType;
 import com.skilldistillery.vitalityvault.repositories.LogEntryTypeRepository;
 
+@Service
 public class LogEntryTypeServiceImpl implements LogEntryTypeService {
 	
+	@Autowired
 	private LogEntryTypeRepository logEntryTypeRepo;
 
 	@Override

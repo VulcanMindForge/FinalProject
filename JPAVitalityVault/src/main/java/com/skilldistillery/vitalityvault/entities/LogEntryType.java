@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,12 +38,15 @@ public class LogEntryType {
 	private Category category;
 	
 	@OneToMany(mappedBy = "logEntryType")
+	@JsonIgnore
 	private List<LogEntry> logEntrys;
 	
 	@OneToMany(mappedBy = "logEntryType")
+	@JsonIgnore
 	private List<LogEntryTypeComment> logEntryTypeComments;
 	
 	@ManyToMany(mappedBy = "logEntryTypes")
+	@JsonIgnore
 	private List<Trial> trials;
 
 	public LogEntryType() {

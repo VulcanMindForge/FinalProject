@@ -83,6 +83,9 @@ public class LogEntry {
 	public void setDegree(Integer degree) {
 		this.degree = degree;
 	}
+	public Integer getDegree() {
+		return degree;
+	}
 
 	public int getId() {
 		return id;
@@ -124,13 +127,7 @@ public class LogEntry {
 		this.description = description;
 	}
 
-	public int getDegree() {
-		return degree;
-	}
-
-	public void setDegree(int degree) {
-		this.degree = degree;
-	}
+	
 
 	public String getAmount() {
 		return amount;
