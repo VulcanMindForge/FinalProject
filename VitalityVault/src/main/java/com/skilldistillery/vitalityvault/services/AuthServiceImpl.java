@@ -30,8 +30,8 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public User updateUserProfile(User user) {
-		User existingUser = userRepo.findByUsername(user.getUsername());
+	public User updateUserProfile(String username, User user) {
+		User existingUser = userRepo.findByUsername(username);
 		if(existingUser != null) {
 			existingUser.setBiography(user.getBiography());;
 			existingUser.setBirthdate(user.getBirthdate());

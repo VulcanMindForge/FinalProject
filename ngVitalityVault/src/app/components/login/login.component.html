@@ -1,9 +1,27 @@
-<form (submit)="login(loginUser)">
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" [(ngModel)]="loginUser.username" required>
-  <br>
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" [(ngModel)]="loginUser.password" required>
-  <br>
-  <button type="submit">Login</button>
-</form>
+<br>
+<br>
+<br>
+  <div class="row align-items-center">
+    <div class="col-4"></div>
+  <div
+  class="card col"
+  style=" background-color: lightblue"
+  >
+  <div class="card-body">
+    <form (submit)="login(loginUser)">
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="username">Username:</label>
+        <input class="form-control" type="text" id="username" name="username" [(ngModel)]="loginUser.username" required>
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text"for="password">Password:</label>
+        <input class="form-control" type="password" id="password" name="password" [(ngModel)]="loginUser.password" required>
+      </div>
+      <button class="btn btn-outline-dark btn-light"
+      type="submit">Login</button>
+    </form>
+  </div>
+</div>
+<div class="col-4"></div>
+</div>
+

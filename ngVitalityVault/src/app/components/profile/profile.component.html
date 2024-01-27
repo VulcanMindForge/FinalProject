@@ -1,53 +1,141 @@
-<br>
-<div class="row align-items-center">
-  <div class="col-1"></div>
-  <div class="card col" style="width: 45rem; height: 50rem" *ngIf="!updateUser">
+
+<div class="row align-items-top m-5">
+  <div class="card col col-md my-4 " style="background-color: lightblue">
+  <div *ngIf="!updateUser">
     <div class="card-body">
-      <h4>Welcome, (First name, Last name)</h4>
-      <p>Username: {{user.username}}</p>
-      <p>Birthdate: {{user.birthdate}}</p>
-      <p>Sex: </p>
-      <p>Height: </p>
-      <p>Weight: </p>
-      <p>Medications: </p>
-      <p>Supplements: </p>
-      <p>Biography: </p>
-      <p>Email: </p>
-      <p>Profile Image: </p>
-      <button (click)="updateUserProfile()">Update User Profile</button>
-    </div>
-  </div>
-    <div class="card col" style="width: 45rem; height: 50rem" *ngIf="updateUser">
-      <div class="card-body">
-        <form action="">
-          <input type="text" name="FirstName" [(ngModel)]="updateUser.firstName" placeholder="First Name">
-          <input type="text" name="LastName" [(ngModel)]="updateUser.lastName">
-          <input type="date" name="Birthday" [(ngModel)]="updateUser.birthdate">
-          <input type="text" name="Sex" [(ngModel)]="updateUser.sex" placeholder="Sex">
-          <!-- <input type="text" name="Height">
-          <input type="text" name="Weight">
-          <input type="text" name="Medications" >
-          <input type="text" name="Supplements"> -->
-          <textarea name="Biography" [(ngModel)]="updateUser.biography" placeholder="Biography"></textarea>
-          <input type="text" name="Email" [(ngModel)]="updateUser.email" placeholder="Email">
-          <input type="text" name="ProfileImage" [(ngModel)]="updateUser.imageUrl" placeholder="Image">
-          <button (click)="finishUpdateUser()">Submit Changes</button>
-        </form>
-
-
-      </div>
-    </div>
-
-  <div class=" col-1"></div>
-
-      <div id="section2" class="card col" style="width: 45rem; height: 50rem ">
-        <div class="card-body">
-          <h1>Start A New Trial</h1>
-          <button>Start</button>
+      <h3>Welcome, {{ user.firstName }} {{ user.lastName }}</h3>
+      <div class="row align-items-top">
+        <div class="col">
+          <p>Username: {{ user.username }}</p>
+          <p>Birthdate: {{ user.birthdate }}</p>
+          <p>Sex: {{ user.sex }}</p>
+          <p>Height:</p>
+          <p>Weight:</p>
+          <p>Medications:</p>
+          <p>Supplements:</p>
+          <p>Biography: {{ user.biography }}</p>
+          <p>Email: {{ user.email }}</p>
+        </div>
+        <div class="col col-xs">
+          <img
+            class="bd-placeholder-img rounded"
+            height="150"
+            width="150"
+            alt="profile picture"
+            src="{{ user.imageUrl }}"
+          />
         </div>
       </div>
-      <div class="col-1"></div>
-      <br>
+      <button class="btn btn-outline-dark" (click)="updateUserProfile()">
+        Update User Profile
+      </button>
     </div>
-    <br>
-    <br>
+  </div>
+  <div *ngIf="updateUser">
+    <div class="card-body">
+      <form>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Name</span>
+          <span class="input-group-text">First:</span>
+          <input
+            class="form-control"
+            type="text"
+            name="FirstName"
+            [(ngModel)]="updateUser.firstName"
+            placeholder="First Name"
+          />
+          <span class="input-group-text">Last:</span>
+          <input
+            class="form-control"
+            type="text"
+            name="LastName"
+            [(ngModel)]="updateUser.lastName"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text"> Birthdate:</span>
+          <input
+            class="form-control"
+            type="date"
+            name="Birthday"
+            [(ngModel)]="updateUser.birthdate"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Sex:</span>
+          <input
+            class="form-control"
+            type="text"
+            name="Sex"
+            [(ngModel)]="updateUser.sex"
+            placeholder="Sex"
+          />
+        </div>
+        <!--
+              <span class="input-group-text"></span>
+              <input type="text" name="Height">
+              <span class="input-group-text"></span>
+              <input type="text" name="Weight">
+              <span class="input-group-text"></span>
+              <input type="text" name="Medications" >
+              <span class="input-group-text"></span>
+              <input type="text" name="Supplements">
+            -->
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Biography:</span>
+          <textarea
+            class="form-control"
+            name="Biography"
+            [(ngModel)]="updateUser.biography"
+            placeholder="Biography"
+          ></textarea>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Email:</span>
+          <input
+            class="form-control"
+            type="text"
+            name="Email"
+            [(ngModel)]="updateUser.email"
+            placeholder="Email"
+          />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Image:</span>
+          <input
+            class="form-control"
+            type="text"
+            name="ProfileImage"
+            [(ngModel)]="updateUser.imageUrl"
+            placeholder="Image"
+          />
+        </div>
+        <button
+          class="btn btn-outline-dark btn-light"
+          (click)="finishUpdateUser()"
+        >
+          Submit Changes
+        </button>
+        <button
+          class="btn btn-outline-danger btn-light"
+          (click)="updateUser=null"
+        >
+          Cancel Changes
+        </button>
+      </form>
+    </div>
+  </div>
+  </div>
+<div class="col-md-1"></div>
+
+  <div id="section2" class="card col-md my-4" style="background-color: lightblue">
+    <div class="card-body">
+      <h1>Start New Trial</h1>
+      <button class="btn btn-outline-dark">Start</button>
+    </div>
+  </div>
+  <br />
+</div>
+<br />
+<br />

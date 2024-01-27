@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -10,13 +11,16 @@ import { User } from '../../models/user';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
 })
 export class ProfileComponent {
-
   updateUser: User | null = null;
 
-  constructor(private authServ: AuthService, private router: Router) { }
+  constructor(
+    private authServ: AuthService,
+    private userServ: UserService,
+    private router: Router
+  ) {}
 
   user: User = new User();
 
@@ -30,17 +34,32 @@ export class ProfileComponent {
         this.user = loggedInUser;
       },
       error: (oops) => {
-        console.error('ProfileComponent.loggedInUser error: error getting user profile');
+        console.error(
+          'ProfileComponent.loggedInUser error: error getting user profile'
+        );
         console.error(oops);
-      }
+      },
     });
   }
 
-  updateUserProfile(){
-    this.updateUser = {...this.user}
+  updateUserProfile() {
+    this.updateUser = { ...this.user };
   }
 
-  finishUpdateUser(){
+  finishUpdateUser() {
+    if (this.updateUser) {
+      this.userServ.update(this.updateUser).subscribe({
+        next: (updatedUser) => {
+          this.loadUser();
+          this.updateUser = null;
+        },
+        error: (oops) => {
+          console.error(
+            'ProfileComponent.updateUser error: error updating user profile'
+          );
+          console.error(oops);
+        },
+      });
+    }
   }
-
 }

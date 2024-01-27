@@ -27,7 +27,7 @@ export class RegistrationComponent {
               next: loggedInUser => {
                 // Login successful, navigate to the todo-list component
                 this.newUser = new User();
-                this.router.navigateByUrl('/home');
+                this.router.navigateByUrl('/profile');
               },
               error: loginError => {
                 console.error('Error during login:', loginError);
