@@ -1,0 +1,53 @@
+<br>
+<div class="row align-items-center">
+  <div class="col-1"></div>
+  <div class="card col" style="width: 45rem; height: 50rem" *ngIf="!updateUser">
+    <div class="card-body">
+      <h4>Welcome, (First name, Last name)</h4>
+      <p>Username: {{user.username}}</p>
+      <p>Birthdate: {{user.birthdate}}</p>
+      <p>Sex: </p>
+      <p>Height: </p>
+      <p>Weight: </p>
+      <p>Medications: </p>
+      <p>Supplements: </p>
+      <p>Biography: </p>
+      <p>Email: </p>
+      <p>Profile Image: </p>
+      <button (click)="updateUserProfile()">Update User Profile</button>
+    </div>
+  </div>
+    <div class="card col" style="width: 45rem; height: 50rem" *ngIf="updateUser">
+      <div class="card-body">
+        <form action="">
+          <input type="text" name="FirstName" [(ngModel)]="updateUser.firstName" placeholder="First Name">
+          <input type="text" name="LastName" [(ngModel)]="updateUser.lastName">
+          <input type="date" name="Birthday" [(ngModel)]="updateUser.birthdate">
+          <input type="text" name="Sex" [(ngModel)]="updateUser.sex" placeholder="Sex">
+          <!-- <input type="text" name="Height">
+          <input type="text" name="Weight">
+          <input type="text" name="Medications" >
+          <input type="text" name="Supplements"> -->
+          <textarea name="Biography" [(ngModel)]="updateUser.biography" placeholder="Biography"></textarea>
+          <input type="text" name="Email" [(ngModel)]="updateUser.email" placeholder="Email">
+          <input type="text" name="ProfileImage" [(ngModel)]="updateUser.imageUrl" placeholder="Image">
+          <button (click)="finishUpdateUser()">Submit Changes</button>
+        </form>
+
+
+      </div>
+    </div>
+
+  <div class=" col-1"></div>
+
+      <div id="section2" class="card col" style="width: 45rem; height: 50rem ">
+        <div class="card-body">
+          <h1>Start A New Trial</h1>
+          <button>Start</button>
+        </div>
+      </div>
+      <div class="col-1"></div>
+      <br>
+    </div>
+    <br>
+    <br>

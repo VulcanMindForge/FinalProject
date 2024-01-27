@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm" style="background-color: rgb(129, 239, 249)">
+<nav class="navbar navbar-expand-sm" style="background-color: #003366">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Todo List</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,11 +9,11 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#/about">About</a>
+        <li class="nav-item" *ngIf="checkLogin()">
+          <a class="nav-link" href="#/profile">Profile</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#/todo">Todo</a>
+        <li class="nav-item" *ngIf="checkLogin()">
+          <a class="nav-link" href="#/dailyLog" >Daily Log</a>
         </li>
         <li class="nav-item" *ngIf="!checkLogin()">
           <a class="nav-link" href="#/register">Register</a>

@@ -16,6 +16,6 @@ export class LogoutComponent {
 
   logout(): void {
     this.authServ.logout();
-    this.router.navigateByUrl('testNotFound');
+    this.router.navigateByUrl('home');
   }
 }
