@@ -33,3 +33,5 @@ export class LogEntryType {
     this.logEntry=logEntry;
   }
 }
+
+export { LogEntry };

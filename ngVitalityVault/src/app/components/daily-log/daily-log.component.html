@@ -1,1 +1,95 @@
-<p>daily-log works!</p>
+
+<div *ngIf="newLogEntry">
+  <div class="">
+    <form>
+      <div class="input-group mb-3">
+        <span class="input-group-text"></span>
+        <span class="input-group-text">Entry Date:</span>
+        <select
+          class="form-control"
+          type="date"
+          name=""
+          [(ngModel)]="newLogEntry.logEntryType?.category"
+          placeholder=""
+        />
+        <span class="input-group-text">Last:</span>
+        <input
+          class="form-control"
+          type="text"
+          name=""
+          [(ngModel)]="newLogEntry.logEntryType"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"> Birthdate:</span>
+        <input
+          class="form-control"
+          type="date"
+          name="Birthday"
+          [(ngModel)]="newLogEntry.birthdate"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Sex:</span>
+        <input
+          class="form-control"
+          type="text"
+          name="Sex"
+          [(ngModel)]="newLogEntry.sex"
+          placeholder="Sex"
+        />
+      </div>
+      <!--
+            <span class="input-group-text"></span>
+            <input type="text" name="Height">
+            <span class="input-group-text"></span>
+            <input type="text" name="Weight">
+            <span class="input-group-text"></span>
+            <input type="text" name="Medications" >
+            <span class="input-group-text"></span>
+            <input type="text" name="Supplements">
+          -->
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Biography:</span>
+        <textarea
+          class="form-control"
+          name="Biography"
+          [(ngModel)]="newLogEntry.biography"
+          placeholder="Biography"
+        ></textarea>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Email:</span>
+        <input
+          class="form-control"
+          type="text"
+          name="Email"
+          [(ngModel)]="newLogEntry.email"
+          placeholder="Email"
+        />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Image:</span>
+        <input
+          class="form-control"
+          type="text"
+          name="ProfileImage"
+          [(ngModel)]="newLogEntry.imageUrl"
+          placeholder="Image"
+        />
+      </div>
+      <button
+        class="btn btn-outline-dark btn-light"
+        (click)="finishnewLogEntry()"
+      >
+        Submit Changes
+      </button>
+      <button
+        class="btn btn-outline-danger btn-light"
+        (click)="newLogEntry=null"
+      >
+        Cancel Changes
+      </button>
+    </form>
+  </div>

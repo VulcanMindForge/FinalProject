@@ -1,5 +1,4 @@
 import { LogEntryType } from "./log-entry-type";
-import { Trial } from "./trial";
 import { Unit } from "./unit";
 import { User } from "./user";
 
