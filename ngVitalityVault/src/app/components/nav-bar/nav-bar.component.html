@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm" style=" background-color: #003366;">
+<nav class="navbar navbar-expand-sm" style="background-color: #003366;">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Vitality Vault</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,16 +15,18 @@
         <li class="nav-item" *ngIf="checkLogin()">
           <a class="nav-link" href="#/dailyLog" >Daily Log</a>
         </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item" *ngIf="!checkLogin()">
           <a class="nav-link" href="#/register">Register</a>
         </li>
         <li class="nav-item" *ngIf="!checkLogin()">
           <a class="nav-link" href="#/login">Login</a>
         </li>
+        <li class="nav-item" *ngIf="checkLogin()">
+          <app-logout></app-logout>
+        </li>
       </ul>
-      <div *ngIf="checkLogin()">
-        <app-logout></app-logout>
-      </div>
     </div>
   </div>
 </nav>
