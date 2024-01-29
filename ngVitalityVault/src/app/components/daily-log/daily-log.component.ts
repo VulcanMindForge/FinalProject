@@ -165,6 +165,8 @@ export class DailyLogComponent implements OnInit{
       );
     }
 
+
+
   addLogEntry(newLogEntry: LogEntry) {
     if (newLogEntry) {
       // newLogEntry.unit = this.newUnit;

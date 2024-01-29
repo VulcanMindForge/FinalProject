@@ -1,6 +1,8 @@
 package com.skilldistillery.vitalityvault.controllers;
 
 import java.security.Principal;
+import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +89,15 @@ public class LogEntryController {
 		} catch (Exception e) {
 			res.setStatus(400);
 		}
+	}
+	
+	@GetMapping("logs/date/{date}")
+	public List<LogEntry> showByEntryDate(HttpServletRequest req, HttpServletResponse res, @PathVariable("date") Date date,
+			Principal principal) {
+		List<LogEntry> log = logEntryServ.findByUser_UsernameAndEntryDate(principal.getName(), date);
+		if (log == null) {
+			res.setStatus(404);
+		}
+		return log;
 	}
 }

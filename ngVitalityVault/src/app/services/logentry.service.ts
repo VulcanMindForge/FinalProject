@@ -81,4 +81,15 @@ export class LogEntryService {
     );
   }
 
+  indexByDate(date: string): Observable<LogEntry[]> {
+    return this.http.get<LogEntry[]>(this.url + "/date/" + date, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('LogEntryService.index(): error retrieving log entry types: ' + err)
+        );
+      })
+    );
+  }
+
 }

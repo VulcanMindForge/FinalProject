@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
+import { LogEntryService } from '../../services/logentry.service';
+import { LogEntry } from '../../models/log-entry-type';
 
 @Component({
   selector: 'app-profile',
@@ -15,14 +17,17 @@ import { User } from '../../models/user';
 })
 export class ProfileComponent {
   updateUser: User | null = null;
+selectedDate: any;
 
   constructor(
     private authServ: AuthService,
     private userServ: UserService,
-    private router: Router
+    private router: Router,
+    private logEntryServ: LogEntryService,
   ) {}
 
   user: User = new User();
+  logentries: LogEntry[] = [];
 
   ngOnInit() {
     this.loadUser();
@@ -36,6 +41,20 @@ export class ProfileComponent {
       error: (oops) => {
         console.error(
           'ProfileComponent.loggedInUser error: error getting user profile'
+        );
+        console.error(oops);
+      },
+    });
+  }
+
+  loadentries(date: string){
+    this.logEntryServ.indexByDate(date).subscribe({
+      next: (entries) => {
+        this.logentries = entries;
+      },
+      error: (oops) => {
+        console.error(
+          'ProfileComponent.logentries error: error getting log entries'
         );
         console.error(oops);
       },

@@ -139,3 +139,29 @@
 </div>
 <br />
 <br />
+<div>
+  <label for="datePicker">Select a date:</label>
+  <input type="date" id="datePicker" [(ngModel)]="selectedDate">
+</div>
+<button class="btn btn-outline-success" (click)="loadentries(selectedDate)">View Past Logs</button>
+<div *ngIf="logentries.length>0">
+<table>
+  <thead>
+    <tr>
+      <td>Category</td>
+      <td>Type</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entry of logentries">
+      <td>
+      {{entry.logEntryType.category?.name}}
+      </td>
+      <td>{{entry.logEntryType.name}}</td>
+      <td>{{entry.description}}</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

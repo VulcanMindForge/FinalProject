@@ -1,5 +1,7 @@
 package com.skilldistillery.vitalityvault.services;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +63,12 @@ public class LogEntryServiceImpl implements LogEntryService {
 		}
 		return false;
 	}
+
+	@Override
+	public List<LogEntry> findByUser_UsernameAndEntryDate(String username, Date date) {
+		return logEntryRepo.findByUser_UsernameAndEntryDate(username, date);
+	}
+
+	
 
 }
