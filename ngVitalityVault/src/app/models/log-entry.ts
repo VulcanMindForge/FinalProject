@@ -4,7 +4,7 @@ import { User } from "./user";
 
 export class LogEntry {
   id:number;
-  logEntryType: LogEntryType|null;
+  logEntryType: LogEntryType;
   createDate: string;
   lastUpdate: string;
   entryDate: string;
@@ -25,7 +25,7 @@ export class LogEntry {
     description: string = '',
     degree: string = '',
     amount: string = '',
-    logEntryType: LogEntryType|null=null,
+    logEntryType: LogEntryType=new LogEntryType(),
     user: User|null=null,
     unit: Unit|null=null,
   ) {

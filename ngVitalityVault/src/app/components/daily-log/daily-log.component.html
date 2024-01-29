@@ -22,11 +22,13 @@
           type="text"
           name="logEntryType"
           [(ngModel)]="newLogEntry.logEntryType"
-          [value]="logEntryType.name"
+          [value]="logEntryType"
           [ngbTypeahead]="search"
           [resultFormatter]="formatter"
           [inputFormatter]="formatterInput"
         />
+        <input hidden="hidden" name=" logEntryTypeId" [(ngModel)]="logEntryType.id"
+        [value]="logEntryType.id">
         <button
         class="btn btn-outline-dark btn-light"
         (click)="newLogEntryType()"

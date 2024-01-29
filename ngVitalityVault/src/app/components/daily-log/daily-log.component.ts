@@ -160,10 +160,10 @@ export class DailyLogComponent implements OnInit{
   addLogEntry() {
     if(this.newLogEntry){
       this.newLogEntry.unit=this.newUnit;
-      this.logEntryType.category=this.category;
-      this.newLogEntry.logEntryType=this.logEntryType;
+      this.newLogEntry.logEntryType.category=this.category;
       console.log(this.newUnit)
-      console.log(this.logEntryType.category)
+      console.log(this.newLogEntry.logEntryType)
+      console.log(this.logEntryType)
       this.LogEntryServ.create(this.newLogEntry).subscribe(
         {
           next: (createdLogEntry: LogEntry) => {
