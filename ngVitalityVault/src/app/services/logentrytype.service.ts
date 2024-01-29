@@ -45,11 +45,7 @@ export class LogEntryTypeService {
   }
 
   create(LogEntryType: LogEntryType): Observable<LogEntryType> {
-    if (LogEntryType) {
 
-    }
-
-    LogEntryType.description = '';
     return this.http.post<LogEntryType>(this.url, LogEntryType, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);

@@ -35,6 +35,7 @@ export class LogEntryService {
       })
     );
   }
+
   show(LogEntryId: number): Observable<LogEntry> {
     return this.http.get<LogEntry>(this.url + '/' + LogEntryId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
@@ -46,13 +47,9 @@ export class LogEntryService {
     );
   }
 
-  create(LogEntry: LogEntry): Observable<LogEntry> {
-    if (LogEntry) {
+  create(logEntry: LogEntry): Observable<LogEntry> {
 
-    }
-
-    LogEntry.description = '';
-    return this.http.post<LogEntry>(this.url, LogEntry, this.getHttpOptions()).pipe(
+    return this.http.post<LogEntry>(this.url, logEntry, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

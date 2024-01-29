@@ -1,1 +1,63 @@
-<p>log-entry-type works!</p>
+<br>
+<div *ngIf="newEntryType">
+  <div class="">
+    <form>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Category:</span>
+        <select
+        class="form-control"
+        name="category"
+        [(ngModel)]="category.id"
+        >
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Name:</span>
+        <input
+          class="form-control"
+          type="text"
+          name="typeName"
+          [(ngModel)]="newEntryType.name"
+        />
+    </div>
+
+    <div class="input-group mb-3">
+      <span class="input-group-text"> Description:</span>
+      <input
+        class="form-control"
+        type="text"
+        name="typeDescription"
+        [(ngModel)]="newEntryType.description"
+        />
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Image URL:</span>
+        <input
+        type="text"
+        class="form-control"
+        name="typeImage"
+        [(ngModel)]="newEntryType.imageUrl"
+        />
+      </div>
+
+      </div>
+      <div class="input-group mb-3">
+      <button
+        class="btn btn-outline-dark btn-light"
+        (click)="addLogEntryType()"
+      >
+        Submit Changes
+      </button>
+      <button
+        class="btn btn-outline-danger btn-light"
+        (click)="newEntryType = null"
+      >
+        Cancel Changes
+      </button>
+      </div>
+    </form>
+  </div>
+</div>

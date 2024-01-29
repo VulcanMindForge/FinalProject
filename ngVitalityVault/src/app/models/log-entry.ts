@@ -12,8 +12,8 @@ export class LogEntry {
   degree: string;
   amount: string;
   entryTime: string;
-  user: User|null;
-  unit: Unit|null;
+  user: User;
+  unit: Unit;
 
 
   constructor(
@@ -26,8 +26,8 @@ export class LogEntry {
     degree: string = '',
     amount: string = '',
     logEntryType: LogEntryType=new LogEntryType(),
-    user: User|null=null,
-    unit: Unit|null=null,
+    user: User = new User(),
+    unit: Unit = new Unit(),
   ) {
     this.id = id;
     this.logEntryType=logEntryType;

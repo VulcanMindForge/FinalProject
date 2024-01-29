@@ -13,21 +13,23 @@ import { UnitService } from '../../services/unit.service';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { LogEntryTypeService } from '../../services/logentrytype.service';
+import { LogEntryTypeComponent } from "../log-entry-type/log-entry-type.component";
 
 
 @Component({
-  selector: 'app-daily-log',
-  standalone: true,
-  imports: [CommonModule, FormsModule, NgbTypeaheadModule],
-  templateUrl: './daily-log.component.html',
-  styleUrl: './daily-log.component.css'
+    selector: 'app-daily-log',
+    standalone: true,
+    templateUrl: './daily-log.component.html',
+    styleUrl: './daily-log.component.css',
+    imports: [CommonModule, FormsModule, NgbTypeaheadModule, LogEntryTypeComponent]
 })
 
 export class DailyLogComponent implements OnInit{
+
   title = 'ngLogEntry';
   LogEntrys: LogEntry[] = [];
   selected: LogEntry | null = null;
-  newLogEntry:LogEntry|null = new LogEntry();
+  newLogEntry:LogEntry = new LogEntry();
   newType:LogEntryType|null = null;
   editLogEntry: LogEntry | null = null;
   showCompleted = false;
@@ -38,7 +40,8 @@ export class DailyLogComponent implements OnInit{
   logEntryTypes: LogEntryType[]=[];
   logEntryType: LogEntryType = new LogEntryType();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private LogEntryServ: LogEntryService, private logEntryTypeServ: LogEntryTypeService, private categoryServ: CategoryService, private unitServ: UnitService, ){}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private LogEntryServ: LogEntryService, private logEntryTypeServ: LogEntryTypeService,
+    private categoryServ: CategoryService, private unitServ: UnitService, ){}
 
   ngOnInit(): void {
     this.loadLogEntrys();
@@ -89,6 +92,10 @@ export class DailyLogComponent implements OnInit{
     this.selected = LogEntry;
   }
 
+  resetNewEntry() {
+    this.newLogEntry = new LogEntry();
+  }
+
   displayTable(): void {
     this.selected = null;
   }
@@ -114,9 +121,9 @@ export class DailyLogComponent implements OnInit{
       );
     }
 
-    newLogEntryType(){
+  newLogEntryType(){
     this.newType=new LogEntryType();
-    }
+  }
 
   loadLogEntryTypes() {
     this.logEntryTypeServ.index().subscribe(
@@ -144,6 +151,7 @@ export class DailyLogComponent implements OnInit{
       }
       );
     }
+
   loadUnits() {
     this.unitServ.index().subscribe(
       {
@@ -157,20 +165,21 @@ export class DailyLogComponent implements OnInit{
       );
     }
 
-  addLogEntry() {
-    if(this.newLogEntry){
-      this.newLogEntry.unit=this.newUnit;
-      this.newLogEntry.logEntryType.category=this.category;
-      console.log(this.newUnit)
-      console.log(this.newLogEntry.logEntryType)
-      console.log(this.logEntryType)
-      this.LogEntryServ.create(this.newLogEntry).subscribe(
+  addLogEntry(newLogEntry: LogEntry) {
+    if (newLogEntry) {
+      // newLogEntry.unit = this.newUnit;
+      console.log(this.units);
+      console.log(newLogEntry);
+      console.log(newLogEntry.description);
+      // for (const key in newLogEntry) {
+      //     console.log("[" + key + "]: " + newLogEntry[key]);
+      // }
+
+      this.LogEntryServ.create(newLogEntry).subscribe(
         {
           next: (createdLogEntry: LogEntry) => {
             this.LogEntrys.push(createdLogEntry);
-            this.newLogEntry = new LogEntry();
             this.loadLogEntrys();
-
             this.newUnit=new Unit();
             this.category=new Category();
             this.logEntryType =new LogEntryType();
