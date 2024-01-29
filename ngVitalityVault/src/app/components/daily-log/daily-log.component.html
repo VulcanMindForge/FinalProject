@@ -1,95 +1,111 @@
-
+<br>
 <div *ngIf="newLogEntry">
   <div class="">
     <form>
       <div class="input-group mb-3">
-        <span class="input-group-text"></span>
-        <span class="input-group-text">Entry Date:</span>
+        <span class="input-group-text">Category:</span>
         <select
-          class="form-control"
-          type="date"
-          name=""
-          [(ngModel)]="newLogEntry.logEntryType?.category"
-          placeholder=""
-        />
-        <span class="input-group-text">Last:</span>
+        class="form-control"
+
+        name="category"
+        [(ngModel)]="category.id"
+        >
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+    <div class="input-group mb-3">
+    <span class="input-group-text">Type:</span>
         <input
           class="form-control"
           type="text"
-          name=""
+          name="logEntryType"
           [(ngModel)]="newLogEntry.logEntryType"
+          [value]="logEntryType.name"
+          [ngbTypeahead]="search"
+          [resultFormatter]="formatter"
+          [inputFormatter]="formatterInput"
         />
-      </div>
+        <button
+        class="btn btn-outline-dark btn-light"
+        (click)="newLogEntryType()"
+      >
+        New Type
+      </button>
+        </div>
       <div class="input-group mb-3">
-        <span class="input-group-text"> Birthdate:</span>
+        <span class="input-group-text">Date:</span>
         <input
           class="form-control"
-          type="date"
-          name="Birthday"
-          [(ngModel)]="newLogEntry.birthdate"
+          type="Date"
+          name="entryDate"
+          [(ngModel)]="newLogEntry.entryDate"
         />
-      </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text">Sex:</span>
+
         <input
-          class="form-control"
-          type="text"
-          name="Sex"
-          [(ngModel)]="newLogEntry.sex"
-          placeholder="Sex"
-        />
+        class="form-control"
+        type="Time"
+        step="1"
+        name="entryTime"
+        [(ngModel)]="newLogEntry.entryTime"
+      />
       </div>
-      <!--
-            <span class="input-group-text"></span>
-            <input type="text" name="Height">
-            <span class="input-group-text"></span>
-            <input type="text" name="Weight">
-            <span class="input-group-text"></span>
-            <input type="text" name="Medications" >
-            <span class="input-group-text"></span>
-            <input type="text" name="Supplements">
-          -->
 
       <div class="input-group mb-3">
-        <span class="input-group-text">Biography:</span>
-        <textarea
+        <span class="input-group-text"> Description:</span>
+        <input
+          class="form-control"
+          type="text"
+          name="Birthday"
+          [(ngModel)]="newLogEntry.description"
+        />
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Degree:</span>
+        <input
+        type="number"
+        min="1"
+        max="10"
           class="form-control"
           name="Biography"
-          [(ngModel)]="newLogEntry.biography"
+          [(ngModel)]="newLogEntry.degree"
           placeholder="Biography"
-        ></textarea>
-      </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text">Email:</span>
-        <input
-          class="form-control"
-          type="text"
-          name="Email"
-          [(ngModel)]="newLogEntry.email"
-          placeholder="Email"
         />
       </div>
       <div class="input-group mb-3">
-        <span class="input-group-text">Image:</span>
+        <span class="input-group-text">Amount:</span>
         <input
           class="form-control"
-          type="text"
-          name="ProfileImage"
-          [(ngModel)]="newLogEntry.imageUrl"
-          placeholder="Image"
+          type="number"
+          name="amount"
+          [(ngModel)]="newLogEntry.amount"
         />
+        <select
+        class="form-control"
+        name="units"
+        [(ngModel)]="newUnit.id"
+      >
+        <option *ngFor="let unit of units" [value]="unit.id">
+          {{ unit.name }}
+        </option>
+      </select>
       </div>
+      <div class="input-group mb-3">
       <button
         class="btn btn-outline-dark btn-light"
-        (click)="finishnewLogEntry()"
+        (click)="addLogEntry()"
       >
         Submit Changes
       </button>
       <button
         class="btn btn-outline-danger btn-light"
-        (click)="newLogEntry=null"
+        (click)="newLogEntry = null"
       >
         Cancel Changes
       </button>
+      </div>
+      </div>
     </form>
   </div>
+</div>

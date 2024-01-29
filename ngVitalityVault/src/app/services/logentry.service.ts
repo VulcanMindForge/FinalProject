@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class LogEntryService {
   constructor(private http: HttpClient, private authServ: AuthService) { }
 
-  private url= environment.baseUrl + 'api/LogEntrys';
+  private url= environment.baseUrl + 'api/logs';
 
   getHttpOptions() {
     let options = {
@@ -26,7 +26,7 @@ export class LogEntryService {
   }
 
   index(): Observable<LogEntry[]> {
-    return this.http.get<LogEntry[]>(this.url + '?sorted=true', this.getHttpOptions()).pipe(
+    return this.http.get<LogEntry[]>(this.url , this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

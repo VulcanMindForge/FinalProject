@@ -40,6 +40,14 @@ public class LogEntryTypeController {
 		}
 		return logType;
 	}
+	@GetMapping("entrytypes/category/{categoryName}")
+	public List<LogEntryType> showByCategory(HttpServletRequest req, HttpServletResponse res, @PathVariable("categoryName") String name) {
+		List<LogEntryType> logType = logEntryTypeServ.findByCategoryName(name);
+		if (logType == null) {
+			res.setStatus(404);
+		}
+		return logType;
+	}
 
 	@PostMapping("entrytypes")
 	public LogEntryType create(HttpServletRequest req, HttpServletResponse res, @RequestBody LogEntryType entryType) {

@@ -20,6 +20,11 @@ public class LogEntryTypeServiceImpl implements LogEntryTypeService {
 	}
 
 	@Override
+	public List<LogEntryType> findByCategoryName(String name) {
+		return logEntryTypeRepo.findByCategoryName(name);
+	}
+	
+	@Override
 	public LogEntryType show(int logEntryTypeId) {
 		return logEntryTypeRepo.findById(logEntryTypeId).get();
 	}
@@ -55,6 +60,7 @@ public class LogEntryTypeServiceImpl implements LogEntryTypeService {
 		}
 		return false;
 	}
+
 
 	
 

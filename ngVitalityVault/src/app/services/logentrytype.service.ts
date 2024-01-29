@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class LogEntryTypeService {
   constructor(private http: HttpClient, private authServ: AuthService) { }
 
-  private url= environment.baseUrl + 'api/logentrytypes';
+  private url= environment.baseUrl + 'api/entrytypes';
 
   getHttpOptions() {
     let options = {
@@ -24,7 +24,7 @@ export class LogEntryTypeService {
   }
 
   index(): Observable<LogEntryType[]> {
-    return this.http.get<LogEntryType[]>(this.url + '?sorted=true', this.getHttpOptions()).pipe(
+    return this.http.get<LogEntryType[]>(this.url, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
