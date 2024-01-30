@@ -60,6 +60,7 @@ export class LogEntryService {
   }
 
   update(LogEntry: LogEntry): Observable<LogEntry> {
+    console.log(LogEntry.entryDate)
     return this.http.put<LogEntry>(this.url + "/" + LogEntry.id, LogEntry, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);

@@ -2,6 +2,7 @@ package com.skilldistillery.vitalityvault.entities;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class LogEntry {
 	private LocalDateTime lastUpdate;
 
 	@Column(name = "entry_date")
-	private Date entryDate;
+	private LocalDate entryDate;
 
 	private String description;
 
@@ -111,11 +112,11 @@ public class LogEntry {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public Date getEntryDate() {
+	public LocalDate getEntryDate() {
 		return entryDate;
 	}
 
-	public void setEntryDate(Date entryDate) {
+	public void setEntryDate(LocalDate entryDate) {
 		this.entryDate = entryDate;
 	}
 
@@ -126,8 +127,6 @@ public class LogEntry {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	
 
 	public String getAmount() {
 		return amount;

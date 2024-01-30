@@ -26,7 +26,7 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text">Date:</span>
-        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="newLogEntry.entryDate" />
+        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="newLogEntry.entryDate " />
 
         <input class="form-control" type="Time" step="1" name="entryTime" [(ngModel)]="newLogEntry.entryTime" />
       </div>
@@ -68,7 +68,7 @@
     <ul>
       <li>Category: {{selected.logEntryType.category?.name}}</li>
       <li>Type: {{selected.logEntryType.name}} <img src="{{selected.logEntryType.imageUrl}}" alt=""></li>
-      <li>Date: {{selected.entryDate | date}} {{selected.entryTime}} </li>
+      <li>Date: {{selected.entryDate}} {{selected.entryTime}} </li>
       <li>Description: {{selected.description}} </li>
       <li>Degree: {{selected.degree}} </li>
       <li>Amount: {{selected.amount}} Unit: {{selected.unit.name}}</li>
@@ -136,7 +136,7 @@
           </select>
         </div>
         <div class="input-group mb-3">
-          <button class="btn btn-outline-dark btn-light" (click)="addLogEntry(editLogEntry)">
+          <button class="btn btn-outline-dark btn-light" (click)="updateLogEntry(editLogEntry)">
             Submit Changes
           </button>
           <button class="btn btn-outline-danger btn-light" (click)="editLogEntry=null">

@@ -2,7 +2,7 @@ import { LogEntryType } from './../../models/log-entry-type';
 import { LogEntry } from './../../models/log-entry';
 import { Category } from './../../models/category';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,9 +39,10 @@ export class DailyLogComponent implements OnInit{
   category: Category=new Category();
   logEntryTypes: LogEntryType[]=[];
   logEntryType: LogEntryType = new LogEntryType();
+  datePipe: DatePipe = new DatePipe("en-US");
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private LogEntryServ: LogEntryService, private logEntryTypeServ: LogEntryTypeService,
-    private categoryServ: CategoryService, private unitServ: UnitService, ){}
+    private categoryServ: CategoryService, private unitServ: UnitService){}
 
   ngOnInit(): void {
     this.loadLogEntrys();
@@ -169,6 +170,7 @@ export class DailyLogComponent implements OnInit{
 
   addLogEntry(newLogEntry: LogEntry) {
     if (newLogEntry) {
+
       // newLogEntry.unit = this.newUnit;
       console.log(this.units);
       console.log(newLogEntry);
