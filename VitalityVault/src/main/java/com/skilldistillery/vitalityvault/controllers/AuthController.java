@@ -43,7 +43,7 @@ public class AuthController {
 	  return authServ.getUserByUsername(principal.getName());
 	}
 	
-	@PutMapping("user")
+	@PutMapping("api/user")
 	public User update(HttpServletRequest req, HttpServletResponse res,
 			@RequestBody User user, Principal principal) {
 		try {

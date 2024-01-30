@@ -20,6 +20,8 @@ export class UserService {
         'X-Requested-with': 'XMLHttpRequest',
       },
     };
+    console.log(updateUserProfile);
+
     return this.http.put<User>(this.url + "api/user", updateUserProfile, httpOptions).pipe(
       catchError((err: any) => {
         console.error(err);
