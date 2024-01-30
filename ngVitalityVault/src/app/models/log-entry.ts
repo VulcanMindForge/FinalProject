@@ -7,7 +7,7 @@ export class LogEntry {
   logEntryType: LogEntryType;
   createDate: string;
   lastUpdate: string;
-  entryDate: string;
+  entryDate: Date;
   description: string;
   degree: string;
   amount: string;
@@ -21,7 +21,7 @@ export class LogEntry {
     createDate: string = '',
     entryTime: string = '',
     lastUpdate: string = '',
-    entryDate: string = '',
+    entryDate: Date = new Date(),
     description: string = '',
     degree: string = '',
     amount: string = '',

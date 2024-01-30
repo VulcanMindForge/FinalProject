@@ -51,7 +51,7 @@ export class DailyLogComponent implements OnInit{
     this.activatedRoute.paramMap.subscribe(
       {
         next: (params) => {
-          let LogEntryIdStr = params.get("LogEntryId");
+          let LogEntryIdStr = params.get("logId");
           if (LogEntryIdStr) {
             let LogEntryId = parseInt(LogEntryIdStr);
             if (!isNaN(LogEntryId)) {
@@ -200,10 +200,11 @@ export class DailyLogComponent implements OnInit{
       {
         next: (updatedLogEntry: any) => {
           if (this.selected) {
-            this.selected = Object.assign({}, this.editLogEntry);
+            this.selected = Object.assign({}, updatedLogEntry);
           }
           this.editLogEntry = null;
           this.loadLogEntrys();
+          window.location.reload();
         },
         error: (error: any) => {
           console.error('LogEntryListHttpComponent.updateLogEntry(): error updating LogEntry', error);

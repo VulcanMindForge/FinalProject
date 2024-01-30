@@ -5,13 +5,11 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skilldistillery.vitalityvault.entities.User;
 import com.skilldistillery.vitalityvault.entities.User;
 import com.skilldistillery.vitalityvault.services.AuthService;
 
@@ -45,7 +43,7 @@ public class AuthController {
 	  return authServ.getUserByUsername(principal.getName());
 	}
 	
-	@PutMapping("api/user")
+	@PutMapping("user")
 	public User update(HttpServletRequest req, HttpServletResponse res,
 			@RequestBody User user, Principal principal) {
 		try {
@@ -61,5 +59,4 @@ public class AuthController {
 		}
 		return user;
 	}
-	
 }

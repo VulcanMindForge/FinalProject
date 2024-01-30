@@ -1,39 +1,24 @@
 <br>
-<div *ngIf="newLogEntry">
+<div *ngIf="!selected && !editLogEntry" >
   <div class="">
     <form>
       <div class="input-group mb-3">
         <span class="input-group-text">Category:</span>
-        <select
-        class="form-control"
-
-        name="category"
-        [(ngModel)]="category.id"
-        >
-        <option *ngFor="let category of categories">
-          {{ category.name }}
-        </option>
-      </select>
-    </div>
-    <div class="input-group mb-3">
-    <span class="input-group-text">Type:</span>
-        <input
-          class="form-control"
-          type="text"
-          name="logEntryType"
-          [(ngModel)]="newLogEntry.logEntryType"
-          [ngbTypeahead]="search"
-          [resultFormatter]="formatter"
-          [inputFormatter]="formatterInput"
-        />
+        <select class="form-control" name="category" [(ngModel)]="category.id">
+          <option *ngFor="let category of categories">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Type:</span>
+        <input class="form-control" type="text" name="logEntryType" [(ngModel)]="newLogEntry.logEntryType"
+          [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" />
         <input hidden="hidden" name=" logEntryTypeId" [(ngModel)]="logEntryType.id">
-        <button
-        class="btn btn-outline-dark btn-light"
-        (click)="newLogEntryType()"
-      >
-        New Type
-      </button>
-    </div>
+        <button class="btn btn-outline-dark btn-light" (click)="newLogEntryType()">
+          New Type
+        </button>
+      </div>
 
       <div *ngIf="newType">
         <app-log-entry-type></app-log-entry-type>
@@ -41,75 +26,123 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text">Date:</span>
-        <input
-          class="form-control"
-          type="Date"
-          name="entryDate"
-          [(ngModel)]="newLogEntry.entryDate"
-        />
+        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="newLogEntry.entryDate" />
 
-        <input
-        class="form-control"
-        type="Time"
-        step="1"
-        name="entryTime"
-        [(ngModel)]="newLogEntry.entryTime"
-      />
+        <input class="form-control" type="Time" step="1" name="entryTime" [(ngModel)]="newLogEntry.entryTime" />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Description:</span>
-        <input
-          class="form-control"
-          type="text"
-          name="description"
-          [(ngModel)]="newLogEntry.description"
-        />
+        <input class="form-control" type="text" name="description" [(ngModel)]="newLogEntry.description" />
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Degree:</span>
+          <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="newLogEntry.degree"
+            placeholder="Measure between 1 and 10" />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Amount:</span>
+          <input class="form-control" type="number" name="amount" [(ngModel)]="newLogEntry.amount" />
+          <select class="form-control" name="units" [(ngModel)]="newLogEntry.unit.id">
+            <option *ngFor="let unit of units" value="{{unit.id}}">
+              {{ unit.name }}
+            </option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <button class="btn btn-outline-dark btn-light" (click)="addLogEntry(newLogEntry)">
+            Submit Changes
+          </button>
+          <button class="btn btn-outline-danger btn-light" (click)="resetNewEntry()">
+            Cancel Changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card" *ngIf="selected">
+  <div class="card-body">
+    <h5>Logged Data: {{selected.createDate}}</h5>
+    <ul>
+      <li>Category: {{selected.logEntryType.category?.name}}</li>
+      <li>Type: {{selected.logEntryType.name}} <img src="{{selected.logEntryType.imageUrl}}" alt=""></li>
+      <li>Date: {{selected.entryDate | date}} {{selected.entryTime}} </li>
+      <li>Description: {{selected.description}} </li>
+      <li>Degree: {{selected.degree}} </li>
+      <li>Amount: {{selected.amount}} Unit: {{selected.unit.name}}</li>
+    </ul>
+    <button class="btn btn-outline-dark btn-light" (click)="setEditLogEntry()">
+      Edit
+    </button>
+    <a class="btn btn-outline-danger btn-light" href="#/profile">
+      Return
+    </a>
+    <button class="btn btn-outline-success btn-light" (click)="selected=null">
+      Create
+    </button>
+  </div>
+</div>
+
+<div *ngIf="editLogEntry" >
+  <div class="">
+    <form>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Category:</span>
+        <select class="form-control" name="category" [(ngModel)]="category.id">
+          <option *ngFor="let category of categories">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Type:</span>
+        <input class="form-control" type="text" name="logEntryType" [(ngModel)]="editLogEntry.logEntryType"
+          [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" />
+        <input hidden="hidden" name=" logEntryTypeId" [(ngModel)]="logEntryType.id">
+        <button class="btn btn-outline-dark btn-light" (click)="newLogEntryType()">
+          New Type
+        </button>
+      </div>
+
+      <div *ngIf="newType">
+        <app-log-entry-type></app-log-entry-type>
+      </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text">Degree:</span>
-        <input
-        type="number"
-        min="1"
-        max="10"
-          class="form-control"
-          name="degree"
-          [(ngModel)]="newLogEntry.degree"
-          placeholder="Measure between 1 and 10"
-        />
+        <span class="input-group-text">Date:</span>
+        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="editLogEntry.entryDate"/>
+
+        <input class="form-control" type="Time" step="1" name="entryTime" [(ngModel)]="editLogEntry.entryTime" />
       </div>
+
       <div class="input-group mb-3">
-        <span class="input-group-text">Amount:</span>
-        <input
-          class="form-control"
-          type="number"
-          name="amount"
-          [(ngModel)]="newLogEntry.amount"
-        />
-        <select
-        class="form-control"
-        name="units"
-        [(ngModel)]="newLogEntry.unit.id"
-      >
-        <option *ngFor="let unit of units" value="{{unit.id}}">
-          {{ unit.name }}
-        </option>
-      </select>
-      </div>
-      <div class="input-group mb-3">
-      <button
-        class="btn btn-outline-dark btn-light"
-        (click)="addLogEntry(newLogEntry)"
-      >
-        Submit Changes
-      </button>
-      <button
-        class="btn btn-outline-danger btn-light"
-        (click)="resetNewEntry()"
-      >
-        Cancel Changes
-      </button>
-      </div>
+        <span class="input-group-text"> Description:</span>
+        <input class="form-control" type="text" name="description" [(ngModel)]="editLogEntry.description" />
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Degree:</span>
+          <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="editLogEntry.degree"
+            placeholder="Measure between 1 and 10" />
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Amount:</span>
+          <input class="form-control" type="number" name="amount" [(ngModel)]="editLogEntry.amount" />
+          <select class="form-control" name="units" [(ngModel)]="editLogEntry.unit.id">
+            <option *ngFor="let unit of units" value="{{unit.id}}">
+              {{ unit.name }}
+            </option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <button class="btn btn-outline-dark btn-light" (click)="addLogEntry(editLogEntry)">
+            Submit Changes
+          </button>
+          <button class="btn btn-outline-danger btn-light" (click)="editLogEntry=null">
+            Cancel Changes
+          </button>
+        </div>
       </div>
     </form>
   </div>

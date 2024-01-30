@@ -14,5 +14,6 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'dailyLog', component: DailyLogComponent},
+  {path: 'dailyLog/:logId', component: DailyLogComponent},
   {path: '**', component: NotFoundComponent},
 ];

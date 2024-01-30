@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -11,7 +11,7 @@ import { CategoryService } from '../../services/category.service';
 @Component({
   selector: 'app-log-entry-type',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DatePipe],
   templateUrl: './log-entry-type.component.html',
   styleUrl: './log-entry-type.component.css'
 })
