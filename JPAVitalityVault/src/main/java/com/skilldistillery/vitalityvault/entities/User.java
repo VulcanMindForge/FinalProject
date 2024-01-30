@@ -29,6 +29,8 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	private LocalDate birthdate;
+	private String height;
+	private String weight;
 	private String sex;
 	private String biography;
 	@Column(name = "image_url")
@@ -49,6 +51,22 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	public String getHeight() {
+		return height;
+	}
+
+	public void setHeight(String height) {
+		this.height = height;
+	}
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
 	}
 
 	public void addLogEntry(LogEntry logEntry) {
@@ -254,7 +272,9 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", enabled=" + enabled
 				+ ", role=" + role + ", firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate
-				+ ", sex=" + sex + ", biography=" + biography + ", imageUrl=" + imageUrl + "]";
+				+ ", height=" + height + ", weight=" + weight + ", sex=" + sex + ", biography=" + biography
+				+ ", imageUrl=" + imageUrl + ", email=" + email + ", logEntrys=" + logEntrys + ", trials=" + trials
+				+ ", comments=" + comments + "]";
 	}
 
 }

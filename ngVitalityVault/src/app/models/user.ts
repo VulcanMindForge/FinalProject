@@ -12,6 +12,8 @@ export class User {
   lastName: string;
   birthdate: string;
   sex: string;
+  height: string;
+  weight: string;
   biography: string;
   imageUrl: string;
   email: string;
@@ -30,6 +32,9 @@ export class User {
     lastName: string = '',
     birthdate: string = '',
     sex: string = '',
+    height: string = '',
+    weight: string = '',
+
     biography: string = '',
     imageUrl: string = '',
     email: string = '',
@@ -47,6 +52,8 @@ export class User {
     this.lastName = lastName;
     this.birthdate = birthdate;
     this.sex = sex;
+    this.height = height;
+    this.weight = weight;
     this.biography = biography;
     this.imageUrl = imageUrl;
     this.email = email;

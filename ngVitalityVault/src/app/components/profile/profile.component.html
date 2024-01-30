@@ -1,138 +1,96 @@
-
 <div class="row align-items-top m-5">
   <div class="card col col-md my-4 " style="background-color: lightblue">
-  <div *ngIf="!updateUser">
-    <div class="card-body">
-      <h3>Welcome, {{ user.firstName }} {{ user.lastName }}</h3>
-      <div class="row align-items-top">
-        <div class="col">
-          <p>Username: {{ user.username }}</p>
-          <p>Birthdate: {{ user.birthdate }}</p>
-          <p>Sex: {{ user.sex }}</p>
-          <p>Height:</p>
-          <p>Weight:</p>
-          <p>Medications:</p>
-          <p>Supplements:</p>
-          <p>Biography: {{ user.biography }}</p>
-          <p>Email: {{ user.email }}</p>
+    <div *ngIf="!updateUser">
+      <div class="card-body">
+        <h3>Welcome, {{ user.firstName }} {{ user.lastName }}</h3>
+        <div class="row align-items-top">
+          <div class="col">
+            <p>Username: {{ user.username }}</p>
+            <p>Birthdate: {{ user.birthdate }}</p>
+            <p>Sex: {{ user.sex }}</p>
+            <p>Height: {{user.height}}</p>
+            <p>Weight: {{user.weight}}</p>
+            <p>Medications:</p>
+            <p>Supplements:</p>
+            <p>Biography: {{ user.biography }}</p>
+            <p>Email: {{ user.email }}</p>
+          </div>
+          <div class="col col-xs">
+            <img class="bd-placeholder-img rounded" height="150" width="150" alt="profile picture"
+              src="{{ user.imageUrl }}" />
+          </div>
         </div>
-        <div class="col col-xs">
-          <img
-            class="bd-placeholder-img rounded"
-            height="150"
-            width="150"
-            alt="profile picture"
-            src="{{ user.imageUrl }}"
-          />
-        </div>
+        <button class="btn btn-outline-dark" (click)="updateUserProfile()">
+          Update User Profile
+        </button>
       </div>
-      <button class="btn btn-outline-dark" (click)="updateUserProfile()">
-        Update User Profile
-      </button>
     </div>
-  </div>
-  <div *ngIf="updateUser">
-    <div class="card-body">
-      <form>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Name</span>
-          <span class="input-group-text">First:</span>
-          <input
-            class="form-control"
-            type="text"
-            name="FirstName"
-            [(ngModel)]="updateUser.firstName"
-            placeholder="First Name"
-          />
-          <span class="input-group-text">Last:</span>
-          <input
-            class="form-control"
-            type="text"
-            name="LastName"
-            [(ngModel)]="updateUser.lastName"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text"> Birthdate:</span>
-          <input
-            class="form-control"
-            type="date"
-            name="Birthday"
-            [(ngModel)]="updateUser.birthdate"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Sex:</span>
-          <input
-            class="form-control"
-            type="text"
-            name="Sex"
-            [(ngModel)]="updateUser.sex"
-            placeholder="Sex"
-          />
-        </div>
-        <!--
-              <span class="input-group-text"></span>
-              <input type="text" name="Height">
-              <span class="input-group-text"></span>
-              <input type="text" name="Weight">
-              <span class="input-group-text"></span>
-              <input type="text" name="Medications" >
-              <span class="input-group-text"></span>
-              <input type="text" name="Supplements">
-            -->
+    <div *ngIf="updateUser">
+      <div class="card-body">
+        <form>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Name</span>
+            <span class="input-group-text">First:</span>
+            <input class="form-control" type="text" name="FirstName" [(ngModel)]="updateUser.firstName"
+              placeholder="First Name" />
+            <span class="input-group-text">Last:</span>
+            <input class="form-control" type="text" name="LastName" [(ngModel)]="updateUser.lastName" />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"> Birthdate:</span>
+            <input class="form-control" type="date" name="Birthday" [(ngModel)]="updateUser.birthdate" />
+          </div>
 
-        <div class="input-group mb-3">
-          <span class="input-group-text">Biography:</span>
-          <textarea
-            class="form-control"
-            name="Biography"
-            [(ngModel)]="updateUser.biography"
-            placeholder="Biography"
-          ></textarea>
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Email:</span>
-          <input
-            class="form-control"
-            type="text"
-            name="Email"
-            [(ngModel)]="updateUser.email"
-            placeholder="Email"
-          />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Image:</span>
-          <input
-            class="form-control"
-            type="text"
-            name="ProfileImage"
-            [(ngModel)]="updateUser.imageUrl"
-            placeholder="Image"
-          />
-        </div>
-        <button
-          class="btn btn-outline-dark btn-light"
-          (click)="finishUpdateUser()"
-        >
-          Submit Changes
-        </button>
-        <button
-          class="btn btn-outline-danger btn-light"
-          (click)="updateUser=null"
-        >
-          Cancel Changes
-        </button>
-      </form>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Sex:</span>
+            <input class="form-control" type="text" name="Sex" [(ngModel)]="updateUser.sex" placeholder="Sex" />
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Height:</span>
+            <input class="form-control" type="text" name="Height" [(ngModel)]="updateUser.height"
+              placeholder="height" />
+          </div>
+
+          <div class="input-group mb-3">
+
+            <span class="input-group-text">Weight:</span>
+            <input class="form-control" type="text" name="Weight" [(ngModel)]="updateUser.weight"
+              placeholder="weight" />
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Biography:</span>
+            <textarea class="form-control" name="Biography" [(ngModel)]="updateUser.biography"
+              placeholder="Biography"></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Email:</span>
+            <input class="form-control" type="text" name="Email" [(ngModel)]="updateUser.email" placeholder="Email" />
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Image:</span>
+            <input class="form-control" type="text" name="ProfileImage" [(ngModel)]="updateUser.imageUrl"
+              placeholder="Image" />
+          </div>
+          <button class="btn btn-outline-dark btn-light" (click)="finishUpdateUser()">
+            Submit Changes
+          </button>
+          <button class="btn btn-outline-danger btn-light" (click)="updateUser=null">
+            Cancel Changes
+          </button>
+        </form>
+      </div>
     </div>
   </div>
-  </div>
-<div class="col-md-1"></div>
+  <div class="col-md-1"></div>
 
   <div id="section2" class="card col-md my-4" style="background-color: lightblue">
     <div class="card-body">
-      <span><h1>Start New Trial</h1>
-      <a href="#/trials" class="btn btn-outline-dark" >Start</a></span>
+      <span>
+        <h1>Start New Trial</h1>
+        <a href="#/trials" class="btn btn-outline-dark">Start</a>
+      </span>
       <br>
       <div *ngIf="trials.length>0">
         <table>
@@ -151,35 +109,35 @@
             </tr>
           </tbody>
         </table>
+      </div>
     </div>
+    <br />
   </div>
   <br />
-</div>
-<br />
-<br />
-<div>
-  <label for="datePicker">Select a date:</label>
-  <input type="date" id="datePicker" [(ngModel)]="selectedDate">
-</div>
-<button class="btn btn-outline-success" (click)="loadentries(selectedDate)">View Past Logs</button>
-<div *ngIf="logentries.length>0">
-<table>
-  <thead>
-    <tr>
-      <td>Category</td>
-      <td>Type</td>
-      <td>Description</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let entry of logentries" [routerLink]="'/dailyLog/' + entry.id">
-      <td>
-      {{entry.logEntryType.category?.name}}
-      </td>
-      <td>{{entry.logEntryType.name}}</td>
-      <td>{{entry.description}}</td>
-    </tr>
-  </tbody>
-</table>
+  <br />
+  <div>
+    <label for="datePicker">Select a date:</label>
+    <input type="date" id="datePicker" [(ngModel)]="selectedDate">
+  </div>
+  <button class="btn btn-outline-success" (click)="loadentries(selectedDate)">View Past Logs</button>
+  <div *ngIf="logentries.length>0">
+    <table>
+      <thead>
+        <tr>
+          <td>Category</td>
+          <td>Type</td>
+          <td>Description</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of logentries" [routerLink]="'/dailyLog/' + entry.id">
+          <td>
+            {{entry.logEntryType.category?.name}}
+          </td>
+          <td>{{entry.logEntryType.name}}</td>
+          <td>{{entry.description}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-</div>
+  </div>

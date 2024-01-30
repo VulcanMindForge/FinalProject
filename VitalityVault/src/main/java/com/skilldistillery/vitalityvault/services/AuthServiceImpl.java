@@ -39,6 +39,8 @@ public class AuthServiceImpl implements AuthService {
 			existingUser.setFirstName(user.getFirstName());
 			existingUser.setLastName(user.getLastName());
 			existingUser.setSex(user.getSex());
+			existingUser.setHeight(user.getHeight());
+			existingUser.setWeight(user.getWeight());
 			existingUser.setImageUrl(user.getImageUrl());
 
 			return userRepo.saveAndFlush(existingUser);
