@@ -51,12 +51,12 @@
 
 
       <div class="input-group mb-3">
-        <button class="btn btn-outline-dark btn-light" (click)="addTrial(newTrial)">
-          Submit Changes
+        <button class="btn btn-outline-dark btn-light m-1" (click)="addTrial(newTrial)">
+          Save New Trial
         </button>
-        <button class="btn btn-outline-danger btn-light" (click)="resetNewEntry()">
-          Cancel Changes
-        </button>
+        <a href="#/profile" class="btn btn-outline-danger btn-light m-1" (click)="resetNewEntry()">
+          Return to Profile
+        </a>
       </div>
     </form>
   </div>
@@ -131,7 +131,9 @@
         <button class="btn btn-outline-dark btn-light" (click)="updateTrial(editTrial)">
           Submit Changes
         </button>
+
         <button class="btn btn-outline-danger btn-light" (click)="editTrial = null">
+
           Cancel Changes
         </button>
         </div>
