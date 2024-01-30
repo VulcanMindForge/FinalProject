@@ -1,7 +1,7 @@
 import { LogEntryType } from './../../models/log-entry-type';
 import { LogEntry } from './../../models/log-entry';
 import { Category } from './../../models/category';
-// import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +15,7 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { LogEntryTypeService } from '../../services/logentrytype.service';
 import { LogEntryTypeComponent } from "../log-entry-type/log-entry-type.component";
+import { NgChartsModule } from 'ng2-charts';
 
 
 @Component({
@@ -22,13 +23,13 @@ import { LogEntryTypeComponent } from "../log-entry-type/log-entry-type.componen
     standalone: true,
     templateUrl: './daily-log.component.html',
     styleUrl: './daily-log.component.css',
-    imports: [CommonModule, FormsModule, NgbTypeaheadModule, LogEntryTypeComponent]
+    imports: [CommonModule, FormsModule, NgbTypeaheadModule, LogEntryTypeComponent, NgChartsModule]
 })
 
 export class DailyLogComponent implements OnInit{
 
   title = 'ngLogEntry';
-  LogEntrys: LogEntry[] = [];
+  logEntrys: LogEntry[] = [];
   selected: LogEntry | null = null;
   newLogEntry:LogEntry = new LogEntry();
   newType:LogEntryType|null = null;
@@ -47,11 +48,11 @@ export class DailyLogComponent implements OnInit{
     private categoryServ: CategoryService, private unitServ: UnitService){}
 
   ngOnInit(): void {
-    // this.createChart();
     this.loadLogEntrys();
     this.loadLogEntryTypes();
     this.loadCategories();
     this.loadUnits();
+    this.createChart();
     this.activatedRoute.paramMap.subscribe(
       {
         next: (params) => {
@@ -96,20 +97,56 @@ export class DailyLogComponent implements OnInit{
     this.selected = LogEntry;
   }
 
-  // createChart(){
+  createChart(){
 
-  //   this.chart = new Chart("MyChart", {
-  //     type: 'line', //this denotes tha type of chart
+    this.chart = new Chart("MyChart", {
+      type: 'line', //this denotes tha type of chart
 
-  //     data: {// values on X-Axis
-  //       labels: [],
-	//        datasets: [
-  //         { label: "Sleep", data: ['8,9,7,9,8,9,7'],},
-  //         { label: "Pain", data: ['7,8,7,6,9,3,2'],}]
-  //     },
-  //     options: { aspectRatio:2.5}
-  //   });
-  // }
+      data: {// values on X-Axis
+        labels: [],
+	        datasets: [
+          { label: "Sleep Quality", data: []},
+          { label: "Pain Level", data: []},
+          { label: "Exercise Intensity", data: []},
+          { label: "Food Health Quality", data: []},
+        ]
+      },
+      options: { aspectRatio:4.5}
+    });
+    this.updateChart();
+  }
+
+  updateChart(): void {
+
+    let sleepData = this.logEntrys
+      .filter(entry => entry.logEntryType.name.toLowerCase() === "sleep")
+      .map(entry => entry.degree);
+
+    let painData = this.logEntrys
+      .filter(entry => entry.logEntryType.name.toLowerCase() === "pain")
+      .map(entry => entry.degree);
+
+    let activityData = this.logEntrys
+      .filter(entry => entry.logEntryType.name.toLowerCase() === "workout")
+      .map(entry => entry.degree);
+
+    let foodData = this.logEntrys
+      .filter(entry => entry.logEntryType.category && entry.logEntryType.category.name.toLowerCase() === "food")
+      .map(entry => entry.degree);
+
+      console.log(this.logEntrys); // Log all entries to see their structure
+      console.log(foodData);
+
+    let labels = this.logEntrys.map((entry) => entry.entryDate);
+
+    this.chart.data.labels = labels;
+    this.chart.data.datasets[0].data = sleepData;
+    this.chart.data.datasets[1].data = painData;
+    this.chart.data.datasets[2].data = activityData;
+    this.chart.data.datasets[3].data = foodData;
+
+    this.chart.update();
+  }
 
   resetNewEntry() {
     this.newLogEntry = new LogEntry();
@@ -131,7 +168,7 @@ export class DailyLogComponent implements OnInit{
     this.LogEntryServ.index().subscribe(
       {
         next: (logEntryList: LogEntry[]) => {
-          this.LogEntrys = logEntryList;
+          this.logEntrys = logEntryList;
         },
         error: (problem: any) => {
           console.error('LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys', problem);
@@ -200,7 +237,7 @@ export class DailyLogComponent implements OnInit{
       this.LogEntryServ.create(newLogEntry).subscribe(
         {
           next: (createdLogEntry: LogEntry) => {
-            this.LogEntrys.push(createdLogEntry);
+            this.logEntrys.push(createdLogEntry);
             this.loadLogEntrys();
             this.newUnit=new Unit();
             this.category=new Category();
@@ -237,7 +274,7 @@ export class DailyLogComponent implements OnInit{
     this.LogEntryServ.destroy(tid).subscribe(
       {
         next: () => {
-          this.LogEntrys = this.LogEntrys.filter(LogEntry => LogEntry.id !== tid);
+          this.logEntrys = this.logEntrys.filter(LogEntry => LogEntry.id !== tid);
           if (this.selected && this.selected.id === tid) {
             this.selected = null;
           }
