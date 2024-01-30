@@ -1,6 +1,7 @@
 import { LogEntryType } from './../../models/log-entry-type';
 import { LogEntry } from './../../models/log-entry';
 import { Category } from './../../models/category';
+import { Chart } from 'chart.js';
 
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -40,11 +41,13 @@ export class DailyLogComponent implements OnInit{
   logEntryTypes: LogEntryType[]=[];
   logEntryType: LogEntryType = new LogEntryType();
   datePipe: DatePipe = new DatePipe("en-US");
+  public chart: any;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private LogEntryServ: LogEntryService, private logEntryTypeServ: LogEntryTypeService,
     private categoryServ: CategoryService, private unitServ: UnitService){}
 
   ngOnInit(): void {
+    this.createChart();
     this.loadLogEntrys();
     this.loadLogEntryTypes();
     this.loadCategories();
@@ -91,6 +94,21 @@ export class DailyLogComponent implements OnInit{
 
   displayLogEntry(LogEntry: LogEntry): void {
     this.selected = LogEntry;
+  }
+
+  createChart(){
+
+    this.chart = new Chart("MyChart", {
+      type: 'line', //this denotes tha type of chart
+
+      data: {// values on X-Axis
+        labels: [],
+	       datasets: [
+          { label: "Sleep", data: ['8,9,7,9,8,9,7'],},
+          { label: "Pain", data: ['7,8,7,6,9,3,2'],}]
+      },
+      options: { aspectRatio:2.5}
+    });
   }
 
   resetNewEntry() {

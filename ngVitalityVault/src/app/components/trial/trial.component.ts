@@ -1,20 +1,16 @@
-
-
-
 import { Category } from './../../models/category';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Unit } from '../../models/unit';
 import { CategoryService } from '../../services/category.service';
-import { UnitService } from '../../services/unit.service';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { Trial } from '../../models/trial';
 import { LogEntryType } from '../../models/log-entry-type';
 import { LogEntryTypeService } from '../../services/logentrytype.service';
 import { TrialService } from '../../services/trial.service';
+import { LogEntryTypeComponent } from "../log-entry-type/log-entry-type.component";
 
 
 
@@ -23,7 +19,7 @@ import { TrialService } from '../../services/trial.service';
     standalone: true,
     templateUrl: './trial.component.html',
     styleUrl: './trial.component.css',
-    imports: [CommonModule, FormsModule, NgbTypeaheadModule, TrialComponent]
+    imports: [CommonModule, FormsModule, NgbTypeaheadModule, TrialComponent, LogEntryTypeComponent]
 })
 
 export class TrialComponent implements OnInit{
@@ -50,7 +46,7 @@ export class TrialComponent implements OnInit{
     this.activatedRoute.paramMap.subscribe(
       {
         next: (params) => {
-          let TrialIdStr = params.get("logId");
+          let TrialIdStr = params.get("trialId");
           if (TrialIdStr) {
             let TrialId = parseInt(TrialIdStr);
             if (!isNaN(TrialId)) {

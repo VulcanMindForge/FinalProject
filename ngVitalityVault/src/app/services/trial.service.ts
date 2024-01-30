@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class TrialService {
   constructor(private http: HttpClient, private authServ: AuthService) { }
 
-  private url= environment.baseUrl + 'api/logs';
+  private url= environment.baseUrl + 'api/trials';
 
   getHttpOptions() {
     let options = {

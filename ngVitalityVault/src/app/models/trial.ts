@@ -9,7 +9,7 @@ export class Trial {
   startDate: string;
   endDate: string;
   title: string;
-  published: string;
+  published: boolean;
   user: User|null;
   logEntryType: LogEntryType[];
 
@@ -23,7 +23,7 @@ export class Trial {
     startDate: string = '',
     endDate: string = '',
     title: string = '',
-    published: string = '',
+    published: boolean = false,
     user: User|null=null,
     logEntryType: LogEntryType[] = []
 

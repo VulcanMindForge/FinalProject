@@ -131,8 +131,26 @@
 
   <div id="section2" class="card col-md my-4" style="background-color: lightblue">
     <div class="card-body">
-      <h1>Start New Trial</h1>
-      <button class="btn btn-outline-dark">Start</button>
+      <span><h1>Start New Trial</h1>
+      <button class="btn btn-outline-dark">Start</button></span>
+      <br>
+      <div *ngIf="trials.length>0">
+        <table>
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td>Purpose</td>
+              <td [colSpan]="2">Dates</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let trial of trials" [routerLink]="'/trials/' + trial.id">
+              <td>{{trial.title}}</td>
+              <td>{{trial.purpose}}</td>
+              <td [colSpan]="2">{{trial.startDate}} - {{trial.endDate}}</td>
+            </tr>
+          </tbody>
+        </table>
     </div>
   </div>
   <br />
@@ -154,7 +172,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entry of logentries">
+    <tr *ngFor="let entry of logentries" [routerLink]="'/dailyLog/' + entry.id">
       <td>
       {{entry.logEntryType.category?.name}}
       </td>

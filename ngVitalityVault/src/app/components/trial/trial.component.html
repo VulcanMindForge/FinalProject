@@ -12,7 +12,7 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">Type:</span>
-        <input class="form-control" type="text" name="TrialType" [(ngModel)]="newTrial.LogEntryType"
+        <input class="form-control" type="text" name="TrialType" [(ngModel)]="newTrial.logEntryType"
           [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" />
         <input hidden="hidden" name=" TrialTypeId" [(ngModel)]="TrialType.id">
         <button class="btn btn-outline-dark btn-light" (click)="newTrialType()">
@@ -25,38 +25,38 @@
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text">Date:</span>
-        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="newTrial.entryDate " />
-
-        <input class="form-control" type="Time" step="1" name="entryTime" [(ngModel)]="newTrial.entryTime" />
+        <span class="input-group-text"> Title:</span>
+        <input class="form-control" type="text" name="title" [(ngModel)]="newTrial.title" />
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text"> Description:</span>
-        <input class="form-control" type="text" name="description" [(ngModel)]="newTrial.description" />
+        <span class="input-group-text"> Purpose:</span>
+        <input class="form-control" type="text" name="purpose" [(ngModel)]="newTrial.purpose" />
+      </div>
 
-        <div class="input-group mb-3">
-          <span class="input-group-text">Degree:</span>
-          <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="newTrial.degree"
-            placeholder="Measure between 1 and 10" />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Amount:</span>
-          <input class="form-control" type="number" name="amount" [(ngModel)]="newTrial.amount" />
-          <select class="form-control" name="units" [(ngModel)]="newTrial.unit.id">
-            <option *ngFor="let unit of units" value="{{unit.id}}">
-              {{ unit.name }}
-            </option>
-          </select>
-        </div>
-        <div class="input-group mb-3">
-          <button class="btn btn-outline-dark btn-light" (click)="addTrial(newTrial)">
-            Submit Changes
-          </button>
-          <button class="btn btn-outline-danger btn-light" (click)="resetNewEntry()">
-            Cancel Changes
-          </button>
-        </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">Start Date:</span>
+        <input class="form-control" type="Date" name="startDate" [(ngModel)]="newTrial.startDate " />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">End Date:</span>
+        <input class="form-control" type="Date" name="endDate" [(ngModel)]="newTrial.endDate " />
+      </div>
+
+      <div class="input-group mb-3 form-check form-switch">
+        <span class="input-group-text">Allow others to see Trial data:</span>
+        <input class="form-check-input" type="checkbox" name="published" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="newTrial.published" />
+      </div>
+
+
+      <div class="input-group mb-3">
+        <button class="btn btn-outline-dark btn-light" (click)="addTrial(newTrial)">
+          Submit Changes
+        </button>
+        <button class="btn btn-outline-danger btn-light" (click)="resetNewEntry()">
+          Cancel Changes
+        </button>
       </div>
     </form>
   </div>
@@ -64,14 +64,11 @@
 
 <div class="card" *ngIf="selected">
   <div class="card-body">
-    <h5>Logged Data: {{selected.createDate}}</h5>
+    <h5>Title: {{selected.title}}</h5>
     <ul>
-      <li>Category: {{selected.TrialType.category?.name}}</li>
-      <li>Type: {{selected.TrialType.name}} <img src="{{selected.TrialType.imageUrl}}" alt=""></li>
-      <li>Date: {{selected.entryDate}} {{selected.entryTime}} </li>
-      <li>Description: {{selected.description}} </li>
-      <li>Degree: {{selected.degree}} </li>
-      <li>Amount: {{selected.amount}} Unit: {{selected.unit.name}}</li>
+      <li>Purpose: {{selected.purpose}}</li>
+      <li>Start Date: {{selected.startDate}}</li>
+      <li>End Date: {{selected.endDate}}</li>
     </ul>
     <button class="btn btn-outline-dark btn-light" (click)="setEditTrial()">
       Edit
@@ -98,9 +95,9 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">Type:</span>
-        <input class="form-control" type="text" name="TrialType" [(ngModel)]="editTrial.TrialType"
+        <input class="form-control" type="text" name="TrialType" [(ngModel)]="newTrial.logEntryType"
           [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" />
-        <input hidden="hidden" name=" TrialTypeId" [(ngModel)]="TrialType.id">
+        <input hidden="hidden" name="TrialTypeId" [(ngModel)]="TrialType.id">
         <button class="btn btn-outline-dark btn-light" (click)="newTrialType()">
           New Type
         </button>
@@ -111,39 +108,33 @@
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text">Date:</span>
-        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="editTrial.entryDate"/>
-
-        <input class="form-control" type="Time" step="1" name="entryTime" [(ngModel)]="editTrial.entryTime" />
+        <span class="input-group-text"> Title:</span>
+        <input class="form-control" type="text" name="title" [(ngModel)]="newTrial.title" />
       </div>
 
       <div class="input-group mb-3">
-        <span class="input-group-text"> Description:</span>
-        <input class="form-control" type="text" name="description" [(ngModel)]="editTrial.description" />
-
-        <div class="input-group mb-3">
-          <span class="input-group-text">Degree:</span>
-          <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="editTrial.degree"
-            placeholder="Measure between 1 and 10" />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Amount:</span>
-          <input class="form-control" type="number" name="amount" [(ngModel)]="editTrial.amount" />
-          <select class="form-control" name="units" [(ngModel)]="editTrial.unit.id">
-            <option *ngFor="let unit of units" value="{{unit.id}}">
-              {{ unit.name }}
-            </option>
-          </select>
-        </div>
-        <div class="input-group mb-3">
-          <button class="btn btn-outline-dark btn-light" (click)="updateTrial(editTrial)">
-            Submit Changes
-          </button>
-          <button class="btn btn-outline-danger btn-light" (click)="editTrial=null">
-            Cancel Changes
-          </button>
-        </div>
+        <span class="input-group-text"> Purpose:</span>
+        <input class="form-control" type="text" name="purpose" [(ngModel)]="newTrial.purpose" />
       </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Start Date:</span>
+        <input class="form-control" type="Date" name="startDate" [(ngModel)]="newTrial.startDate " />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">End Date:</span>
+        <input class="form-control" type="Date" name="endDate" [(ngModel)]="newTrial.endDate " />
+      </div>
+
+      <div class="input-group mb-3">
+        <button class="btn btn-outline-dark btn-light" (click)="addTrial(newTrial)">
+          Submit Changes
+        </button>
+        <button class="btn btn-outline-danger btn-light" (click)="resetNewEntry()">
+          Cancel Changes
+        </button>
+        </div>
     </form>
   </div>
 </div>

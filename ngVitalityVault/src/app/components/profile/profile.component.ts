@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { User } from '../../models/user';
 import { LogEntryService } from '../../services/logentry.service';
-import { LogEntry } from '../../models/log-entry-type';
+import { LogEntry, Trial } from '../../models/log-entry-type';
+import { TrialService } from '../../services/trial.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
@@ -24,13 +25,16 @@ selectedDate: any;
     private userServ: UserService,
     private router: Router,
     private logEntryServ: LogEntryService,
+    private trialServ: TrialService
   ) {}
 
   user: User = new User();
   logentries: LogEntry[] = [];
+  trials: Trial[] = [];
 
   ngOnInit() {
     this.loadUser();
+    this.loadTrials();
   }
 
   loadUser() {
@@ -51,6 +55,20 @@ selectedDate: any;
     this.logEntryServ.indexByDate(date).subscribe({
       next: (entries) => {
         this.logentries = entries;
+      },
+      error: (oops) => {
+        console.error(
+          'ProfileComponent.logentries error: error getting log entries'
+        );
+        console.error(oops);
+      },
+    });
+  }
+
+  loadTrials(){
+    this.trialServ.index().subscribe({
+      next: (trials) => {
+        this.trials = trials;
       },
       error: (oops) => {
         console.error(

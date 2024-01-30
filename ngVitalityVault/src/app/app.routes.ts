@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DailyLogComponent } from './components/daily-log/daily-log.component';
+import { TrialComponent } from './components/trial/trial.component';
 
 export const routes: Routes = [
 
@@ -15,5 +16,7 @@ export const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'dailyLog', component: DailyLogComponent},
   {path: 'dailyLog/:logId', component: DailyLogComponent},
+  {path: 'trials', component: TrialComponent},
+  {path: 'trials/:trialId', component: TrialComponent},
   {path: '**', component: NotFoundComponent},
 ];
