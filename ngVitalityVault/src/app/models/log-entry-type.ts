@@ -34,4 +34,4 @@ export class LogEntryType {
   }
 }
 
-export { LogEntry };
+export { LogEntry, Trial };
