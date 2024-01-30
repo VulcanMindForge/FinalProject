@@ -41,7 +41,6 @@ public class LogEntryTypeServiceImpl implements LogEntryTypeService {
 		if (existingLogEntryType != null) {
 			existingLogEntryType.setName(logEntryType.getName());
 			existingLogEntryType.setDescription(logEntryType.getDescription());
-			existingLogEntryType.setImageUrl(logEntryType.getImageUrl());
 			existingLogEntryType.setCategory(logEntryType.getCategory());
 			
 			return logEntryTypeRepo.saveAndFlush(existingLogEntryType);

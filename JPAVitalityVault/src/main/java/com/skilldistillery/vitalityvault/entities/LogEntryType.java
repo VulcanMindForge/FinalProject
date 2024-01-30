@@ -30,9 +30,6 @@ public class LogEntryType {
 	
 	private String description;
 	
-	@Column(name="image_url")
-	private String imageUrl;
-	
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
@@ -142,13 +139,6 @@ public class LogEntryType {
 		this.description = description;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 
 	public List<Trial> getTrials() {
 		return trials;
@@ -196,7 +186,7 @@ public class LogEntryType {
 
 	@Override
 	public String toString() {
-		return "LogEntryType [id=" + id + ", name=" + name + ", description=" + description + ", imageUrl=" + imageUrl
+		return "LogEntryType [id=" + id + ", name=" + name + ", description=" + description
 				+ "]";
 	}
 

@@ -22,8 +22,6 @@ public class Category {
 	
 	private String name;
 	
-	private String description;
-	
 	@OneToMany(mappedBy = "category")
 	@JsonIgnore
 	private List<LogEntryType> logEntryTypes;
@@ -82,13 +80,6 @@ public class Category {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	@Override
 	public int hashCode() {
@@ -109,6 +100,6 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", description=" + description + "]";
+		return "Category [id=" + id + ", name=" + name + "]";
 	}
 }

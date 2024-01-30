@@ -7,7 +7,6 @@ export class LogEntryType {
   id:number;
   name: string;
   description: string;
-  imageUrl: string;
   category: Category|null;
   trial: Trial[];
   logEntryTypeComment: LogEntryTypeComment[];
@@ -17,7 +16,6 @@ export class LogEntryType {
     id:number=0,
     name: string = '',
     description: string = '',
-    imageUrl: string = '',
     category: Category|null = null,
     trial: Trial[] = [],
     logEntryTypeComment: LogEntryTypeComment[] = [],
@@ -26,7 +24,6 @@ export class LogEntryType {
     this.id = id;
     this.name = name;
     this.description = description;
-    this.imageUrl = imageUrl;
     this.category = category;
     this.trial= trial;
     this.logEntryTypeComment=logEntryTypeComment;

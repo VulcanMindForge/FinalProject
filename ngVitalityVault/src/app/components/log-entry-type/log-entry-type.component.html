@@ -1,5 +1,5 @@
-<br>
 <div *ngIf="newEntryType">
+  <h3>Input New Type</h3>
   <div class="">
     <form>
       <div class="input-group mb-3">
@@ -33,15 +33,7 @@
         [(ngModel)]="newEntryType.description"
         />
 
-      <div class="input-group mb-3">
-        <span class="input-group-text">Image URL:</span>
-        <input
-        type="text"
-        class="form-control"
-        name="typeImage"
-        [(ngModel)]="newEntryType.imageUrl"
-        />
-      </div>
+
 
       </div>
       <div class="input-group mb-3">
