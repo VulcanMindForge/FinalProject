@@ -1,6 +1,6 @@
 package com.skilldistillery.vitalityvault.services;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -65,7 +65,7 @@ public class LogEntryServiceImpl implements LogEntryService {
 	}
 
 	@Override
-	public List<LogEntry> findByUser_UsernameAndEntryDate(String username, Date date) {
+	public List<LogEntry> findByUser_UsernameAndEntryDate(String username, LocalDate date) {
 		return logEntryRepo.findByUser_UsernameAndEntryDate(username, date);
 	}
 

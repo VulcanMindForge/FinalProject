@@ -1,7 +1,7 @@
 package com.skilldistillery.vitalityvault.controllers;
 
 import java.security.Principal;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -92,7 +92,7 @@ public class LogEntryController {
 	}
 	
 	@GetMapping("logs/date/{date}")
-	public List<LogEntry> showByEntryDate(HttpServletRequest req, HttpServletResponse res, @PathVariable("date") Date date,
+	public List<LogEntry> showByEntryDate(HttpServletRequest req, HttpServletResponse res, @PathVariable("date") LocalDate date,
 			Principal principal) {
 		List<LogEntry> log = logEntryServ.findByUser_UsernameAndEntryDate(principal.getName(), date);
 		if (log == null) {

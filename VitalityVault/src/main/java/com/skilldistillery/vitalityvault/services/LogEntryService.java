@@ -1,6 +1,6 @@
 package com.skilldistillery.vitalityvault.services;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +20,6 @@ public interface LogEntryService {
 
 	public boolean destroy(String username, int logId);
 
-	public List<LogEntry> findByUser_UsernameAndEntryDate(String username, Date date);
+	public List<LogEntry> findByUser_UsernameAndEntryDate(String username, LocalDate date);
 
 }

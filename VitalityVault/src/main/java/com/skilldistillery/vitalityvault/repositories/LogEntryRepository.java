@@ -1,6 +1,6 @@
 package com.skilldistillery.vitalityvault.repositories;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -14,5 +14,5 @@ public interface LogEntryRepository extends JpaRepository<LogEntry, Integer> {
 
 	LogEntry findByUser_UsernameAndId(String username, int logId);
 	
-	List<LogEntry> findByUser_UsernameAndEntryDate(String username, Date date);
+	List<LogEntry> findByUser_UsernameAndEntryDate(String username, LocalDate date);
 }
