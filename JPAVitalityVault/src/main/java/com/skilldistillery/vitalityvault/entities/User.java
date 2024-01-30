@@ -1,6 +1,6 @@
 package com.skilldistillery.vitalityvault.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +28,7 @@ public class User {
 	private String firstName;
 	@Column(name = "last_name")
 	private String lastName;
-	private Date birthdate;
+	private LocalDate birthdate;
 	private String sex;
 	private String biography;
 	@Column(name = "image_url")
@@ -193,11 +193,11 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public Date getBirthdate() {
+	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
 
