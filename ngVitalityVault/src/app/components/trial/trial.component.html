@@ -109,29 +109,29 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Title:</span>
-        <input class="form-control" type="text" name="title" [(ngModel)]="newTrial.title" />
+        <input class="form-control" type="text" name="title" [(ngModel)]="editTrial.title" />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Purpose:</span>
-        <input class="form-control" type="text" name="purpose" [(ngModel)]="newTrial.purpose" />
+        <input class="form-control" type="text" name="purpose" [(ngModel)]="editTrial.purpose" />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text">Start Date:</span>
-        <input class="form-control" type="Date" name="startDate" [(ngModel)]="newTrial.startDate " />
+        <input class="form-control" type="Date" name="startDate" [(ngModel)]="editTrial.startDate " />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text">End Date:</span>
-        <input class="form-control" type="Date" name="endDate" [(ngModel)]="newTrial.endDate " />
+        <input class="form-control" type="Date" name="endDate" [(ngModel)]="editTrial.endDate " />
       </div>
 
       <div class="input-group mb-3">
-        <button class="btn btn-outline-dark btn-light" (click)="addTrial(newTrial)">
+        <button class="btn btn-outline-dark btn-light" (click)="updateTrial(editTrial)">
           Submit Changes
         </button>
-        <button class="btn btn-outline-danger btn-light" (click)="resetNewEntry()">
+        <button class="btn btn-outline-danger btn-light" (click)="editTrial = null">
           Cancel Changes
         </button>
         </div>

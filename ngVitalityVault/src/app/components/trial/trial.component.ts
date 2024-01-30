@@ -161,6 +161,7 @@ export class TrialComponent implements OnInit{
           next: (createdTrial: Trial) => {
             this.Trials.push(createdTrial);
             this.loadTrials();
+            this.selected=createdTrial;
             this.category=new Category();
             this.TrialType =new LogEntryType();
           },
