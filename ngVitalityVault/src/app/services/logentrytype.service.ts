@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class LogEntryTypeService {
   constructor(private http: HttpClient, private authServ: AuthService) { }
 
-  private url= environment.baseUrl + 'api/entrytypes';
+  private url = environment.baseUrl + 'api/entrytypes';
 
   getHttpOptions() {
     let options = {
@@ -33,6 +33,7 @@ export class LogEntryTypeService {
       })
     );
   }
+
   show(LogEntryTypeId: number): Observable<LogEntryType> {
     return this.http.get<LogEntryType>(this.url + '/' + LogEntryTypeId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
@@ -72,7 +73,7 @@ export class LogEntryTypeService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('LogEntryTypeService.update(): error deleting LogEntryType with id ' + LogEntryTypeId + ': ' + err)
+          () => new Error('LogEntryTypeService.destroy(): error deleting LogEntryType with id ' + LogEntryTypeId + ': ' + err)
         );
       })
     );

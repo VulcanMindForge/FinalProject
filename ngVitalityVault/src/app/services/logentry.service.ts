@@ -76,7 +76,7 @@ export class LogEntryService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('LogEntryService.update(): error deleting LogEntry with id ' + LogEntryId + ': ' + err)
+          () => new Error('LogEntryService.destroy(): error deleting LogEntry with id ' + LogEntryId + ': ' + err)
         );
       })
     );

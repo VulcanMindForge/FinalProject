@@ -48,7 +48,6 @@ export class TrialService {
   }
 
   create(Trial: Trial): Observable<Trial> {
-
     return this.http.post<Trial>(this.url, Trial, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
@@ -76,7 +75,7 @@ export class TrialService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('TrialService.update(): error deleting Trial with id ' + TrialId + ': ' + err)
+          () => new Error('TrialService.destroy(): error deleting Trial with id ' + TrialId + ': ' + err)
         );
       })
     );
