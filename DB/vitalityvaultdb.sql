@@ -56,7 +56,6 @@ DROP TABLE IF EXISTS `category` ;
 CREATE TABLE IF NOT EXISTS `category` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` TEXT(2000) NULL,
-  `description` TEXT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -70,7 +69,6 @@ CREATE TABLE IF NOT EXISTS `log_entry_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` TEXT(2000) NULL,
-  `image_url` VARCHAR(2000) NULL,
   `category_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_log_entry_type_category1_idx` (`category_id` ASC),
@@ -159,33 +157,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `message`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `message` ;
-
-CREATE TABLE IF NOT EXISTS `message` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `content` TEXT(2000) NULL,
-  `date_time` DATETIME NULL,
-  `sender_id` INT NOT NULL,
-  `receiver_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_chat_user1_idx` (`sender_id` ASC),
-  INDEX `fk_chat_user2_idx` (`receiver_id` ASC),
-  CONSTRAINT `fk_chat_user1`
-    FOREIGN KEY (`sender_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_chat_user2`
-    FOREIGN KEY (`receiver_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `trial_has_log_entry_type`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `trial_has_log_entry_type` ;
@@ -263,12 +234,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `category` (`id`, `name`, `description`) VALUES (1, 'Food', 'A brief description of the food item eg. \"Apple\" or \"Hamburger\"');
-INSERT INTO `category` (`id`, `name`, `description`) VALUES (2, 'Workout', 'Provide type of workout (Weights, Cardio, etc), duration, and effort level');
-INSERT INTO `category` (`id`, `name`, `description`) VALUES (3, 'Sleep', 'Provide duration of sleep, number of wakeups or interruptions');
-INSERT INTO `category` (`id`, `name`, `description`) VALUES (4, 'Pain', 'Pain scale from 1-10');
-INSERT INTO `category` (`id`, `name`, `description`) VALUES (5, 'Medication', 'Provide dosage, frequency, and purpose');
-INSERT INTO `category` (`id`, `name`, `description`) VALUES (6, 'Supplement', 'Provide amount, frequency, and purpose');
+INSERT INTO `category` (`id`, `name`) VALUES (1, 'Food');
+INSERT INTO `category` (`id`, `name`) VALUES (2, 'Workout');
+INSERT INTO `category` (`id`, `name`) VALUES (3, 'Sleep');
+INSERT INTO `category` (`id`, `name`) VALUES (4, 'Pain');
+INSERT INTO `category` (`id`, `name`) VALUES (5, 'Medication');
+INSERT INTO `category` (`id`, `name`) VALUES (6, 'Supplement');
 
 COMMIT;
 
@@ -278,9 +249,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `log_entry_type` (`id`, `name`, `description`, `image_url`, `category_id`) VALUES (1, 'Oatmeal', NULL, NULL, 1);
-INSERT INTO `log_entry_type` (`id`, `name`, `description`, `image_url`, `category_id`) VALUES (2, 'Kettlebell Swings', '10x200', 'https://cdn4.volusion.store/dtwfe-bjanx/v/vspfiles/photos/IM-0350WH-2.gif', 2);
-INSERT INTO `log_entry_type` (`id`, `name`, `description`, `image_url`, `category_id`) VALUES (3, 'Lower Back Pain', 'center of back', NULL, 4);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (1, 'Oatmeal', NULL, 1);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (2, 'Kettlebell Swings', '10x200', 2);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (3, 'Lower Back Pain', 'center of back', 4);
 
 COMMIT;
 
@@ -291,7 +262,23 @@ COMMIT;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `unit` (`id`, `name`) VALUES (1, 'cup');
-INSERT INTO `unit` (`id`, `name`) VALUES (DEFAULT, NULL);
+INSERT INTO `unit` (`id`, `name`) VALUES (2, 'grams');
+INSERT INTO `unit` (`id`, `name`) VALUES (3, 'ounces');
+INSERT INTO `unit` (`id`, `name`) VALUES (4, 'pounds');
+INSERT INTO `unit` (`id`, `name`) VALUES (5, 'mililiters');
+INSERT INTO `unit` (`id`, `name`) VALUES (6, 'tablespoons');
+INSERT INTO `unit` (`id`, `name`) VALUES (7, 'teaspoons');
+INSERT INTO `unit` (`id`, `name`) VALUES (8, 'servings');
+INSERT INTO `unit` (`id`, `name`) VALUES (9, 'scoop');
+INSERT INTO `unit` (`id`, `name`) VALUES (10, 'small');
+INSERT INTO `unit` (`id`, `name`) VALUES (11, 'medium');
+INSERT INTO `unit` (`id`, `name`) VALUES (12, 'large');
+INSERT INTO `unit` (`id`, `name`) VALUES (13, 'repitition');
+INSERT INTO `unit` (`id`, `name`) VALUES (14, 'set');
+INSERT INTO `unit` (`id`, `name`) VALUES (15, 'hours');
+INSERT INTO `unit` (`id`, `name`) VALUES (16, 'minutes');
+INSERT INTO `unit` (`id`, `name`) VALUES (17, 'calories');
+INSERT INTO `unit` (`id`, `name`) VALUES (18, 'miligrams');
 
 COMMIT;
 
@@ -316,16 +303,6 @@ USE `vitalityvaultdb`;
 INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (1, NULL, 'testing', 1, NULL, NULL, NULL, 'TEST', 0);
 INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (2, NULL, 'I want to exclusively do kettlebell swings and see how ripped I get', 2, NULL, '2024-01-01', '2024-02-02', 'Kettlebell Kingdom', 1);
 INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (3, NULL, 'I want to see if lower back stretches reduce pain', 3, NULL, '2024-01-30', '2024-02-28', 'Lower Back Stretches', 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `message`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `vitalityvaultdb`;
-INSERT INTO `message` (`id`, `content`, `date_time`, `sender_id`, `receiver_id`) VALUES (1, 'test', NULL, 1, 1);
 
 COMMIT;
 
