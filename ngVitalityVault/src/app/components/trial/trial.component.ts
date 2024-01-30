@@ -11,6 +11,7 @@ import { LogEntryType } from '../../models/log-entry-type';
 import { LogEntryTypeService } from '../../services/logentrytype.service';
 import { TrialService } from '../../services/trial.service';
 import { LogEntryTypeComponent } from "../log-entry-type/log-entry-type.component";
+import { AuthService } from '../../services/auth.service';
 
 
 
@@ -36,10 +37,13 @@ export class TrialComponent implements OnInit{
   TrialType: LogEntryType = new LogEntryType();
   datePipe: DatePipe = new DatePipe("en-US");
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private TrialServ: TrialService, private TrialTypeServ: LogEntryTypeService,
+  constructor(private authServ: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private TrialServ: TrialService, private TrialTypeServ: LogEntryTypeService,
     private categoryServ: CategoryService){}
 
   ngOnInit(): void {
+    if(!this.authServ.checkLogin()){
+      this.router.navigateByUrl('/login');
+    };
     this.loadTrials();
     this.loadTrialTypes();
     this.loadCategories();

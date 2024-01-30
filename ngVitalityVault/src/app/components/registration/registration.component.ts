@@ -17,6 +17,16 @@ export class RegistrationComponent {
 
   constructor(private authServ: AuthService, private router: Router) {}
 
+  ngOnInit() {
+    this.loadUser();
+  }
+
+  loadUser() {
+    if(this.authServ.checkLogin()){
+      this.router.navigateByUrl('/home');
+    };
+  }
+
   register(user: User): void {
     this.authServ.register(this.newUser).subscribe(
       {

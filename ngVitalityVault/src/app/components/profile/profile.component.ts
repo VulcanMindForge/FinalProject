@@ -33,6 +33,9 @@ selectedDate: any;
   trials: Trial[] = [];
 
   ngOnInit() {
+    if(!this.authServ.checkLogin()){
+      this.router.navigateByUrl('/login');
+    };
     this.loadUser();
     this.loadTrials();
   }

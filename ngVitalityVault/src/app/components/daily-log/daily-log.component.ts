@@ -1,7 +1,7 @@
 import { LogEntryType } from './../../models/log-entry-type';
 import { LogEntry } from './../../models/log-entry';
 import { Category } from './../../models/category';
-import { Chart } from 'chart.js';
+// import { Chart } from 'chart.js';
 
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -47,7 +47,7 @@ export class DailyLogComponent implements OnInit{
     private categoryServ: CategoryService, private unitServ: UnitService){}
 
   ngOnInit(): void {
-    this.createChart();
+    // this.createChart();
     this.loadLogEntrys();
     this.loadLogEntryTypes();
     this.loadCategories();
@@ -96,20 +96,20 @@ export class DailyLogComponent implements OnInit{
     this.selected = LogEntry;
   }
 
-  createChart(){
+  // createChart(){
 
-    this.chart = new Chart("MyChart", {
-      type: 'line', //this denotes tha type of chart
+  //   this.chart = new Chart("MyChart", {
+  //     type: 'line', //this denotes tha type of chart
 
-      data: {// values on X-Axis
-        labels: [],
-	       datasets: [
-          { label: "Sleep", data: ['8,9,7,9,8,9,7'],},
-          { label: "Pain", data: ['7,8,7,6,9,3,2'],}]
-      },
-      options: { aspectRatio:2.5}
-    });
-  }
+  //     data: {// values on X-Axis
+  //       labels: [],
+	//        datasets: [
+  //         { label: "Sleep", data: ['8,9,7,9,8,9,7'],},
+  //         { label: "Pain", data: ['7,8,7,6,9,3,2'],}]
+  //     },
+  //     options: { aspectRatio:2.5}
+  //   });
+  // }
 
   resetNewEntry() {
     this.newLogEntry = new LogEntry();
