@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `biography` TEXT NULL,
   `image_url` VARCHAR(2000) NULL,
   `email` VARCHAR(45) NOT NULL,
+  `height` VARCHAR(45) NULL,
+  `weight` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -249,9 +251,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'admin', 'admin', NULL, 'male', 'admin', NULL, 'admin@admin.com');
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`) VALUES (2, 'kettlebellking', 'crossfit', 1, NULL, 'Ido', 'Crossfit', '2000-01-30', 'male', 'I\'m a huge crossfitter. I eat sleep and breathe crossfit.', 'https://stock.adobe.com/search?k=crossfit&asset_id=242396695', 'kettlebellking@crossfit.com');
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`) VALUES (3, 'iminpain', 'pain', 1, NULL, 'Ihave', 'Lotsofpain', '1960-01-30', 'female', 'I have lots of pain and do lots of trials and take lots of medications', 'https://stock.adobe.com/search?k=rx+symbol&asset_id=87767692', 'painandmeds@pain.com');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'admin', 'admin', NULL, 'male', 'admin', NULL, 'admin@admin.com', NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (2, 'kettlebellking', 'crossfit', 1, NULL, 'Ido', 'Crossfit', '2000-01-30', 'male', 'I\'m a huge crossfitter. I eat sleep and breathe crossfit.', 'https://stock.adobe.com/search?k=crossfit&asset_id=242396695', 'kettlebellking@crossfit.com', NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (3, 'iminpain', 'pain', 1, NULL, 'Ihave', 'Lotsofpain', '1960-01-30', 'female', 'I have lots of pain and do lots of trials and take lots of medications', 'https://stock.adobe.com/search?k=rx+symbol&asset_id=87767692', 'painandmeds@pain.com', NULL, NULL);
 
 COMMIT;
 
