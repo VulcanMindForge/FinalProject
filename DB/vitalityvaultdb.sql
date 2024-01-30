@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `log_entry` (
   `degree` INT NULL,
   `user_id` INT NOT NULL,
   `amount` VARCHAR(45) NULL,
-  `unit_id` INT NOT NULL,
+  `unit_id` INT NULL,
   `entry_time` TIME NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_log_entry_log_entry_type1_idx` (`log_entry_type_id` ASC),
@@ -250,6 +250,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'admin', 'admin', NULL, 'male', 'admin', NULL, 'admin@admin.com');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`) VALUES (2, 'kettlebellking', 'crossfit', 1, NULL, 'Ido', 'Crossfit', '2000-01-30', 'male', 'I\'m a huge crossfitter. I eat sleep and breathe crossfit.', 'https://stock.adobe.com/search?k=crossfit&asset_id=242396695', 'kettlebellking@crossfit.com');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`) VALUES (3, 'iminpain', 'pain', 1, NULL, 'Ihave', 'Lotsofpain', '1960-01-30', 'female', 'I have lots of pain and do lots of trials and take lots of medications', 'https://stock.adobe.com/search?k=rx+symbol&asset_id=87767692', 'painandmeds@pain.com');
 
 COMMIT;
 
@@ -259,7 +261,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `category` (`id`, `name`, `description`) VALUES (1, 'Food', NULL);
+INSERT INTO `category` (`id`, `name`, `description`) VALUES (1, 'Food', 'A brief description of the food item eg. \"Apple\" or \"Hamburger\"');
+INSERT INTO `category` (`id`, `name`, `description`) VALUES (2, 'Workout', 'Provide type of workout (Weights, Cardio, etc), duration, and effort level');
+INSERT INTO `category` (`id`, `name`, `description`) VALUES (3, 'Sleep', 'Provide duration of sleep, number of wakeups or interruptions');
+INSERT INTO `category` (`id`, `name`, `description`) VALUES (4, 'Pain', 'Pain scale from 1-10');
+INSERT INTO `category` (`id`, `name`, `description`) VALUES (5, 'Medication', 'Provide dosage, frequency, and purpose');
+INSERT INTO `category` (`id`, `name`, `description`) VALUES (6, 'Supplement', 'Provide amount, frequency, and purpose');
 
 COMMIT;
 
@@ -270,6 +277,8 @@ COMMIT;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `log_entry_type` (`id`, `name`, `description`, `image_url`, `category_id`) VALUES (1, 'Oatmeal', NULL, NULL, 1);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `image_url`, `category_id`) VALUES (2, 'Kettlebell Swings', '10x200', 'https://cdn4.volusion.store/dtwfe-bjanx/v/vspfiles/photos/IM-0350WH-2.gif', 2);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `image_url`, `category_id`) VALUES (3, 'Lower Back Pain', 'center of back', NULL, 4);
 
 COMMIT;
 
@@ -280,6 +289,7 @@ COMMIT;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `unit` (`id`, `name`) VALUES (1, 'cup');
+INSERT INTO `unit` (`id`, `name`) VALUES (DEFAULT, NULL);
 
 COMMIT;
 
@@ -290,6 +300,8 @@ COMMIT;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (1, 1, NULL, NULL, NULL, 'Brown Sugar', NULL, 1, '1', 1, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (2, 2, NULL, NULL, '2024-01-30', 'I did 4 hrs of kettlebell swings', NULL, 2, NULL, NULL, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (3, 3, NULL, NULL, '2024-01-30', 'I had immense pain in my lower back', 10, 3, NULL, NULL, NULL);
 
 COMMIT;
 
@@ -300,6 +312,8 @@ COMMIT;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (1, NULL, 'testing', 1, NULL, NULL, NULL, 'TEST', 0);
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (2, NULL, 'I want to exclusively do kettlebell swings and see how ripped I get', 2, NULL, '2024-01-01', '2024-02-02', 'Kettlebell Kingdom', 1);
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (3, NULL, 'I want to see if lower back stretches reduce pain', 3, NULL, '2024-01-30', '2024-02-28', 'Lower Back Stretches', 1);
 
 COMMIT;
 
@@ -320,6 +334,8 @@ COMMIT;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `trial_has_log_entry_type` (`trial_id`, `log_entry_type_id`) VALUES (1, 1);
+INSERT INTO `trial_has_log_entry_type` (`trial_id`, `log_entry_type_id`) VALUES (2, 2);
+INSERT INTO `trial_has_log_entry_type` (`trial_id`, `log_entry_type_id`) VALUES (3, 3);
 
 COMMIT;
 
@@ -330,6 +346,8 @@ COMMIT;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `log_entry_type_comment` (`id`, `content`, `content_date`, `user_id`, `log_entry_type_id`) VALUES (1, 'Was good', '2024-01-25', 1, 1);
+INSERT INTO `log_entry_type_comment` (`id`, `content`, `content_date`, `user_id`, `log_entry_type_id`) VALUES (2, 'Crushed it', '2024-01-30', 2, 2);
+INSERT INTO `log_entry_type_comment` (`id`, `content`, `content_date`, `user_id`, `log_entry_type_id`) VALUES (3, 'Pain was bad', '2024-01-30', 3, 3);
 
 COMMIT;
 
