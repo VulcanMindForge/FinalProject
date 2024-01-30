@@ -111,33 +111,62 @@ export class DailyLogComponent implements OnInit{
           { label: "Food Health Quality", data: []},
         ]
       },
-      options: { aspectRatio:4.5}
+      options: { aspectRatio:4.5,
+        onClick: (event: any, chartElements: any[]) => {
+          this.handleChartClick(event, chartElements);
+        }
+      }
     });
     this.updateChart();
   }
 
+  handleChartClick(event: MouseEvent, chartElements: any[]): void {
+    if (chartElements && chartElements.length > 0) {
+      const index = chartElements[0].index;
+      const logEntry = this.logEntrys[index];
+      if (logEntry) {
+        // Adjust the route as per your application's routing structure
+        this.router.navigate(['/dailyLog', logEntry.id]);
+      }
+    }
+  }
+
+
   updateChart(): void {
+    let groupedData = new Map<string, { sleep: number[], pain: number[], activity: number[], food: number[] }>();
 
-    let sleepData = this.logEntrys
-      .filter(entry => entry.logEntryType.name.toLowerCase() === "sleep")
-      .map(entry => entry.degree);
+    this.logEntrys.forEach(entry => {
+      if (entry.entryDate) {
+        let key = entry.entryDate.toString(); // Group by date
+        if (!groupedData.has(key)) {
+          groupedData.set(key, { sleep: [], pain: [], activity: [], food: [] });
+        }
 
-    let painData = this.logEntrys
-      .filter(entry => entry.logEntryType.name.toLowerCase() === "pain")
-      .map(entry => entry.degree);
+        let entryTypeData = groupedData.get(key);
+        if (entryTypeData) {
+          switch (entry.logEntryType.category?.name.toLowerCase()) {
+            case "sleep":
+              entryTypeData.sleep.push(parseFloat(entry.degree));
+              break;
+              case "pain":
+                entryTypeData.pain.push(parseFloat(entry.degree));
+                break;
+                case "workout":
+                  entryTypeData.activity.push(parseFloat(entry.degree));
+                  break;
+                  case "food":
+                    entryTypeData.food.push(parseFloat(entry.degree));
+                    break;
+                  }
+                }
+              }
+    });
 
-    let activityData = this.logEntrys
-      .filter(entry => entry.logEntryType.name.toLowerCase() === "workout")
-      .map(entry => entry.degree);
-
-    let foodData = this.logEntrys
-      .filter(entry => entry.logEntryType.category && entry.logEntryType.category.name.toLowerCase() === "food")
-      .map(entry => entry.degree);
-
-      console.log(this.logEntrys); // Log all entries to see their structure
-      console.log(foodData);
-
-    let labels = this.logEntrys.map((entry) => entry.entryDate);
+    let labels = Array.from(groupedData.keys());
+    let sleepData = labels.map(date => this.average(groupedData.get(date)?.sleep || []));
+    let painData = labels.map(date => this.average(groupedData.get(date)?.pain || []));
+    let activityData = labels.map(date => this.average(groupedData.get(date)?.activity || []));
+    let foodData = labels.map(date => this.average(groupedData.get(date)?.food || []));
 
     this.chart.data.labels = labels;
     this.chart.data.datasets[0].data = sleepData;
@@ -146,7 +175,14 @@ export class DailyLogComponent implements OnInit{
     this.chart.data.datasets[3].data = foodData;
 
     this.chart.update();
+}
+
+  average(arr: number[]): number {
+      if (arr.length === 0) return 0;
+      let sum = arr.reduce((acc, val) => acc + val, 0);
+      return sum / arr.length;
   }
+
 
   resetNewEntry() {
     this.newLogEntry = new LogEntry();
@@ -230,7 +266,7 @@ export class DailyLogComponent implements OnInit{
       console.log(this.units);
       console.log(newLogEntry);
       console.log(newLogEntry.description);
-      // for (const key in newLogEntry) {
+      // for (let key in newLogEntry) {
       //     console.log("[" + key + "]: " + newLogEntry[key]);
       // }
 
