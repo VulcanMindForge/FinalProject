@@ -43,6 +43,7 @@ export class DailyLogComponent implements OnInit{
   logEntryType: LogEntryType = new LogEntryType();
   datePipe: DatePipe = new DatePipe("en-US");
   public chart: any;
+  degree: string="Quality";
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private LogEntryServ: LogEntryService, private logEntryTypeServ: LogEntryTypeService,
     private categoryServ: CategoryService, private unitServ: UnitService){}
@@ -53,6 +54,7 @@ export class DailyLogComponent implements OnInit{
     this.loadCategories();
     this.loadUnits();
     this.createChart();
+
     this.activatedRoute.paramMap.subscribe(
       {
         next: (params) => {
@@ -275,6 +277,7 @@ export class DailyLogComponent implements OnInit{
           next: (createdLogEntry: LogEntry) => {
             this.logEntrys.push(createdLogEntry);
             this.loadLogEntrys();
+            this.selected=createdLogEntry;
             this.newUnit=new Unit();
             this.category=new Category();
             this.logEntryType =new LogEntryType();
@@ -320,5 +323,19 @@ export class DailyLogComponent implements OnInit{
         }
       }
     );
+  }
+
+  setDegree(categoryName: string){
+    console.log(categoryName);
+    if(categoryName === "Food"){this.degree="Quality"} else
+    if(categoryName === "Workout"){this.degree="Intensity"} else
+    if(categoryName === "Sleep"){this.degree="Quality"} else
+    if(categoryName === "Pain"){this.degree="Pain Level"} else
+    if(categoryName === "Medication"){this.degree="Times/day"} else
+    if(categoryName === "Suppliment"){this.degree="Times/day"}
+  }
+
+  selectCreate(){
+    this.router.navigateByUrl('dailyLog')
   }
 }

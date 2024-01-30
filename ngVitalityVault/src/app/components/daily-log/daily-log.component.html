@@ -20,7 +20,7 @@
     <form>
       <div class="input-group mb-3">
         <span class="input-group-text">Category:</span>
-        <select class="form-control" name="category" [(ngModel)]="category.id">
+        <select class="form-control" name="category" [(ngModel)]="category.id" #mySelect (change)="setDegree(mySelect.value)">
           <option *ngFor="let category of categories">
             {{ category.name }}
           </option>
@@ -53,7 +53,7 @@
       </div>
 
         <div class="input-group mb-3">
-          <span class="input-group-text">Degree:</span>
+          <span class="input-group-text">{{degree}}:</span>
           <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="newLogEntry.degree"
             placeholder="Measure between 1 and 10" />
         </div>
@@ -67,12 +67,12 @@
           </select>
         </div>
         <div class="input-group mb-3">
-          <button class="btn btn-outline-dark btn-light" (click)="addLogEntry(newLogEntry)">
-            Submit Changes
+          <button class="btn btn-outline-dark btn-light m-1" (click)="addLogEntry(newLogEntry)">
+            Create Log
           </button>
-          <button class="btn btn-outline-danger btn-light" (click)="resetNewEntry()">
-            Cancel Changes
-          </button>
+          <a href="#/profile" class="btn btn-outline-danger btn-light m-1" (click)="resetNewEntry()">
+          Return to Profile
+        </a>
         </div>
     </form>
   </div>
@@ -95,7 +95,7 @@
     <a class="btn btn-outline-danger btn-light" href="#/profile">
       Return
     </a>
-    <button class="btn btn-outline-success btn-light" (click)="selected=null">
+    <button class="btn btn-outline-success btn-light" (click)="selectCreate()">
       Create
     </button>
   </div>
@@ -106,7 +106,7 @@
     <form>
       <div class="input-group mb-3">
         <span class="input-group-text">Category:</span>
-        <select class="form-control" name="category" [(ngModel)]="category.id">
+        <select class="form-control" name="category" [(ngModel)]="category.id" #mySelect (change)="setDegree(mySelect.value)">
           <option *ngFor="let category of categories">
             {{ category.name }}
           </option>
@@ -139,7 +139,7 @@
       </div><br>
 
         <div class="input-group mb-3">
-          <span class="input-group-text">Degree:</span>
+          <span class="input-group-text">{{degree}}:</span>
           <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="editLogEntry.degree"
             placeholder="Measure between 1 and 10" />
         </div>
@@ -163,3 +163,5 @@
     </form>
   </div>
 </div>
+<br>
+<br>
