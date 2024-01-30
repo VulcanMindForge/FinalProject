@@ -1,5 +1,6 @@
 package com.skilldistillery.vitalityvault.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,9 @@ public class Trial {
 	@Column(name="last_update")
 	private LocalDateTime lastUpdate;
 	@Column(name="start_date")
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	@Column(name="end_date")
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 	private String title;
 	private Boolean published;
 	@ManyToOne
@@ -68,16 +69,16 @@ public class Trial {
 	public void setLastUpdate(LocalDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public LocalDateTime getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	public String getTitle() {
