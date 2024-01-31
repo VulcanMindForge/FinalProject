@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +29,8 @@ public class TrialComment {
 	private int id;
 
 	private String content;
-
+	
+	@UpdateTimestamp
 	@Column(name = "content_date")
 	private LocalDateTime contentDate;
 
@@ -34,7 +38,7 @@ public class TrialComment {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@ManyToMany(mappedBy = "comments")
+	@ManyToMany(mappedBy = "comments", cascade = CascadeType.PERSIST)
 	@JsonIgnore
 	private List<Trial> trials;
 

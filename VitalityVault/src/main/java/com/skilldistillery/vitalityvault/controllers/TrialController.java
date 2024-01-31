@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.vitalityvault.entities.Trial;
+import com.skilldistillery.vitalityvault.entities.TrialComment;
+import com.skilldistillery.vitalityvault.services.TrialCommentService;
 import com.skilldistillery.vitalityvault.services.TrialService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,10 +30,14 @@ public class TrialController {
 	@Autowired
 	TrialService trialServ;
 	
+	@Autowired
+	TrialCommentService trialComServ;
+	
 	@GetMapping("trials/published")
 	List<Trial> indexPublished(HttpServletRequest req, HttpServletResponse res) {
 		return trialServ.findPublishedTrials();
 	}
+	
 	
 	@GetMapping("trials")
 	List<Trial> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
@@ -92,5 +98,20 @@ public class TrialController {
 		} catch (Exception e) {
 			res.setStatus(400);
 		}
+	}
+	
+	@PostMapping("trials/published/{trialId}")
+	public TrialComment createComment(HttpServletRequest req, HttpServletResponse res, @RequestBody TrialComment trialComment,
+			Principal principal, @PathVariable("trialId") int id) {
+		try {
+			TrialComment addedComment = trialComServ.create(principal.getName(), trialComment, id);
+			res.setStatus(201);
+			res.setHeader("Location", req.getRequestURL().append(addedComment.getId()).toString());
+			return addedComment;
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+		return trialComment;
 	}
 }
