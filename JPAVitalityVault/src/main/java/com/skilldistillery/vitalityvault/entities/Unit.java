@@ -36,12 +36,12 @@ public class Unit {
 	public void setLogEntrys(List<LogEntry> logEntrys) {
 		this.logEntrys = logEntrys;
 	}
-	
+
 	public void addLogEntry(LogEntry logEntry) {
 		if (logEntrys == null) {
 			logEntrys = new ArrayList<>();
 		}
-		
+
 		if (!logEntrys.contains(logEntry)) {
 			logEntrys.add(logEntry);
 			if (logEntry.getLogEntryType() != null) {

@@ -1,5 +1,6 @@
 package com.skilldistillery.vitalityvault.services;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class TrialServiceImpl implements TrialService {
 		if (exisitingTrial != null) {
 			exisitingTrial.setPurpose(trial.getPurpose());
 			exisitingTrial.setTitle(trial.getTitle());
-			exisitingTrial.setLogEntryTypes(trial.getLogEntryTypes());
+			exisitingTrial.setLogEntryTypes(trial.getTrialComments());
 			exisitingTrial.setPublished(trial.getPublished());
 			exisitingTrial.setStartDate(trial.getStartDate());
 			exisitingTrial.setEndDate(trial.getEndDate());
@@ -60,6 +61,11 @@ public class TrialServiceImpl implements TrialService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Trial> findPublishedTrials() {
+		return trialRepo.findByPublishedTrue();
 	}
 
 }

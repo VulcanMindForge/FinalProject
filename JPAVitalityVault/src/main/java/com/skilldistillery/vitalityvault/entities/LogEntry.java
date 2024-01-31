@@ -1,10 +1,12 @@
 package com.skilldistillery.vitalityvault.entities;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,9 +25,11 @@ public class LogEntry {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@CreationTimestamp
 	@Column(name = "create_date")
 	private LocalDateTime createDate;
 
+	@UpdateTimestamp
 	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
 
@@ -84,6 +88,7 @@ public class LogEntry {
 	public void setDegree(Integer degree) {
 		this.degree = degree;
 	}
+
 	public Integer getDegree() {
 		return degree;
 	}

@@ -33,7 +33,7 @@ class LogEntryTypeTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		logEntryType=em.find(LogEntryType.class, 1);
+		logEntryType = em.find(LogEntryType.class, 1);
 	}
 
 	@AfterEach
@@ -47,29 +47,17 @@ class LogEntryTypeTest {
 		assertNotNull(logEntryType);
 		assertEquals("Oatmeal", logEntryType.getName());
 	}
-	
+
 	@Test
 	void test_logEntryType_Category_ManyToOne() {
 		assertNotNull(logEntryType.getCategory());
 		assertEquals("Food", logEntryType.getCategory().getName());
 	}
-	
+
 	@Test
 	void test_logEntryType_logEntry_OneToMany() {
 		assertNotNull(logEntryType.getLogEntrys());
 		assertTrue(logEntryType.getLogEntrys().size() > 0);
 	}
-	@Test
-	void test_logEntryType_logEntryTypeComment_OneToMany() {
-		assertNotNull(logEntryType.getLogEntryTypeComments());
-		assertTrue(logEntryType.getLogEntryTypeComments().size() > 0);
-	}
 
-	@Test
-	void test_LogEntryType_trials_ManyToMany() {
-		assertNotNull(logEntryType.getTrials());
-		assertTrue(logEntryType.getTrials().size()>0);
-	}
-	
-	
 }

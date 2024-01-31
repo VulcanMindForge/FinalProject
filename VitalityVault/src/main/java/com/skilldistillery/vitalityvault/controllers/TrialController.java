@@ -1,6 +1,7 @@
 package com.skilldistillery.vitalityvault.controllers;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,12 @@ public class TrialController {
 
 	@Autowired
 	TrialService trialServ;
-
+	
+	@GetMapping("trials/published")
+	List<Trial> indexPublished(HttpServletRequest req, HttpServletResponse res) {
+		return trialServ.findPublishedTrials();
+	}
+	
 	@GetMapping("trials")
 	Set<Trial> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		return trialServ.index(principal.getName());

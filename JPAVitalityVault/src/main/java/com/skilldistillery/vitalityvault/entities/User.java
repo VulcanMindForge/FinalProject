@@ -36,18 +36,18 @@ public class User {
 	@Column(name = "image_url")
 	private String imageUrl;
 	private String email;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<LogEntry> logEntrys;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Trial> trials;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
-	private List<LogEntryTypeComment> comments;
+	private List<TrialComment> comments;
 
 	public User() {
 		super();
@@ -119,31 +119,32 @@ public class User {
 		}
 	}
 
-	public List<LogEntryTypeComment> getComments() {
+	public List<TrialComment> getComments() {
 		return comments;
 	}
-	public void addLogEntryTypeComment(LogEntryTypeComment comment) {
+
+	public void addTrialComment(TrialComment comment) {
 		if (comments == null) {
 			comments = new ArrayList<>();
 		}
 		if (!comments.contains(comment)) {
 			comments.add(comment);
 			if (comment.getUser() != null) {
-				comment.getUser().removeLogEntryTypeComment(comment);
+				comment.getUser().removeTrialComment(comment);
 			}
 			comment.setUser(this);
 		}
-		
+
 	}
-	
-	public void removeLogEntryTypeComment(LogEntryTypeComment comment) {
+
+	public void removeTrialComment(TrialComment comment) {
 		if (comments != null && comments.contains(comment)) {
 			comments.remove(comment);
 			comment.setUser(null);
 		}
 	}
 
-	public void setComments(List<LogEntryTypeComment> comments) {
+	public void setComments(List<TrialComment> comments) {
 		this.comments = comments;
 	}
 

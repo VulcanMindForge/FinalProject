@@ -2,6 +2,7 @@ package com.skilldistillery.vitalityvault.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +18,7 @@ class LogEntryTypeCommentTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private LogEntryTypeComment logEntryTypeComment;
+	private TrialComment trialComment;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -32,29 +33,31 @@ class LogEntryTypeCommentTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		logEntryTypeComment=em.find(LogEntryTypeComment.class, 1);
+		trialComment = em.find(TrialComment.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		logEntryTypeComment = null;
+		trialComment = null;
 	}
 
 	@Test
 	void test_LogEntryTypeComment_entity_mapping() {
-		assertNotNull(logEntryTypeComment);
-		assertEquals("Was good", logEntryTypeComment.getContent());
+		assertNotNull(trialComment);
+		assertEquals("Was good", trialComment.getContent());
 	}
+
 	@Test
 	void test_LogEntryTypeComment_User_ManyToOne() {
-		assertNotNull(logEntryTypeComment.getUser());
-		assertEquals("admin", logEntryTypeComment.getUser().getFirstName());
+		assertNotNull(trialComment.getUser());
+		assertEquals("admin", trialComment.getUser().getFirstName());
 	}
+
 	@Test
 	void test_LogEntryTypeComment_logEntryType_ManyToOne() {
-		assertNotNull(logEntryTypeComment.getLogEntryType());
-		assertEquals("Oatmeal", logEntryTypeComment.getLogEntryType().getName());
+		assertNotNull(trialComment.getTrials());
+		assertTrue(trialComment.getTrials().size() > 0);
 	}
 
 }

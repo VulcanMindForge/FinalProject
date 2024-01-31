@@ -15,7 +15,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 class TrialTest {
-	
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private Trial trial;
@@ -33,7 +33,7 @@ class TrialTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		trial=em.find(Trial.class, 1);
+		trial = em.find(Trial.class, 1);
 	}
 
 	@AfterEach
@@ -47,7 +47,6 @@ class TrialTest {
 		assertNotNull(trial);
 		assertEquals("TEST", trial.getTitle());
 	}
-	
 
 	@Test
 	void test_Trial_User_ManyToOne() {
@@ -57,11 +56,8 @@ class TrialTest {
 
 	@Test
 	void test_Trial_LogEntryType_ManyToMany() {
-		assertNotNull(trial.getLogEntryTypes());
-		assertTrue(trial.getLogEntryTypes().size()>0);
+		assertNotNull(trial.getTrialComments());
+		assertTrue(trial.getTrialComments().size() > 0);
 	}
-	
-	
-
 
 }

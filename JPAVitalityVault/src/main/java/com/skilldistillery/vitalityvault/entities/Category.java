@@ -15,13 +15,12 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Category {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	@OneToMany(mappedBy = "category")
 	@JsonIgnore
 	private List<LogEntryType> logEntryTypes;
@@ -29,14 +28,10 @@ public class Category {
 	public Category() {
 		super();
 	}
-	
-	
 
 	public List<LogEntryType> getLogEntryTypes() {
 		return logEntryTypes;
 	}
-
-
 
 	public void setLogEntryTypes(List<LogEntryType> logEntryType) {
 		this.logEntryTypes = logEntryType;
@@ -46,7 +41,7 @@ public class Category {
 		if (logEntryTypes == null) {
 			logEntryTypes = new ArrayList<>();
 		}
-		
+
 		if (!logEntryTypes.contains(logEntryType)) {
 			logEntryTypes.add(logEntryType);
 			if (logEntryType.getCategory() != null) {
@@ -62,7 +57,6 @@ public class Category {
 			logEntryType.setCategory(null);
 		}
 	}
-	
 
 	public int getId() {
 		return id;
@@ -79,7 +73,6 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	@Override
 	public int hashCode() {

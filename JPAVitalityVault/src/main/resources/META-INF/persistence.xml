@@ -7,7 +7,7 @@
 	<class>com.skilldistillery.vitalityvault.entities.Category</class>
 	<class>com.skilldistillery.vitalityvault.entities.LogEntry</class>
 	<class>com.skilldistillery.vitalityvault.entities.LogEntryType</class>
-	<class>com.skilldistillery.vitalityvault.entities.LogEntryTypeComment</class>
+	<class>com.skilldistillery.vitalityvault.entities.TrialComment</class>
 	<class>com.skilldistillery.vitalityvault.entities.Trial</class>
 	<class>com.skilldistillery.vitalityvault.entities.Unit</class>
 	<class>com.skilldistillery.vitalityvault.entities.User</class>

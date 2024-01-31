@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.skilldistillery.vitalityvault.entities.LogEntryTypeComment;
+import com.skilldistillery.vitalityvault.entities.TrialComment;
 
-public interface LogEntryTypeCommentRepository extends JpaRepository<LogEntryTypeComment, Integer> {
-	List<LogEntryTypeComment> findByUser_Username(String username);
+public interface TrialCommentRepository extends JpaRepository<TrialComment, Integer> {
+	List<TrialComment> findByUser_Username(String username);
 
-	LogEntryTypeComment findByUser_UsernameAndId(String username, int trialId);
+	TrialComment findByUser_UsernameAndId(String username, int trialId);
 
 }

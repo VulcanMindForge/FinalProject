@@ -1,6 +1,8 @@
 package com.skilldistillery.vitalityvault.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -9,29 +11,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="log_entry_type_comment")
-public class LogEntryTypeComment {
-	
+@Table(name = "trial_comment")
+public class TrialComment {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String content;
-	
-	@Column(name="content_date")
+
+	@Column(name = "content_date")
 	private LocalDateTime contentDate;
-	
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name="log_entry_type_id")
-	private LogEntryType logEntryType;
+
+	@ManyToMany(mappedBy = "comments")
+	private List<Trial> trials;
 
 	public int getId() {
 		return id;
@@ -65,12 +67,29 @@ public class LogEntryTypeComment {
 		this.user = user;
 	}
 
-	public LogEntryType getLogEntryType() {
-		return logEntryType;
+	public List<Trial> getTrials() {
+		return trials;
 	}
 
-	public void setLogEntryType(LogEntryType logEntryType) {
-		this.logEntryType = logEntryType;
+	public void setTrials(List<Trial> trials) {
+		this.trials = trials;
+	}
+
+	public void addTrial(Trial trial) {
+		if (trials == null) {
+			trials = new ArrayList<>();
+		}
+		if (!trials.contains(trial)) {
+			trials.add(trial);
+			trial.addTrialComment(this);
+		}
+	}
+
+	public void removeTrial(Trial trial) {
+		if (trials != null && trials.contains(trial)) {
+			trials.remove(trial);
+			trial.removeTrialComment(null);
+		}
 	}
 
 	@Override
@@ -86,7 +105,7 @@ public class LogEntryTypeComment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LogEntryTypeComment other = (LogEntryTypeComment) obj;
+		TrialComment other = (TrialComment) obj;
 		return id == other.id;
 	}
 
@@ -95,7 +114,7 @@ public class LogEntryTypeComment {
 		return "LogEntryTypeComment [id=" + id + ", content=" + content + ", contentDate=" + contentDate + "]";
 	}
 
-	public LogEntryTypeComment() {
+	public TrialComment() {
 		super();
 	}
 

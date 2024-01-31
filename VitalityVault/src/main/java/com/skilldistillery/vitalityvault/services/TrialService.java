@@ -1,5 +1,6 @@
 package com.skilldistillery.vitalityvault.services;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -13,4 +14,5 @@ public interface TrialService {
 	public Trial create(String username, Trial trial);
 	public Trial update(String username, int trialId, Trial trial);
 	public boolean destroy(String username, int trialId);
+	List<Trial> findPublishedTrials();
 }

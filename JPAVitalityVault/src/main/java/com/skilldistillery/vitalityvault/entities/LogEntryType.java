@@ -6,45 +6,34 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="log_entry_type")
+@Table(name = "log_entry_type")
 public class LogEntryType {
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String description;
-	
+
 	@ManyToOne
-	@JoinColumn(name="category_id")
+	@JoinColumn(name = "category_id")
 	private Category category;
-	
+
 	@OneToMany(mappedBy = "logEntryType")
 	@JsonIgnore
 	private List<LogEntry> logEntrys;
-	
-	@OneToMany(mappedBy = "logEntryType")
-	@JsonIgnore
-	private List<LogEntryTypeComment> logEntryTypeComments;
-	
-	@ManyToMany(mappedBy = "logEntryTypes")
-	@JsonIgnore
-	private List<Trial> trials;
 
 	public LogEntryType() {
 		super();
@@ -57,7 +46,7 @@ public class LogEntryType {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
 	public List<LogEntry> getLogEntrys() {
 		return logEntrys;
 	}
@@ -70,7 +59,7 @@ public class LogEntryType {
 		if (logEntrys == null) {
 			logEntrys = new ArrayList<>();
 		}
-		
+
 		if (!logEntrys.contains(logEntry)) {
 			logEntrys.add(logEntry);
 			if (logEntry.getLogEntryType() != null) {
@@ -84,34 +73,6 @@ public class LogEntryType {
 		if (logEntrys != null && logEntrys.contains(logEntry)) {
 			logEntrys.remove(logEntry);
 			logEntry.setLogEntryType(null);
-		}
-	}
-
-	public List<LogEntryTypeComment> getLogEntryTypeComments() {
-		return logEntryTypeComments;
-	}
-
-	public void setLogEntryTypeComments(List<LogEntryTypeComment> logEntryTypeComments) {
-		this.logEntryTypeComments = logEntryTypeComments;
-	}
-	public void addLogEntryTypeComment(LogEntryTypeComment logEntryTypeComment) {
-		if (logEntryTypeComments == null) {
-			logEntryTypeComments = new ArrayList<>();
-		}
-		
-		if (!logEntryTypeComments.contains(logEntryTypeComment)) {
-			logEntryTypeComments.add(logEntryTypeComment);
-			if (logEntryTypeComment.getLogEntryType() != null) {
-				logEntryTypeComment.getLogEntryType().removeLogEntryTypeComment(logEntryTypeComment);
-			}
-			logEntryTypeComment.setLogEntryType(this);
-		}
-	}
-	
-	public void removeLogEntryTypeComment(LogEntryTypeComment logEntryTypeComment) {
-		if (logEntryTypeComments != null && logEntryTypeComments.contains(logEntryTypeComment)) {
-			logEntryTypeComments.remove(logEntryTypeComment);
-			logEntryTypeComment.setLogEntryType(null);
 		}
 	}
 
@@ -139,34 +100,6 @@ public class LogEntryType {
 		this.description = description;
 	}
 
-
-	public List<Trial> getTrials() {
-		return trials;
-	}
-
-	public void setTrials(List<Trial> trials) {
-		this.trials = trials;
-	}
-
-	public void addTrial(Trial trial) {
-		if (trials == null) {
-			trials = new ArrayList<>();
-		}
-		if (!trials.contains(trial)) {
-			trials.add(trial);
-			trial.addLogEntryType(this);
-		}
-	}
-
-	public void removeTrial(Trial trial) {
-		if (trials != null && trials.contains(trial)) {
-			trials.remove(trial);
-			trial.removeLogEntryType(null);
-		}
-	}
-	
-	
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -186,9 +119,7 @@ public class LogEntryType {
 
 	@Override
 	public String toString() {
-		return "LogEntryType [id=" + id + ", name=" + name + ", description=" + description
-				+ "]";
+		return "LogEntryType [id=" + id + ", name=" + name + ", description=" + description + "]";
 	}
-
 
 }

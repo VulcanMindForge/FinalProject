@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,35 +21,42 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Trial {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name="create_date")
+
+	@CreationTimestamp
+	@Column(name = "create_date")
 	private LocalDateTime createDate;
 	private String purpose;
-	@Column(name="last_update")
+
+	@UpdateTimestamp
+	@Column(name = "last_update")
 	private LocalDateTime lastUpdate;
-	@Column(name="start_date")
+
+	@Column(name = "start_date")
 	private LocalDate startDate;
-	@Column(name="end_date")
+	@Column(name = "end_date")
 	private LocalDate endDate;
 	private String title;
 	private Boolean published;
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@ManyToMany
-	@JoinTable(name = "trial_has_log_entry_type", joinColumns = @JoinColumn(name = "trial_id"), inverseJoinColumns = @JoinColumn(name = "log_entry_type_id"))
-	private List<LogEntryType> logEntryTypes;
-	
+	@JoinTable(name = "trial_has_trial_comment", joinColumns = @JoinColumn(name = "trial_id"), inverseJoinColumns = @JoinColumn(name = "trial_comment_id"))
+	private List<TrialComment> comments;
+
 	public Trial() {
 		super();
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -54,42 +64,55 @@ public class Trial {
 	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
+
 	public void setCreateDate(LocalDateTime createDate) {
 		this.createDate = createDate;
 	}
+
 	public String getPurpose() {
 		return purpose;
 	}
+
 	public void setPurpose(String purpose) {
 		this.purpose = purpose;
 	}
+
 	public LocalDateTime getLastUpdate() {
 		return lastUpdate;
 	}
+
 	public void setLastUpdate(LocalDateTime lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
+
 	public LocalDate getStartDate() {
 		return startDate;
 	}
+
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+
 	public LocalDate getEndDate() {
 		return endDate;
 	}
+
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public Boolean getPublished() {
 		return published;
 	}
+
 	public void setPublished(Boolean published) {
 		this.published = published;
 	}
@@ -102,34 +125,36 @@ public class Trial {
 		this.user = user;
 	}
 
-	public List<LogEntryType> getLogEntryTypes() {
-		return logEntryTypes;
+	public List<TrialComment> getTrialComments() {
+		return comments;
 	}
-	public void setLogEntryTypes(List<LogEntryType> logEntryTypes) {
-		this.logEntryTypes = logEntryTypes;
+
+	public void setLogEntryTypes(List<TrialComment> comments) {
+		this.comments = comments;
 	}
-	
-	public void addLogEntryType(LogEntryType logEntryType) {
-		if (logEntryTypes == null) {
-			logEntryTypes = new ArrayList<>();
+
+	public void addTrialComment(TrialComment comment) {
+		if (comments == null) {
+			comments = new ArrayList<>();
 		}
-		if (!logEntryTypes.contains(logEntryType)) {
-			logEntryTypes.add(logEntryType);
-			logEntryType.addTrial(this);
+		if (!comments.contains(comment)) {
+			comments.add(comment);
+			comment.addTrial(this);
 		}
 	}
 
-	public void removeLogEntryType(LogEntryType logEntryType) {
-		if (logEntryTypes != null && logEntryTypes.contains(logEntryType)) {
-			logEntryTypes.remove(logEntryType);
-			logEntryType.removeTrial(null);
+	public void removeTrialComment(TrialComment comment) {
+		if (comments != null && comments.contains(comment)) {
+			comments.remove(comment);
+			comment.removeTrial(null);
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -141,12 +166,12 @@ public class Trial {
 		Trial other = (Trial) obj;
 		return id == other.id;
 	}
+
 	@Override
 	public String toString() {
 		return "Trial [id=" + id + ", createDate=" + createDate + ", purpose=" + purpose + ", lastUpdate=" + lastUpdate
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", title=" + title + ", published=" + published
 				+ "]";
 	}
-	
-	
+
 }
