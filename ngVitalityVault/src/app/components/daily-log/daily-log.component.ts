@@ -15,6 +15,8 @@ import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map }
 import { LogEntryTypeService } from '../../services/logentrytype.service';
 import { LogEntryTypeComponent } from "../log-entry-type/log-entry-type.component";
 import { NgChartsModule } from 'ng2-charts';
+import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-daily-log',
@@ -105,6 +107,12 @@ export class DailyLogComponent implements OnInit {
   }
 
   createChart() {
+    let today = new Date();
+    today.setHours(0,0,0,0)
+
+    let endDate = new Date(today);
+    let startDate = dayjs(endDate).subtract(30, 'day');
+
     this.chart = new Chart("MyChart", {
       type: 'line',
       data: {
@@ -121,6 +129,20 @@ export class DailyLogComponent implements OnInit {
         onClick: (event: any, chartElements: any[]) => {
           this.handleChartClick(event, chartElements);
         },
+        scales: {
+          x: {
+              type: 'time',
+              time: {
+                  unit: 'day'
+              },
+              min: startDate.toDate().getTime(),
+              max: endDate.toDateString()
+          },
+          y: {
+            min: 0,
+            max:10
+        }
+      }
       }
     });
   }
