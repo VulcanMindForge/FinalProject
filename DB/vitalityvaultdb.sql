@@ -318,3 +318,15 @@ INSERT INTO `trial_comment` (`id`, `content`, `content_date`, `user_id`) VALUES 
 
 COMMIT;
 
+
+-- -----------------------------------------------------
+-- Data for table `trial_has_trial_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vitalityvaultdb`;
+INSERT INTO `trial_has_trial_comment` (`trial_id`, `trial_comment_id`) VALUES (1, 1);
+INSERT INTO `trial_has_trial_comment` (`trial_id`, `trial_comment_id`) VALUES (2, 2);
+INSERT INTO `trial_has_trial_comment` (`trial_id`, `trial_comment_id`) VALUES (3, 3);
+
+COMMIT;
+
