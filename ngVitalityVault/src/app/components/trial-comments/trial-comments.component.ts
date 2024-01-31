@@ -10,7 +10,6 @@ import { LogEntryService } from '../../services/logentry.service';
 import { TrialComment } from '../../models/trial-comment.model';
 import { AuthService } from '../../services/auth.service';
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
-import dayjs from 'dayjs';
 import { TrialCommentService } from '../../services/trial-comment.service';
 
 @Component({
