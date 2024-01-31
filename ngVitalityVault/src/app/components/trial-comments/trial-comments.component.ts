@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Trial } from '../../models/trial';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,16 +24,16 @@ import { TrialCommentService } from '../../services/trial-comment.service';
   standalone: true,
   imports: [FormsModule, CommonModule, NgChartsModule],
   templateUrl: './trial-comments.component.html',
-  styleUrl: './trial-comments.component.css'
+  styleUrl: './trial-comments.component.css',
 })
 export class TrialCommentsComponent implements OnInit, AfterViewInit {
-
-  newComment = new TrialComment;
-  publishedTrials: Trial [] = [];
+  newComment = new TrialComment();
+  commentList: TrialComment[] = [];
+  publishedTrials: Trial[] = [];
   chart: any;
-  logEntries: LogEntry [] = [];
+  logEntries: LogEntry[] = [];
   expandedTrialId: number | null = null;
-  selectedTrial = new Trial;
+  selectedTrial = new Trial();
   @ViewChild('chartCanvas') chartCanvas: ElementRef | undefined;
 
   constructor(
@@ -55,8 +62,11 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
         this.publishedTrials = trialList;
       },
       error: (problem: any) => {
-        console.error('LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys', problem);
-      }
+        console.error(
+          'LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys',
+          problem
+        );
+      },
     });
   }
 
@@ -66,13 +76,18 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
         this.logEntries = logEntryList;
       },
       error: (problem: any) => {
-        console.error('LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys', problem);
-      }
+        console.error(
+          'LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys',
+          problem
+        );
+      },
     });
   }
 
   toggleExpansion(trialId: number): void {
-    let newSelectedTrial = this.publishedTrials.find((trial) => trial.id === trialId);
+    let newSelectedTrial = this.publishedTrials.find(
+      (trial) => trial.id === trialId
+    );
 
     if (newSelectedTrial) {
       this.expandedTrialId = trialId;
@@ -83,6 +98,8 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
       } else {
         // If a different trial is clicked, update the chart
         this.selectedTrial = newSelectedTrial;
+
+        this.orderComments(newSelectedTrial.trialComments);
 
         this.destroyChart();
         setTimeout(() => {
@@ -100,9 +117,7 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   createChart(trialId: number): void {
-
     if (this.chartCanvas) {
       const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
 
@@ -136,28 +151,38 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
         }
         },
       });
-
     } else {
       setTimeout(() => this.createChart(trialId), 50);
     }
   }
 
   updateChart(selectedTrial: Trial | undefined): void {
-    if (!selectedTrial || !selectedTrial.startDate || !selectedTrial.endDate || selectedTrial === undefined) {
+    if (
+      !selectedTrial ||
+      !selectedTrial.startDate ||
+      !selectedTrial.endDate ||
+      selectedTrial === undefined
+    ) {
       console.error('Invalid selectedTrial:', selectedTrial);
       return;
     }
 
-    let groupedData = new Map<string, { sleep: number[], pain: number[], activity: number[], food: number[] }>();
+    let groupedData = new Map<
+      string,
+      { sleep: number[]; pain: number[]; activity: number[]; food: number[] }
+    >();
 
     // Filter log entries based on the selected trial's start and end dates
-    let filteredLogEntries = this.logEntries.filter(entry => {
-      return entry.entryDate >= selectedTrial.startDate && entry.entryDate <= selectedTrial.endDate;
+    let filteredLogEntries = this.logEntries.filter((entry) => {
+      return (
+        entry.entryDate >= selectedTrial.startDate &&
+        entry.entryDate <= selectedTrial.endDate
+      );
     });
 
     console.log(filteredLogEntries);
 
-    filteredLogEntries.forEach(entry => {
+    filteredLogEntries.forEach((entry) => {
       if (entry.entryDate) {
         let key = entry.entryDate.toString();
         if (!groupedData.has(key)) {
@@ -167,16 +192,16 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
         let entryTypeData = groupedData.get(key);
         if (entryTypeData) {
           switch (entry.logEntryType.category?.name.toLowerCase()) {
-            case "sleep":
+            case 'sleep':
               entryTypeData.sleep.push(parseFloat(entry.degree));
               break;
-            case "pain":
+            case 'pain':
               entryTypeData.pain.push(parseFloat(entry.degree));
               break;
-            case "workout":
+            case 'workout':
               entryTypeData.activity.push(parseFloat(entry.degree));
               break;
-            case "food":
+            case 'food':
               entryTypeData.food.push(parseFloat(entry.degree));
               break;
           }
@@ -185,10 +210,18 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
     });
 
     let labels = Array.from(groupedData.keys());
-    let sleepData = labels.map(date => this.average(groupedData.get(date)?.sleep || []));
-    let painData = labels.map(date => this.average(groupedData.get(date)?.pain || []));
-    let activityData = labels.map(date => this.average(groupedData.get(date)?.activity || []));
-    let foodData = labels.map(date => this.average(groupedData.get(date)?.food || []));
+    let sleepData = labels.map((date) =>
+      this.average(groupedData.get(date)?.sleep || [])
+    );
+    let painData = labels.map((date) =>
+      this.average(groupedData.get(date)?.pain || [])
+    );
+    let activityData = labels.map((date) =>
+      this.average(groupedData.get(date)?.activity || [])
+    );
+    let foodData = labels.map((date) =>
+      this.average(groupedData.get(date)?.food || [])
+    );
 
     this.chart.data.labels = labels;
     this.chart.data.datasets[0].data = sleepData;
@@ -196,7 +229,6 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
     this.chart.data.datasets[2].data = activityData;
     this.chart.data.datasets[3].data = foodData;
     this.chart.update();
-
   }
 
   average(arr: number[]): number {
@@ -205,17 +237,22 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
     return sum / arr.length;
   }
 
-
-
   addComment() {
-    this.trialComServ.create(this.newComment, this.selectedTrial.id).subscribe ({
-      next:(comment) => {
+    this.trialComServ.create(this.newComment, this.selectedTrial.id).subscribe({
+      next: (comment) => {
         this.selectedTrial.trialComments.push(comment);
-        this.newComment = new TrialComment;
+        this.newComment = new TrialComment();
       },
-      error:() => {
-        console.error('issue with adding comment in trial comment component')
-      }
-    })
+      error: () => {
+        console.error('issue with adding comment in trial comment component');
+      },
+    });
   }
+
+  orderComments(trialComments: TrialComment[]) {
+    this.commentList = trialComments;
+    this.commentList.sort((a, b) => a.contentDate.localeCompare(b.contentDate));
+  }
+
+
 }

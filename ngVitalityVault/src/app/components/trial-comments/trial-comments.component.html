@@ -23,18 +23,24 @@
 
     <!-- Comment Section -->
     <div class="comment-section">
-      <ul>
-        <li *ngFor="let comment of trial.trialComments">{{comment.user?.username}}:
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let comment of commentList">
+          <div class="fw-bold">
+            {{comment.user?.username}}:
+          </div>
           <p>{{comment.content}}</p>
         </li>
       </ul>
 
-      <div>
-        <form (ngSubmit)="addComment()">
-          <textarea id="content" name="content" [(ngModel)]="newComment.content" required></textarea>
-          <button type="submit">Add Comment</button>
+      <div >
+        <form class=" input-group" (ngSubmit)="addComment()">
+          <textarea class="form-control" id="content" name="content" [(ngModel)]="newComment.content" required></textarea>
+          <button class="btn btn-outline-dark" type="submit">Add Comment</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+<br>
+<br>
