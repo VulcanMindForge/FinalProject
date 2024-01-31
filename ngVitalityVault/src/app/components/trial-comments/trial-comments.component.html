@@ -23,7 +23,13 @@
 
     <!-- Comment Section -->
     <div class="comment-section">
-      <!-- Include your comment input and display logic here -->
+      <ul>
+        <li *ngFor="let comment of trial.trialComments">{{comment.user?.username}}:
+          <p>
+            {{comment.content}}
+          </p>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

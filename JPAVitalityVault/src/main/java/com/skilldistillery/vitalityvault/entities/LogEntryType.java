@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,8 +36,19 @@ public class LogEntryType {
 	@JsonIgnore
 	private List<LogEntry> logEntrys;
 
+	@OneToOne(mappedBy = "logEntryType")
+	private Trial trial;
+
 	public LogEntryType() {
 		super();
+	}
+
+	public Trial getTrial() {
+		return trial;
+	}
+
+	public void setTrial(Trial trial) {
+		this.trial = trial;
 	}
 
 	public Category getCategory() {

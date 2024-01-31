@@ -18,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Trial {
@@ -49,8 +50,28 @@ public class Trial {
 	@JoinTable(name = "trial_has_trial_comment", joinColumns = @JoinColumn(name = "trial_id"), inverseJoinColumns = @JoinColumn(name = "trial_comment_id"))
 	private List<TrialComment> comments;
 
+	@OneToOne
+	@JoinColumn(name = "log_entry_type_id")
+	private LogEntryType logEntryType;
+
 	public Trial() {
 		super();
+	}
+
+	public List<TrialComment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<TrialComment> comments) {
+		this.comments = comments;
+	}
+
+	public LogEntryType getLogEntryType() {
+		return logEntryType;
+	}
+
+	public void setLogEntryType(LogEntryType logEntryType) {
+		this.logEntryType = logEntryType;
 	}
 
 	public int getId() {
