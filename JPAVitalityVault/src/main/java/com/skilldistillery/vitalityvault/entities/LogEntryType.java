@@ -37,6 +37,7 @@ public class LogEntryType {
 	private List<LogEntry> logEntrys;
 
 	@OneToOne(mappedBy = "logEntryType")
+	@JsonIgnore
 	private Trial trial;
 
 	public LogEntryType() {

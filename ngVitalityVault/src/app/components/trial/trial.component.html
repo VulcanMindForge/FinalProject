@@ -70,12 +70,11 @@
           [(ngModel)]="newTrial.endDate"
         />
       </div>
-
-      <div class="input-group mb-3 form-check form-switch">
-        <span class="input-group-text">Allow others to see Trial data:</span>
-        <span class="input-group-text"
+      <div class="input-group mb-3  ">
+      <span class="input-group-text">Allow others to see Trial data:</span>
+        <span class="input-group-text form-switch "
           ><input
-            class="form-check-input m-1"
+            class="form-check-input   m-1"
             type="checkbox"
             name="published"
             role="switch"
@@ -84,21 +83,26 @@
         /></span>
       </div>
 
-      <div class="input-group mb-3">
-        <button
-          class="btn btn-outline-dark btn-light m-1"
+      <div class="row">
+        <div class="input-group col">
+          <button
+          class="btn btn-outline-dark btn-light"
           (click)="addTrial(newTrial)"
-        >
+          >
           Save New Trial
         </button>
-        <a
-          href="#/profile"
-          class="btn btn-outline-danger btn-light m-1"
-          (click)="resetNewEntry()"
-        >
-          Return to Profile
-        </a>
       </div>
+      <div class="input-group col">
+        <a
+        href="#/profile"
+        class="btn btn-outline-danger btn-light"
+        (click)="resetNewEntry()"
+        >
+        Return to Profile
+      </a>
+    </div>
+    <div class="col-7"></div>
+  </div>
     </form>
   </div>
 </div>

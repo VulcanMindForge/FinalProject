@@ -55,7 +55,6 @@ public class Trial {
 	private List<TrialComment> comments;
 
 	@OneToOne
-	@JsonIgnore
 	@JoinColumn(name = "log_entry_type_id")
 	private LogEntryType logEntryType;
 
