@@ -264,14 +264,6 @@ export class DailyLogComponent implements OnInit{
   addLogEntry(newLogEntry: LogEntry) {
     if (newLogEntry) {
 
-      // newLogEntry.unit = this.newUnit;
-      console.log(this.units);
-      console.log(newLogEntry);
-      console.log(newLogEntry.description);
-      // for (let key in newLogEntry) {
-      //     console.log("[" + key + "]: " + newLogEntry[key]);
-      // }
-
       this.LogEntryServ.create(newLogEntry).subscribe(
         {
           next: (createdLogEntry: LogEntry) => {
@@ -281,6 +273,7 @@ export class DailyLogComponent implements OnInit{
             this.newUnit=new Unit();
             this.category=new Category();
             this.logEntryType =new LogEntryType();
+            this.updateChart();
           },
           error: (error: any) => {
             console.error('LogEntryListHttpComponent.addLogEntrys(): error creating LogEntry', error);

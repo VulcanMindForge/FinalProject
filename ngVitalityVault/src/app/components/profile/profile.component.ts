@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { User } from '../../models/user';
 import { LogEntryService } from '../../services/logentry.service';
-import { LogEntry, Trial } from '../../models/log-entry-type';
+import { LogEntry, LogEntryType, Trial } from '../../models/log-entry-type';
 import { TrialService } from '../../services/trial.service';
 
 @Component({
@@ -29,16 +29,22 @@ selectedDate: any;
   ) {}
 
   user: User = new User();
-  logentries: LogEntry[] = [];
+  logEntriesByDay: LogEntry[] = [];
+  logEntries: LogEntry[] = [];
   trials: Trial[] = [];
+  medications: string[] = [];
+  supplements: string[] = [];
 
   ngOnInit() {
     if(!this.authServ.checkLogin()){
       this.router.navigateByUrl('/login');
     };
+    this.loadEntries();
     this.loadUser();
     this.loadTrials();
   }
+
+
 
   loadUser() {
     this.authServ.getLoggedInUser().subscribe({
@@ -54,10 +60,44 @@ selectedDate: any;
     });
   }
 
-  loadentries(date: string){
+  setMedications() {
+    let uniqueMedications = [...new Set(this.logEntries
+      .filter(logEntry => logEntry.logEntryType.category?.name.toLowerCase() === 'medication')
+      .map(logEntry => logEntry.logEntryType.name)
+  )];
+
+  this.medications = uniqueMedications;
+  }
+
+  setSupplements() {
+    let uniqueSupplements = [...new Set(this.logEntries
+      .filter(logEntry => logEntry.logEntryType.category?.name.toLowerCase() === 'supplement')
+      .map(logEntry => logEntry.logEntryType.name)
+  )];
+
+  this.supplements = uniqueSupplements;
+  }
+
+  loadEntries(){
+    this.logEntryServ.index().subscribe({
+      next: (entries) => {
+        this.logEntries = entries;
+        this.setMedications();
+        this.setSupplements();
+      },
+      error: (oops) => {
+        console.error(
+          'ProfileComponent.logentries error: error getting log entries'
+        );
+        console.error(oops);
+      },
+    });
+  }
+
+  loadEntriesByDay(date: string){
     this.logEntryServ.indexByDate(date).subscribe({
       next: (entries) => {
-        this.logentries = entries;
+        this.logEntries = entries;
       },
       error: (oops) => {
         console.error(

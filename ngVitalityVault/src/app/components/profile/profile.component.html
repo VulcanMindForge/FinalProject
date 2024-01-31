@@ -11,7 +11,13 @@
             <p>Height: {{user.height}}</p>
             <p>Weight: {{user.weight}}</p>
             <p>Medications:</p>
+            <ul>
+              <li *ngFor="let medication of medications">{{medication}}</li>
+            </ul>
             <p>Supplements:</p>
+            <ul>
+              <li *ngFor="let supplement of supplements">{{supplement}}</li>
+            </ul>
             <p>Biography: {{ user.biography }}</p>
             <p>Email: {{ user.email }}</p>
           </div>
@@ -119,8 +125,8 @@
     <label for="datePicker">Select a date:</label>
     <input type="date" id="datePicker" [(ngModel)]="selectedDate">
   </div>
-  <button class="btn btn-outline-success" (click)="loadentries(selectedDate)">View Past Logs</button>
-  <div *ngIf="logentries.length>0">
+  <button class="btn btn-outline-success" (click)="loadEntriesByDay(selectedDate)">View Past Logs</button>
+  <div *ngIf="loadEntriesByDay.length>0">
     <table>
       <thead>
         <tr>
@@ -130,7 +136,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let entry of logentries" [routerLink]="'/dailyLog/' + entry.id">
+        <tr *ngFor="let entry of logEntriesByDay" [routerLink]="'/dailyLog/' + entry.id">
           <td>
             {{entry.logEntryType.category?.name}}
           </td>
