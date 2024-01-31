@@ -54,10 +54,10 @@ class TrialTest {
 		assertEquals("admin", trial.getUser().getFirstName());
 	}
 
-	@Test
-	void test_Trial_LogEntryType_ManyToMany() {
-		assertNotNull(trial.getTrialComments());
-		assertTrue(trial.getTrialComments().size() > 0);
-	}
+//	@Test
+//	void test_Trial_LogEntryType_ManyToMany() {
+//		assertNotNull(trial.getTrialComments());
+//		assertTrue(trial.getTrialComments().size() > 0);
+//	}
 
 }

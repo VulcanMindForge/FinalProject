@@ -13,7 +13,7 @@ export class Trial {
   published: boolean;
   user: User|null;
   trialComments: TrialComment[];
-  logEntryType = new LogEntryType;
+  logEntryType: LogEntryType| null;
 
 
 
@@ -28,7 +28,7 @@ export class Trial {
     published: boolean = false,
     user: User|null=null,
     trialComments: TrialComment[] = [],
-    logEntryType: LogEntryType = new LogEntryType
+    logEntryType: LogEntryType | null = null
   ) {
     this.id = id;
     this.createDate = createDate;

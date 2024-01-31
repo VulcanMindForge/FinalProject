@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,7 @@ public class TrialComment {
 	private User user;
 
 	@ManyToMany(mappedBy = "comments")
+	@JsonIgnore
 	private List<Trial> trials;
 
 	public int getId() {

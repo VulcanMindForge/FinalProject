@@ -9,6 +9,8 @@ import java.util.Objects;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,10 +49,12 @@ public class Trial {
 	private User user;
 
 	@ManyToMany
+	@JsonIgnore
 	@JoinTable(name = "trial_has_trial_comment", joinColumns = @JoinColumn(name = "trial_id"), inverseJoinColumns = @JoinColumn(name = "trial_comment_id"))
 	private List<TrialComment> comments;
 
 	@OneToOne
+	@JsonIgnore
 	@JoinColumn(name = "log_entry_type_id")
 	private LogEntryType logEntryType;
 

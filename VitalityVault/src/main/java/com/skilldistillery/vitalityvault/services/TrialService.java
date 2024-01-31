@@ -9,7 +9,7 @@ import com.skilldistillery.vitalityvault.entities.Trial;
 
 @Service
 public interface TrialService {
-	public Set<Trial> index(String username);
+	public List<Trial> index(String username);
 	public Trial show(String username, int trialId);
 	public Trial create(String username, Trial trial);
 	public Trial update(String username, int trialId, Trial trial);

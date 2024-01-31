@@ -20,7 +20,7 @@ public class TrialServiceImpl implements TrialService {
 	private UserRepository userRepo;
 
 	@Override
-	public Set<Trial> index(String username) {
+	public List<Trial> index(String username) {
 		return trialRepo.findByUser_Username(username);
 	}
 
@@ -42,7 +42,7 @@ public class TrialServiceImpl implements TrialService {
 		if (exisitingTrial != null) {
 			exisitingTrial.setPurpose(trial.getPurpose());
 			exisitingTrial.setTitle(trial.getTitle());
-			exisitingTrial.setLogEntryTypes(trial.getTrialComments());
+//			exisitingTrial.setLogEntryTypes(trial.getTrialComments());
 			exisitingTrial.setPublished(trial.getPublished());
 			exisitingTrial.setStartDate(trial.getStartDate());
 			exisitingTrial.setEndDate(trial.getEndDate());

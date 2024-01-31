@@ -2,7 +2,6 @@ package com.skilldistillery.vitalityvault.controllers;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -35,7 +34,7 @@ public class TrialController {
 	}
 	
 	@GetMapping("trials")
-	Set<Trial> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
+	List<Trial> index(HttpServletRequest req, HttpServletResponse res, Principal principal) {
 		return trialServ.index(principal.getName());
 	}
 
