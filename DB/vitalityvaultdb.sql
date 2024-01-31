@@ -157,51 +157,44 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `trial_has_log_entry_type`
+-- Table `trial_comment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `trial_has_log_entry_type` ;
+DROP TABLE IF EXISTS `trial_comment` ;
 
-CREATE TABLE IF NOT EXISTS `trial_has_log_entry_type` (
-  `trial_id` INT NOT NULL,
-  `log_entry_type_id` INT NOT NULL,
-  PRIMARY KEY (`trial_id`, `log_entry_type_id`),
-  INDEX `fk_trial_has_log_entry_type_log_entry_type1_idx` (`log_entry_type_id` ASC),
-  INDEX `fk_trial_has_log_entry_type_trial1_idx` (`trial_id` ASC),
-  CONSTRAINT `fk_trial_has_log_entry_type_trial1`
-    FOREIGN KEY (`trial_id`)
-    REFERENCES `trial` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_trial_has_log_entry_type_log_entry_type1`
-    FOREIGN KEY (`log_entry_type_id`)
-    REFERENCES `log_entry_type` (`id`)
+CREATE TABLE IF NOT EXISTS `trial_comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` TEXT NULL,
+  `content_date` DATETIME NULL,
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_log_entry_type_comment_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_log_entry_type_comment_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `log_entry_type_comment`
+-- Table `trial_has_trial_comment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `log_entry_type_comment` ;
+DROP TABLE IF EXISTS `trial_has_trial_comment` ;
 
-CREATE TABLE IF NOT EXISTS `log_entry_type_comment` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `content` TEXT NULL,
-  `content_date` DATETIME NULL,
-  `user_id` INT NOT NULL,
-  `log_entry_type_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_log_entry_type_comment_user1_idx` (`user_id` ASC),
-  INDEX `fk_log_entry_type_comment_log_entry_type1_idx` (`log_entry_type_id` ASC),
-  CONSTRAINT `fk_log_entry_type_comment_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
+CREATE TABLE IF NOT EXISTS `trial_has_trial_comment` (
+  `trial_id` INT NOT NULL,
+  `trial_comment_id` INT NOT NULL,
+  PRIMARY KEY (`trial_id`, `trial_comment_id`),
+  INDEX `fk_trial_has_trial_comment_trial_comment1_idx` (`trial_comment_id` ASC),
+  INDEX `fk_trial_has_trial_comment_trial1_idx` (`trial_id` ASC),
+  CONSTRAINT `fk_trial_has_trial_comment_trial1`
+    FOREIGN KEY (`trial_id`)
+    REFERENCES `trial` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_log_entry_type_comment_log_entry_type1`
-    FOREIGN KEY (`log_entry_type_id`)
-    REFERENCES `log_entry_type` (`id`)
+  CONSTRAINT `fk_trial_has_trial_comment_trial_comment1`
+    FOREIGN KEY (`trial_comment_id`)
+    REFERENCES `trial_comment` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -308,25 +301,13 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `trial_has_log_entry_type`
+-- Data for table `trial_comment`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `trial_has_log_entry_type` (`trial_id`, `log_entry_type_id`) VALUES (1, 1);
-INSERT INTO `trial_has_log_entry_type` (`trial_id`, `log_entry_type_id`) VALUES (2, 2);
-INSERT INTO `trial_has_log_entry_type` (`trial_id`, `log_entry_type_id`) VALUES (3, 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `log_entry_type_comment`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `vitalityvaultdb`;
-INSERT INTO `log_entry_type_comment` (`id`, `content`, `content_date`, `user_id`, `log_entry_type_id`) VALUES (1, 'Was good', '2024-01-25', 1, 1);
-INSERT INTO `log_entry_type_comment` (`id`, `content`, `content_date`, `user_id`, `log_entry_type_id`) VALUES (2, 'Crushed it', '2024-01-30', 2, 2);
-INSERT INTO `log_entry_type_comment` (`id`, `content`, `content_date`, `user_id`, `log_entry_type_id`) VALUES (3, 'Pain was bad', '2024-01-30', 3, 3);
+INSERT INTO `trial_comment` (`id`, `content`, `content_date`, `user_id`) VALUES (1, 'Was good', '2024-01-25', 1);
+INSERT INTO `trial_comment` (`id`, `content`, `content_date`, `user_id`) VALUES (2, 'Crushed it', '2024-01-30', 2);
+INSERT INTO `trial_comment` (`id`, `content`, `content_date`, `user_id`) VALUES (3, 'Pain was bad', '2024-01-30', 3);
 
 COMMIT;
 
