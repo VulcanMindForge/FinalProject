@@ -1,0 +1,29 @@
+<div *ngFor="let trial of publishedTrials" class="card mb-3 m-2">
+  <div class="card-header" (click)="toggleExpansion(trial.id)">
+    {{ trial.title }}
+    <blockquote class="blockquote m-2">
+      <p class="mb-0">{{ trial.purpose }}</p>
+    </blockquote>
+  </div>
+  <br>
+
+
+  <div *ngIf="expandedTrialId === trial.id" class="card-body">
+
+    <br>
+    Dates: {{trial.startDate}} - {{trial.endDate}}
+
+
+    <!-- Chart Section -->
+    <div class="chart-container">
+      <h2 class="text-center">Line Chart</h2>
+      <!-- Chart.js Line Chart -->
+      <canvas #chartCanvas id="{{trial.id}}"></canvas>
+    </div>
+
+    <!-- Comment Section -->
+    <div class="comment-section">
+      <!-- Include your comment input and display logic here -->
+    </div>
+  </div>
+</div>

@@ -18,6 +18,9 @@
         <li class="nav-item" *ngIf="checkLogin()">
           <a class="nav-link" href="#/trials" >New Trial</a>
         </li>
+        <li class="nav-item" *ngIf="checkLogin()">
+          <a class="nav-link" href="#/trials/published" >Published Trials</a>
+        </li>
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" *ngIf="!checkLogin()">

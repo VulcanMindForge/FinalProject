@@ -6,8 +6,8 @@ export class Trial {
   createDate: string;
   purpose: string;
   lastUpdate: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   title: string;
   published: boolean;
   user: User|null;
@@ -20,8 +20,8 @@ export class Trial {
     createDate: string = '',
     purpose: string = '',
     lastUpdate: string = '',
-    startDate: string = '',
-    endDate: string = '',
+    startDate: Date = new Date(),
+    endDate: Date = new Date(),
     title: string = '',
     published: boolean = false,
     user: User|null=null,
