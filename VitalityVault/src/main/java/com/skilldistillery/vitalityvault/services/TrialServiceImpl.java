@@ -42,7 +42,7 @@ public class TrialServiceImpl implements TrialService {
 		if (exisitingTrial != null) {
 			exisitingTrial.setPurpose(trial.getPurpose());
 			exisitingTrial.setTitle(trial.getTitle());
-//			exisitingTrial.setLogEntryTypes(trial.getTrialComments());
+			exisitingTrial.setLogEntryTypes(trial.getTrialComments());
 			exisitingTrial.setPublished(trial.getPublished());
 			exisitingTrial.setStartDate(trial.getStartDate());
 			exisitingTrial.setEndDate(trial.getEndDate());
@@ -67,5 +67,7 @@ public class TrialServiceImpl implements TrialService {
 	public List<Trial> findPublishedTrials() {
 		return trialRepo.findByPublishedTrue();
 	}
+	
+	
 
 }

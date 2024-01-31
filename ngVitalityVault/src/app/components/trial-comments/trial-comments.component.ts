@@ -8,6 +8,9 @@ import { TrialService } from '../../services/trial.service';
 import { LogEntry } from '../../models/log-entry-type';
 import { LogEntryService } from '../../services/logentry.service';
 import { TrialComment } from '../../models/trial-comment.model';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user';
+import { TrialCommentService } from '../../services/trial-comment.service';
 
 @Component({
   selector: 'app-trial-comments',
@@ -23,12 +26,14 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
   chart: any;
   logEntries: LogEntry [] = [];
   expandedTrialId: number | null = null;
-  selectedTrial: Trial | undefined = undefined;
+  selectedTrial = new Trial;
   @ViewChild('chartCanvas') chartCanvas: ElementRef | undefined;
 
   constructor(
     private trialServ: TrialService,
     private logEntryServ: LogEntryService,
+    private authServ: AuthService,
+    private trialComServ: TrialCommentService
   ) {}
 
   ngOnInit(): void {
@@ -67,15 +72,18 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
   }
 
   toggleExpansion(trialId: number): void {
-    if (this.expandedTrialId === trialId) {
-      // If the same trial is clicked, collapse it
-      this.expandedTrialId = null;
-    } else {
-      // If a different trial is clicked, expand it and update the chart
-      this.expandedTrialId = trialId;
-      this.selectedTrial = this.publishedTrials.find((trial) => trial.id === trialId);
+    let newSelectedTrial = this.publishedTrials.find((trial) => trial.id === trialId);
 
-      if (this.selectedTrial) {
+    if (newSelectedTrial) {
+      this.expandedTrialId = trialId;
+
+      if (this.selectedTrial && this.selectedTrial.id === trialId) {
+        // If the same trial is clicked, collapse it
+        this.expandedTrialId = null;
+      } else {
+        // If a different trial is clicked, update the chart
+        this.selectedTrial = newSelectedTrial;
+
         this.destroyChart();
         setTimeout(() => {
           this.createChart(trialId);
@@ -182,18 +190,17 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
     return sum / arr.length;
   }
 
+
+
   addComment() {
-    if (this.selectedTrial) {
-      this.selectedTrial.trialComments.push(this.newComment);
-      this.newComment = new TrialComment;
-      this.trialServ.update(this.selectedTrial).subscribe({
-        next: (updatedTrial: Trial) => {
-          this.selectedTrial = updatedTrial;
-        },
-        error: (problem: any) => {
-          console.error('LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys', problem);
-        }
-      });
-    }
+    this.trialComServ.create(this.newComment, this.selectedTrial.id).subscribe ({
+      next:(comment) => {
+        this.selectedTrial.trialComments.push(comment);
+        this.newComment = new TrialComment;
+      },
+      error:() => {
+        console.error('issue with adding comment in trial comment component')
+      }
+    })
   }
 }

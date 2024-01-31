@@ -1,8 +1,6 @@
 import { Trial } from './../models/log-entry-type';
-import { Unit } from '../models/unit';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Category } from '../models/category';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
@@ -61,6 +59,18 @@ export class TrialService {
   update(Trial: Trial): Observable<Trial> {
     console.log(Trial.startDate)
     return this.http.put<Trial>(this.url + "/" + Trial.id, Trial, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('TrialService.update(): error updating Trial with id ' + Trial.id + ': ' + err)
+        );
+      })
+    );
+  }
+
+  updateComment(Trial: Trial): Observable<Trial> {
+    console.log(Trial.startDate)
+    return this.http.put<Trial>(this.url + "/published/" + Trial.id, Trial).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,8 +48,8 @@ public class Trial {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-
-	@ManyToMany
+	
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JsonIgnore
 	@JoinTable(name = "trial_has_trial_comment", joinColumns = @JoinColumn(name = "trial_id"), inverseJoinColumns = @JoinColumn(name = "trial_comment_id"))
 	private List<TrialComment> comments;
