@@ -1,5 +1,5 @@
-<br>
-<div *ngIf="!selected && !editTrial" >
+<br />
+<div *ngIf="!selected && !editTrial">
   <div class="">
     <form>
       <div class="input-group mb-3">
@@ -12,9 +12,16 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">Type:</span>
-        <input class="form-control" type="text" name="TrialType" [(ngModel)]="newTrial.logEntryType"
-          [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" />
-        <input hidden="hidden" name=" TrialTypeId" [(ngModel)]="TrialType.id">
+        <input
+          class="form-control"
+          type="text"
+          name="TrialType"
+          [(ngModel)]="newTrial.logEntryType"
+          [ngbTypeahead]="search"
+          [resultFormatter]="formatter"
+          [inputFormatter]="formatterInput"
+        />
+        <input hidden="hidden" name=" TrialTypeId" [(ngModel)]="TrialType.id" />
         <button class="btn btn-outline-dark btn-light" (click)="newTrialType()">
           New Type
         </button>
@@ -26,35 +33,69 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Title:</span>
-        <input class="form-control" type="text" name="title" [(ngModel)]="newTrial.title" />
+        <input
+          class="form-control"
+          type="text"
+          name="title"
+          [(ngModel)]="newTrial.title"
+        />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Purpose:</span>
-        <input class="form-control" type="text" name="purpose" [(ngModel)]="newTrial.purpose" />
+        <input
+          class="form-control"
+          type="text"
+          name="purpose"
+          [(ngModel)]="newTrial.purpose"
+        />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text">Start Date:</span>
-        <input class="form-control" type="Date" name="startDate" [(ngModel)]="newTrial.startDate " />
+        <input
+          class="form-control"
+          type="Date"
+          name="startDate"
+          [(ngModel)]="newTrial.startDate"
+        />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text">End Date:</span>
-        <input class="form-control" type="Date" name="endDate" [(ngModel)]="newTrial.endDate " />
+        <input
+          class="form-control"
+          type="Date"
+          name="endDate"
+          [(ngModel)]="newTrial.endDate"
+        />
       </div>
 
       <div class="input-group mb-3 form-check form-switch">
         <span class="input-group-text">Allow others to see Trial data:</span>
-        <span class="input-group-text"><input class="form-check-input m-1" type="checkbox" name="published" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="newTrial.published" /></span>
+        <span class="input-group-text"
+          ><input
+            class="form-check-input m-1"
+            type="checkbox"
+            name="published"
+            role="switch"
+            id="flexSwitchCheckDefault"
+            [(ngModel)]="newTrial.published"
+        /></span>
       </div>
 
-
       <div class="input-group mb-3">
-        <button class="btn btn-outline-dark btn-light m-1" (click)="addTrial(newTrial)">
+        <button
+          class="btn btn-outline-dark btn-light m-1"
+          (click)="addTrial(newTrial)"
+        >
           Save New Trial
         </button>
-        <a href="#/profile" class="btn btn-outline-danger btn-light m-1" (click)="resetNewEntry()">
+        <a
+          href="#/profile"
+          class="btn btn-outline-danger btn-light m-1"
+          (click)="resetNewEntry()"
+        >
           Return to Profile
         </a>
       </div>
@@ -64,25 +105,40 @@
 
 <div class="card" *ngIf="selected">
   <div class="card-body">
-    <h5>Title: {{selected.title}}</h5>
-    <ul>
-      <li>Purpose: {{selected.purpose}}</li>
-      <li>Start Date: {{selected.startDate}}</li>
-      <li>End Date: {{selected.endDate}}</li>
-    </ul>
-    <button class="btn btn-outline-dark btn-light" (click)="setEditTrial()">
-      Edit
-    </button>
-    <a class="btn btn-outline-danger btn-light" href="#/profile">
-      Return
-    </a>
-    <button class="btn btn-outline-success btn-light" (click)="selected=null">
-      Create
-    </button>
+    <div class="row align-items-top">
+      <div class="col">
+
+        <h5>Title: {{ selected.title }}</h5>
+        <ul>
+          <li>Purpose: {{ selected.purpose }}</li>
+          <li>Start Date: {{ selected.startDate }}</li>
+          <li>End Date: {{ selected.endDate }}</li>
+        </ul>
+        <button class="btn btn-outline-dark btn-light" (click)="setEditTrial()">
+          Edit
+        </button>
+        <a class="btn btn-outline-danger btn-light" href="#/profile"> Return </a>
+        <button
+        class="btn btn-outline-success btn-light"
+        (click)="selected = null"
+        >
+        Create
+      </button>
+    </div>
+      <div class="col">
+
+
+
+        <h1>Graph goes here</h1>
+
+
+
+      </div>
+    </div>
   </div>
 </div>
 
-<div *ngIf="editTrial" >
+<div *ngIf="editTrial">
   <div class="">
     <form>
       <div class="input-group mb-3">
@@ -95,9 +151,16 @@
       </div>
       <div class="input-group mb-3">
         <span class="input-group-text">Type:</span>
-        <input class="form-control" type="text" name="TrialType" [(ngModel)]="newTrial.logEntryType"
-          [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" />
-        <input hidden="hidden" name="TrialTypeId" [(ngModel)]="TrialType.id">
+        <input
+          class="form-control"
+          type="text"
+          name="TrialType"
+          [(ngModel)]="newTrial.logEntryType"
+          [ngbTypeahead]="search"
+          [resultFormatter]="formatter"
+          [inputFormatter]="formatterInput"
+        />
+        <input hidden="hidden" name="TrialTypeId" [(ngModel)]="TrialType.id" />
         <button class="btn btn-outline-dark btn-light" (click)="newTrialType()">
           New Type
         </button>
@@ -109,34 +172,59 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Title:</span>
-        <input class="form-control" type="text" name="title" [(ngModel)]="editTrial.title" />
+        <input
+          class="form-control"
+          type="text"
+          name="title"
+          [(ngModel)]="editTrial.title"
+        />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Purpose:</span>
-        <input class="form-control" type="text" name="purpose" [(ngModel)]="editTrial.purpose" />
+        <input
+          class="form-control"
+          type="text"
+          name="purpose"
+          [(ngModel)]="editTrial.purpose"
+        />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text">Start Date:</span>
-        <input class="form-control" type="Date" name="startDate" [(ngModel)]="editTrial.startDate " />
+        <input
+          class="form-control"
+          type="Date"
+          name="startDate"
+          [(ngModel)]="editTrial.startDate"
+        />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text">End Date:</span>
-        <input class="form-control" type="Date" name="endDate" [(ngModel)]="editTrial.endDate " />
+        <input
+          class="form-control"
+          type="Date"
+          name="endDate"
+          [(ngModel)]="editTrial.endDate"
+        />
       </div>
 
       <div class="input-group mb-3">
-        <button class="btn btn-outline-dark btn-light" (click)="updateTrial(editTrial)">
+        <button
+          class="btn btn-outline-dark btn-light"
+          (click)="updateTrial(editTrial)"
+        >
           Submit Changes
         </button>
 
-        <button class="btn btn-outline-danger btn-light" (click)="editTrial = null">
-
+        <button
+          class="btn btn-outline-danger btn-light"
+          (click)="editTrial = null"
+        >
           Cancel Changes
         </button>
-        </div>
+      </div>
     </form>
   </div>
 </div>
