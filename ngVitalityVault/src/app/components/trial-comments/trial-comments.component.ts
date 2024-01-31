@@ -7,6 +7,7 @@ import { Chart } from 'chart.js/auto';
 import { TrialService } from '../../services/trial.service';
 import { LogEntry } from '../../models/log-entry-type';
 import { LogEntryService } from '../../services/logentry.service';
+import { TrialComment } from '../../models/trial-comment.model';
 
 @Component({
   selector: 'app-trial-comments',
@@ -17,6 +18,7 @@ import { LogEntryService } from '../../services/logentry.service';
 })
 export class TrialCommentsComponent implements OnInit, AfterViewInit {
 
+  newComment = new TrialComment;
   publishedTrials: Trial [] = [];
   chart: any;
   logEntries: LogEntry [] = [];
@@ -165,7 +167,6 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
     let activityData = labels.map(date => this.average(groupedData.get(date)?.activity || []));
     let foodData = labels.map(date => this.average(groupedData.get(date)?.food || []));
 
-
     this.chart.data.labels = labels;
     this.chart.data.datasets[0].data = sleepData;
     this.chart.data.datasets[1].data = painData;
@@ -175,12 +176,24 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
   average(arr: number[]): number {
     if (arr.length === 0) return 0;
     let sum = arr.reduce((acc, val) => acc + val, 0);
     return sum / arr.length;
   }
 
+  addComment() {
+    if (this.selectedTrial) {
+      this.selectedTrial.trialComments.push(this.newComment);
+      this.newComment = new TrialComment;
+      this.trialServ.update(this.selectedTrial).subscribe({
+        next: (updatedTrial: Trial) => {
+          this.selectedTrial = updatedTrial;
+        },
+        error: (problem: any) => {
+          console.error('LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys', problem);
+        }
+      });
+    }
+  }
 }

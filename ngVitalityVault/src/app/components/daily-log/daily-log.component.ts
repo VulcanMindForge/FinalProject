@@ -116,11 +116,6 @@ export class DailyLogComponent implements OnInit {
         onClick: (event: any, chartElements: any[]) => {
           this.handleChartClick(event, chartElements);
         },
-        scales: {
-          x: {
-            type: 'time'
-          }
-        }
       }
     });
   }

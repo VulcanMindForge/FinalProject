@@ -62,11 +62,11 @@ public class Trial {
 		super();
 	}
 
-	public List<TrialComment> getComments() {
+	public List<TrialComment> getTrialComments() {
 		return comments;
 	}
 
-	public void setComments(List<TrialComment> comments) {
+	public void setTrialComments(List<TrialComment> comments) {
 		this.comments = comments;
 	}
 
@@ -148,10 +148,6 @@ public class Trial {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<TrialComment> getTrialComments() {
-		return comments;
 	}
 
 	public void setLogEntryTypes(List<TrialComment> comments) {

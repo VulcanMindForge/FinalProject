@@ -25,11 +25,16 @@
     <div class="comment-section">
       <ul>
         <li *ngFor="let comment of trial.trialComments">{{comment.user?.username}}:
-          <p>
-            {{comment.content}}
-          </p>
+          <p>{{comment.content}}</p>
         </li>
       </ul>
+
+      <div>
+        <form (ngSubmit)="addComment()">
+          <textarea id="content" name="content" [(ngModel)]="newComment.content" required></textarea>
+          <button type="submit">Add Comment</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
