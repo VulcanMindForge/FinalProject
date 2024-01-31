@@ -21,7 +21,7 @@
             <p>Biography: {{ user.biography }}</p>
             <p>Email: {{ user.email }}</p>
           </div>
-          <div class="col col-xs">
+          <div *ngIf="user.imageUrl" class="col col-xs">
             <img class="bd-placeholder-img rounded" height="150" width="150" alt="profile picture"
               src="{{ user.imageUrl }}" />
           </div>
@@ -98,8 +98,9 @@
         <a href="#/trials" class="btn btn-outline-dark">Start</a>
       </span>
       <br>
+      <br>
       <div *ngIf="trials.length>0">
-        <table>
+        <table class=" shadow-lg p-1 mb-5 bg-body-dark rounded table table-striped table-info align-middle table-hover table-bordered">
           <thead>
             <tr>
               <td>Title</td>
@@ -117,17 +118,15 @@
         </table>
       </div>
     </div>
-    <br />
   </div>
-  <br />
-  <br />
-  <div>
-    <label for="datePicker">Select a date:</label>
-    <input type="date" id="datePicker" [(ngModel)]="selectedDate">
-  </div>
+</div>
+<div class="input-group mb-3">
+  <label class="input-group-text" for="datePicker">Select a date:</label>
+  <input class="form-control" type="date" id="datePicker" [(ngModel)]="selectedDate">
   <button class="btn btn-outline-success" (click)="loadEntriesByDay(selectedDate)">View Past Logs</button>
-  <div *ngIf="loadEntriesByDay.length>0">
-    <table>
+</div>
+<div *ngIf="loadEntriesByDay.length>0">
+    <table class=" shadow-lg p-1 mb-5 bg-body-dark rounded table table-striped table-info align-middle table-hover table-bordered">
       <thead>
         <tr>
           <td>Category</td>
@@ -147,3 +146,5 @@
     </table>
 
   </div>
+<br>
+<br>

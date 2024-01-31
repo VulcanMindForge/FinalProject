@@ -83,6 +83,8 @@ export class LogEntryService {
   }
 
   indexByDate(date: string): Observable<LogEntry[]> {
+    console.log(date)
+
     return this.http.get<LogEntry[]>(this.url + "/date/" + date, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);

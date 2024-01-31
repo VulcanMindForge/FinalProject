@@ -97,7 +97,7 @@ selectedDate: any;
   loadEntriesByDay(date: string){
     this.logEntryServ.indexByDate(date).subscribe({
       next: (entries) => {
-        this.logEntries = entries;
+        this.logEntriesByDay = entries;
       },
       error: (oops) => {
         console.error(
