@@ -264,16 +264,30 @@ export class DailyLogComponent implements OnInit{
   addLogEntry(newLogEntry: LogEntry) {
     if (newLogEntry) {
 
+     console.log("**********************************************************");
+     console.log(newLogEntry);
+     console.log(newLogEntry.unit);
+
       this.LogEntryServ.create(newLogEntry).subscribe(
         {
           next: (createdLogEntry: LogEntry) => {
-            this.logEntrys.push(createdLogEntry);
+            // this.logEntrys.push(createdLogEntry);
             this.loadLogEntrys();
-            this.selected=createdLogEntry;
-            this.newUnit=new Unit();
-            this.category=new Category();
-            this.logEntryType =new LogEntryType();
-            this.updateChart();
+            this.newLogEntry= new LogEntry();
+            this.LogEntryServ.show(createdLogEntry.id).subscribe({
+              next: (log: LogEntry)=> {
+
+                this.selected=log;
+
+              },
+
+
+              error: (error: any) => {
+                console.error('Nested http request in create failed to retrieve new LogEntry', error);
+              },
+
+
+            });
           },
           error: (error: any) => {
             console.error('LogEntryListHttpComponent.addLogEntrys(): error creating LogEntry', error);
