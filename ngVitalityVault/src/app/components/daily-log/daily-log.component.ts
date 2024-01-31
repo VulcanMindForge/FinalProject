@@ -38,6 +38,7 @@ export class DailyLogComponent implements OnInit {
   categories: Category[] = [];
   category: Category = new Category();
   logEntryTypes: LogEntryType[] = [];
+  logEntryTypesFiltered: LogEntryType[] = [];
   logEntryType: LogEntryType = new LogEntryType();
   datePipe: DatePipe = new DatePipe("en-US");
   chart: any;
@@ -69,6 +70,10 @@ export class DailyLogComponent implements OnInit {
             this.LogEntryServ.show(LogEntryId).subscribe({
               next: (LogEntry: LogEntry | null) => {
                 this.selected = LogEntry;
+                if(LogEntry?.logEntryType.category){
+                  this.category=LogEntry?.logEntryType.category;
+                  this.setDegree(this.category.name);
+                }
               },
               error: (error: any) => {
                 console.error('Error in LogEntrylist.component: id correct but no LogEntry found');
@@ -315,6 +320,8 @@ export class DailyLogComponent implements OnInit {
     } else if (categoryName === "Supplement") {
       this.degree = "Times/day";
     }
+
+
   }
 
   selectCreate() {
