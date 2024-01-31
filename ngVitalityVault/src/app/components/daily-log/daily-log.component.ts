@@ -115,10 +115,16 @@ export class DailyLogComponent implements OnInit {
         aspectRatio: 4.5,
         onClick: (event: any, chartElements: any[]) => {
           this.handleChartClick(event, chartElements);
+        },
+        scales: {
+          x: {
+            type: 'time'
+          }
         }
       }
     });
   }
+
 
   handleChartClick(event: MouseEvent, chartElements: any[]): void {
     if (chartElements && chartElements.length > 0) {

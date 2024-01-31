@@ -1,5 +1,5 @@
+import { TrialComment } from './trial-comment.model';
 import { LogEntry } from './log-entry';
-import { LogEntryTypeComment } from './log-entry-type-comment';
 import { Trial } from './trial';
 export class User {
   // email: string;
@@ -18,7 +18,7 @@ export class User {
   imageUrl: string;
   email: string;
   logEntry: LogEntry[];
-  logEntryTypeComment: LogEntryTypeComment[];
+  trialComments: TrialComment[];
   trial: Trial[];
 
   constructor(
@@ -39,7 +39,7 @@ export class User {
     imageUrl: string = '',
     email: string = '',
     logEntry: LogEntry[] = [],
-    logEntryTypeComment: LogEntryTypeComment[] = [],
+    trialComments: TrialComment[] = [],
     trial: Trial[] = []
   ) {
     // this.email = email;
@@ -58,7 +58,7 @@ export class User {
     this.imageUrl = imageUrl;
     this.email = email;
     this.logEntry=logEntry;
-    this.logEntryTypeComment=logEntryTypeComment;
+    this.trialComments = trialComments;
     this.trial=trial;
   }
 }

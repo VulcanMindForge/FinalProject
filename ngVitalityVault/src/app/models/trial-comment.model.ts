@@ -1,26 +1,25 @@
-import { LogEntryType } from "./log-entry-type";
+import { Trial } from "./trial";
 import { User } from "./user";
 
-export class LogEntryTypeComment {
+export class TrialComment {
   id:number;
   content: string;
   contentDate: string;
   user: User|null;
-  logEntryType: LogEntryType|null;
+  trials: Trial[];
 
 
   constructor(
     id:number=0,
     content: string = '',
     contentDate: string = '',
-    lastUpdate: string = '',
     user: User|null=null,
-    logEntryType: LogEntryType|null=null,
+    trials: Trial[] = [],
   ) {
     this.id = id;
     this.content = content;
     this.contentDate = contentDate;
     this.user=user;
-    this.logEntryType=logEntryType;
+    this.trials=trials;
   }
 }

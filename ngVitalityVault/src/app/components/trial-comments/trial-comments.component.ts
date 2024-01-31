@@ -27,7 +27,6 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
   constructor(
     private trialServ: TrialService,
     private logEntryServ: LogEntryService,
-    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
@@ -43,9 +42,10 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
   }
 
   loadTrials() {
-    this.trialServ.index().subscribe({
+    this.trialServ.indexByPublished().subscribe({
       next: (trialList: Trial[]) => {
-        this.publishedTrials = trialList.filter(trial => trial.published === true);
+        console.log(trialList);
+        this.publishedTrials = trialList;
       },
       error: (problem: any) => {
         console.error('LogEntryListHttpComponent.loadLogEntrys(): error loading LogEntrys', problem);

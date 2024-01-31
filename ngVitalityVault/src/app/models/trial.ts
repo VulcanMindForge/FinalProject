@@ -1,4 +1,4 @@
-import { LogEntryType } from "./log-entry-type";
+import { TrialComment } from "./trial-comment.model";
 import { User } from "./user";
 
 export class Trial {
@@ -11,7 +11,7 @@ export class Trial {
   title: string;
   published: boolean;
   user: User|null;
-  logEntryType: LogEntryType[];
+  trialComments: TrialComment[];
 
 
 
@@ -25,7 +25,7 @@ export class Trial {
     title: string = '',
     published: boolean = false,
     user: User|null=null,
-    logEntryType: LogEntryType[] = []
+    trialComments: TrialComment[] = []
 
   ) {
     this.id = id;
@@ -37,6 +37,6 @@ export class Trial {
     this.title = title;
     this.published = published;
     this.user=user;
-    this.logEntryType=logEntryType;
+    this.trialComments=trialComments;
   }
 }

@@ -92,4 +92,15 @@ export class TrialService {
     );
   }
 
+  indexByPublished(): Observable<Trial[]> {
+    return this.http.get<Trial[]>(this.url + "/published").pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('TrialService.index(): error retrieving log entry types: ' + err)
+        );
+      })
+    );
+  }
+
 }

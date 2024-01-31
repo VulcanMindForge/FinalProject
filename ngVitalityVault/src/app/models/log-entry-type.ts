@@ -1,6 +1,5 @@
 import { Category } from "./category";
 import { LogEntry } from "./log-entry";
-import { LogEntryTypeComment } from "./log-entry-type-comment";
 import { Trial } from "./trial";
 
 export class LogEntryType {
@@ -9,7 +8,6 @@ export class LogEntryType {
   description: string;
   category: Category|null;
   trial: Trial[];
-  logEntryTypeComment: LogEntryTypeComment[];
   logEntry: LogEntry[];
 
   constructor(
@@ -18,7 +16,6 @@ export class LogEntryType {
     description: string = '',
     category: Category|null = null,
     trial: Trial[] = [],
-    logEntryTypeComment: LogEntryTypeComment[] = [],
     logEntry: LogEntry[] = []
   ) {
     this.id = id;
@@ -26,7 +23,6 @@ export class LogEntryType {
     this.description = description;
     this.category = category;
     this.trial= trial;
-    this.logEntryTypeComment=logEntryTypeComment;
     this.logEntry=logEntry;
   }
 }
