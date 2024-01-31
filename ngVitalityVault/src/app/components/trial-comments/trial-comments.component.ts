@@ -17,7 +17,6 @@ import { LogEntryService } from '../../services/logentry.service';
 import { TrialComment } from '../../models/trial-comment.model';
 import { AuthService } from '../../services/auth.service';
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
-import dayjs from 'dayjs';
 import { TrialCommentService } from '../../services/trial-comment.service';
 
 @Component({
@@ -96,9 +95,11 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
       if (this.selectedTrial && this.selectedTrial.id === trialId) {
         // If the same trial is clicked, collapse it
         this.expandedTrialId = null;
+        this.selectedTrial = new Trial();
       } else {
         // If a different trial is clicked, update the chart
         this.selectedTrial = newSelectedTrial;
+        this.expandedTrialId = trialId;
 
         this.orderComments(newSelectedTrial.trialComments);
 

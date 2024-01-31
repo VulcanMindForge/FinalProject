@@ -26,10 +26,9 @@
 
       <ul class="list-group list-group-flush">
         <li class="list-group-item" *ngFor="let comment of commentList">
-          <div class="fw-bold">
-            {{comment.user?.username}}:
+          <div>
+            <strong>{{comment.user?.username}}: </strong>{{comment.content}}
           </div>
-          <p>{{comment.content}}</p>
         </li>
       </ul>
 
