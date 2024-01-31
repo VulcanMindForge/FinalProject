@@ -9,7 +9,8 @@ import { LogEntry } from '../../models/log-entry-type';
 import { LogEntryService } from '../../services/logentry.service';
 import { TrialComment } from '../../models/trial-comment.model';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
+import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
+import dayjs from 'dayjs';
 import { TrialCommentService } from '../../services/trial-comment.service';
 
 @Component({
@@ -106,6 +107,7 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
     if (this.chartCanvas) {
       const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
 
+
       this.chart = new Chart(canvas, {
         type: 'line',
         data: {
@@ -119,6 +121,20 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
         },
         options: {
           aspectRatio: 4.5,
+          scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'day'
+                },
+                min: this.selectedTrial.startDate.toString(),
+                max: this.selectedTrial.endDate.toString()
+            },
+            y: {
+                min: 0,
+                max: 10
+            }
+        }
         },
       });
 
