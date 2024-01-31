@@ -146,11 +146,18 @@ CREATE TABLE IF NOT EXISTS `trial` (
   `end_date` DATE NULL,
   `title` VARCHAR(100) NULL,
   `published` TINYINT(1) NULL,
+  `log_entry_type_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_trial_user1_idx` (`user_id` ASC),
+  INDEX `fk_trial_log_entry_type1_idx` (`log_entry_type_id` ASC),
   CONSTRAINT `fk_trial_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_trial_log_entry_type1`
+    FOREIGN KEY (`log_entry_type_id`)
+    REFERENCES `log_entry_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -293,9 +300,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (1, NULL, 'testing', 1, NULL, NULL, NULL, 'TEST', 0);
-INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (2, NULL, 'I want to exclusively do kettlebell swings and see how ripped I get', 2, NULL, '2024-01-01', '2024-02-02', 'Kettlebell Kingdom', 1);
-INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`) VALUES (3, NULL, 'I want to see if lower back stretches reduce pain', 3, NULL, '2024-01-30', '2024-02-28', 'Lower Back Stretches', 1);
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (1, NULL, 'testing', 1, NULL, NULL, NULL, 'TEST', 0, 1);
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (2, NULL, 'I want to exclusively do kettlebell swings and see how ripped I get', 2, NULL, '2024-01-01', '2024-02-02', 'Kettlebell Kingdom', 1, 2);
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (3, NULL, 'I want to see if lower back stretches reduce pain', 3, NULL, '2024-01-30', '2024-02-28', 'Lower Back Stretches', 1, 3);
 
 COMMIT;
 
