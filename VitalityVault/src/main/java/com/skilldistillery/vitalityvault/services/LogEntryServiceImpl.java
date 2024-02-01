@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.vitalityvault.entities.LogEntry;
 import com.skilldistillery.vitalityvault.entities.Trial;
+import com.skilldistillery.vitalityvault.entities.User;
 import com.skilldistillery.vitalityvault.repositories.LogEntryRepository;
 import com.skilldistillery.vitalityvault.repositories.TrialRepository;
 import com.skilldistillery.vitalityvault.repositories.UserRepository;
@@ -78,6 +79,7 @@ public class LogEntryServiceImpl implements LogEntryService {
 	@Override
 	public List<LogEntry> findTrialLogData(int trialId, List<String> categories) {
 		Trial trial = trialRepo.findById(trialId).get();
+		User user = userRepo.findById(trial.getUser().getId()).get();
 		
 		List<String> requiredCategories = Arrays.asList("food", "pain", "sleep", "workout");
 	    for (String category : requiredCategories) {
@@ -86,7 +88,7 @@ public class LogEntryServiceImpl implements LogEntryService {
 	        }
 	    }
 		
-		return logEntryRepo.findByEntryDateBetweenAndLogEntryType_Category_NameIn(trial.getStartDate(), trial.getEndDate(), categories);
+		return logEntryRepo.findByEntryDateBetweenAndLogEntryType_Category_NameInAndUserId(trial.getStartDate(), trial.getEndDate(), categories, user.getId());
 	}
 
 }

@@ -16,6 +16,6 @@ public interface LogEntryRepository extends JpaRepository<LogEntry, Integer> {
 	
 	List<LogEntry> findByUser_UsernameAndEntryDate(String username, LocalDate date);
 	
-	List<LogEntry> findByEntryDateBetweenAndLogEntryType_Category_NameIn(
-            LocalDate startDate, LocalDate endDate, List<String> categories);
+	List<LogEntry> findByEntryDateBetweenAndLogEntryType_Category_NameInAndUserId(
+            LocalDate startDate, LocalDate endDate, List<String> categories, int userId);
 }

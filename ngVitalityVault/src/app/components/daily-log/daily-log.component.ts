@@ -3,7 +3,7 @@ import { LogEntry } from './../../models/log-entry';
 import { Category } from './../../models/category';
 import { Chart } from 'chart.js/auto';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LogEntryService } from '../../services/logentry.service';
