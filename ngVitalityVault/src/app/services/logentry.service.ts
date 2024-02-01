@@ -95,4 +95,16 @@ export class LogEntryService {
     );
   }
 
+  indexByTrial(trialId: number): Observable<LogEntry[]> {
+
+    return this.http.get<LogEntry[]>(this.url + "/published/" + trialId, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('LogEntryService.index(): error retrieving log entry types: ' + err)
+        );
+      })
+    );
+  }
+
 }

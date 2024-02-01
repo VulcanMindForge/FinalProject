@@ -34,24 +34,24 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
   logEntries: LogEntry[] = [];
   expandedTrialId: number | null = null;
   selectedTrial = new Trial();
+
   @ViewChild('chartCanvas') chartCanvas: ElementRef | undefined;
 
   constructor(
     private trialServ: TrialService,
     private logEntryServ: LogEntryService,
-    private authServ: AuthService,
     private trialComServ: TrialCommentService
   ) {}
 
   ngOnInit(): void {
     this.loadTrials();
-    this.loadEntries();
   }
 
   ngAfterViewInit(): void {
     // After the view is initialized, check if there is a selectedTrial and create the chart
     if (this.selectedTrial && this.chartCanvas) {
       this.createChart(this.selectedTrial.id);
+      this.loadTrials();
     }
   }
 
@@ -71,9 +71,14 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
   }
 
   loadEntries() {
-    this.logEntryServ.index().subscribe({
+    this.logEntryServ.indexByTrial(this.selectedTrial.id).subscribe({
       next: (logEntryList: LogEntry[]) => {
         this.logEntries = logEntryList;
+        this.destroyChart();
+        setTimeout(() => {
+          this.createChart(this.selectedTrial.id);
+          this.updateChart(this.selectedTrial);
+        }, 50);
       },
       error: (problem: any) => {
         console.error(
@@ -100,14 +105,9 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
         // If a different trial is clicked, update the chart
         this.selectedTrial = newSelectedTrial;
         this.expandedTrialId = trialId;
+        this.loadEntries();
 
         this.orderComments(newSelectedTrial.trialComments);
-
-        this.destroyChart();
-        setTimeout(() => {
-          this.createChart(trialId);
-          this.updateChart(this.selectedTrial);
-        }, 50);
       }
     }
   }
@@ -132,7 +132,7 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
             { label: 'Sleep Quality', data: [] },
             { label: 'Pain Level', data: [] },
             { label: 'Exercise Intensity', data: [] },
-            { label: 'Food Health Quality', data: [] },
+            { label: 'Food Health Quality', data: [], borderColor: '#BEDDED', backgroundColor: '#bedded' },
           ],
         },
         options: {
@@ -211,27 +211,36 @@ export class TrialCommentsComponent implements OnInit, AfterViewInit {
       }
     });
 
-    let labels = Array.from(groupedData.keys());
-    let sleepData = labels.map((date) =>
+    // Sort labels based on entryDate
+    let sortedLabels = Array.from(groupedData.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+
+    let sleepData = sortedLabels.map((date) =>
       this.average(groupedData.get(date)?.sleep || [])
     );
-    let painData = labels.map((date) =>
+    let painData = sortedLabels.map((date) =>
       this.average(groupedData.get(date)?.pain || [])
     );
-    let activityData = labels.map((date) =>
+    let activityData = sortedLabels.map((date) =>
       this.average(groupedData.get(date)?.activity || [])
     );
-    let foodData = labels.map((date) =>
+    let foodData = sortedLabels.map((date) =>
       this.average(groupedData.get(date)?.food || [])
     );
 
-    this.chart.data.labels = labels;
+    // Filter out 0 or null values
+    sleepData = sleepData.filter(value => value !== 0 && value !== null);
+    painData = painData.filter(value => value !== 0 && value !== null);
+    activityData = activityData.filter(value => value !== 0 && value !== null);
+    foodData = foodData.filter(value => value !== 0 && value !== null);
+
+    this.chart.data.labels = sortedLabels;
     this.chart.data.datasets[0].data = sleepData;
     this.chart.data.datasets[1].data = painData;
     this.chart.data.datasets[2].data = activityData;
     this.chart.data.datasets[3].data = foodData;
     this.chart.update();
   }
+
 
   average(arr: number[]): number {
     if (arr.length === 0) return 0;

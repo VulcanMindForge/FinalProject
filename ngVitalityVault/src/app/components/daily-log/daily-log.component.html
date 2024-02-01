@@ -1,22 +1,20 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-8 mx-auto">
-      <div class="d-flex align-items-center justify-content-center">
+    <div class="col-md-8 mx-auto  m-5 p-2 rounded" style="background-color: rgb(177, 175, 175);">
+      <div class="d-flex align-items-center justify-content-center" >
         <div>
-          <h2 class="text-center">Line Chart</h2>
-          <!-- Chart.js Line Chart -->
+          <h2 class="text-center">Previous Month</h2>
           <canvas id="MyChart" width="800" height="200"></canvas>
         </div>
       </div>
     </div>
-    <button class="btn btn-outline-success" (click)="updateChart()">Update data</button>
   </div>
-</div>
 
+  <div *ngIf="isCreated" (click)="confirmCreation()" class="bg-success text-center rounded text-white">
+    <h1 class="text-center">Entry has been logged! Click to close. </h1>
+  </div>
 
-<br>
-<div *ngIf="!selected && !editLogEntry" >
-  <div class="">
+  <div *ngIf="!selected && !editLogEntry" class="m-4">
     <form>
       <div class="input-group mb-3">
         <span class="input-group-text">Category:</span>
@@ -26,11 +24,12 @@
           </option>
         </select>
       </div>
+
       <div class="input-group mb-3">
         <span class="input-group-text">Type:</span>
         <input class="form-control" type="text" name="logEntryType" [(ngModel)]="newLogEntry.logEntryType"
-          [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" />
-        <input hidden="hidden" name=" logEntryTypeId" [(ngModel)]="logEntryType.id">
+          [ngbTypeahead]="search" [resultFormatter]="formatter" [inputFormatter]="formatterInput" placeholder="Either system or common recipe or workout. Start typing to see if your desired type is available."/>
+        <input hidden="hidden" name="logEntryTypeId" [(ngModel)]="logEntryType.id" required="true">
         <button class="btn btn-outline-dark btn-light" (click)="newLogEntryType()">
           New Type
         </button>
@@ -42,77 +41,72 @@
 
       <div class="input-group mb-3">
         <span class="input-group-text">Date:</span>
-        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="newLogEntry.entryDate " />
-
+        <input class="form-control" type="Date" name="entryDate" [(ngModel)]="newLogEntry.entryDate" required="true" />
         <input class="form-control" type="Time" step="1" name="entryTime" [(ngModel)]="newLogEntry.entryTime" />
       </div>
 
       <div class="input-group mb-3">
         <span class="input-group-text"> Description:</span>
-        <input class="form-control" type="text" name="description" [(ngModel)]="newLogEntry.description" />
+        <input class="form-control" type="text" name="description" [(ngModel)]="newLogEntry.description" placeholder="A brief description of what you took or did today."/>
       </div>
 
-        <div class="input-group mb-3">
-          <span class="input-group-text">{{degree}}:</span>
-          <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="newLogEntry.degree"
-            placeholder="Measure between 1 and 10 " />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Amount:</span>
-          <input class="form-control" type="number" name="amount" [(ngModel)]="newLogEntry.amount" />
-          <select class="form-control" name="units" [(ngModel)]="newLogEntry.unit.id">
-            <option *ngFor="let unit of units" value="{{unit.id}}">
-              {{ unit.name }}
-            </option>
-          </select>
-          <span class="input-group-text">:Units</span>
-        </div>
-        <div class="input-group mb-3">
-          <button class="btn btn-outline-dark btn-light m-1" (click)="addLogEntry(newLogEntry)">
-            Create Log
-          </button>
-          <a href="#/profile" class="btn btn-outline-danger btn-light m-1" (click)="resetNewEntry()">
-          Return to Profile
-        </a>
-        </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">{{degree}}:</span>
+        <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="newLogEntry.degree"
+          placeholder="Measure between 1 and 10" required="true"/>
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Amount:</span>
+        <input class="form-control" type="number" name="amount" [(ngModel)]="newLogEntry.amount" required="true" />
+        <span class="input-group-text">Unit:</span>
+        <select class="form-control" name="units" [(ngModel)]="newLogEntry.unit.id" required="true">
+          <option *ngFor="let unit of units" value="{{unit.id}}">
+            {{ unit.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="input-group mb-3">
+        <input type="submit" class="btn btn-outline-dark btn-light m-1" (click)="addLogEntry(newLogEntry)" value="Create Log">
+      </div>
     </form>
   </div>
-</div>
 
-<div class="card" *ngIf="selected">
-  <div class="card-body">
-    <h5>Logged Data: {{selected.createDate}}</h5>
-    <ul>
-      <li>Category: {{selected.logEntryType.category?.name}}</li>
-      <li>Type: {{selected.logEntryType.name}}</li>
-      <li>Date: {{selected.entryDate}} {{selected.entryTime}} </li>
-      <li>Description: {{selected.description}} </li>
-      <li>{{degree}}: {{selected.degree}} </li>
-      <li>Amount: {{selected.amount}} {{selected.unit.name}}</li>
-    </ul>
-    <button class="btn btn-outline-dark btn-light" (click)="setEditLogEntry()">
-      Edit
-    </button>
-    <a class="btn btn-outline-danger btn-light" href="#/profile">
-      Return
-    </a>
-    <button class="btn btn-outline-success btn-light" (click)="selectCreate()">
-      Create
-    </button>
+  <div class="card" *ngIf="selected">
+    <div class="card-body">
+      <h5>Logged Data: {{selected.createDate}}</h5>
+      <ul>
+        <li>Category: {{selected.logEntryType.category?.name}}</li>
+        <li>Type: {{selected.logEntryType.name}}</li>
+        <li>Date: {{selected.entryDate}} {{selected.entryTime}} </li>
+        <li>Description: {{selected.description}} </li>
+        <li>{{degree}}: {{selected.degree}} </li>
+        <li>Amount: {{selected.amount}} {{selected.unit.name}}</li>
+      </ul>
+      <button class="btn btn-outline-dark btn-light" (click)="setEditLogEntry()">
+        Edit
+      </button>
+      <a class="btn btn-outline-primary btn-light" (click)="resetSelected()">
+        Daily Log
+      </a>
+      <button class="btn btn-outline-danger btn-light" (click)="deleteLogEntry(selected.id)">
+        Delete Log Entry
+      </button>
+    </div>
   </div>
-</div>
 
-<div *ngIf="editLogEntry" >
-  <div class="">
+  <div *ngIf="editLogEntry" class="m-3">
     <form>
       <div class="input-group mb-3">
         <span class="input-group-text">Category:</span>
-        <select class="form-control" name="category" [(ngModel)]="category.id" #mySelect (change)="setDegree(mySelect.value)">
+        <select class="form-control" name="category" [(ngModel)]="editLogEntry.logEntryType.category" #mySelect (change)="setDegree(mySelect.value)">
           <option *ngFor="let category of categories">
             {{ category.name }}
           </option>
         </select>
       </div>
+
       <div class="input-group mb-3">
         <span class="input-group-text">Type:</span>
         <input class="form-control" type="text" name="logEntryType" [(ngModel)]="editLogEntry.logEntryType"
@@ -137,33 +131,60 @@
       <div class="input-group mb-3">
         <span class="input-group-text"> Description:</span>
         <input class="form-control" type="text" name="description" [(ngModel)]="editLogEntry.description" />
-      </div><br>
+      </div>
 
-        <div class="input-group mb-3">
-          <span class="input-group-text">{{degree}}:</span>
-          <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="editLogEntry.degree"
-            placeholder="Measure between 1 and 10" />
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">Amount:</span>
-          <input class="form-control" type="number" name="amount" [(ngModel)]="editLogEntry.amount" />
-          <select class="form-control" name="units" [(ngModel)]="editLogEntry.unit.id">
-            <option *ngFor="let unit of units" value="{{unit.id}}">
-              {{ unit.name }}
-            </option>
-          </select>
-          <span class="input-group-text">:Units</span>
-        </div>
-        <div class="input-group mb-3">
-          <button class="btn btn-outline-dark btn-light" (click)="updateLogEntry(editLogEntry)">
-            Submit Changes
-          </button>
-          <button class="btn btn-outline-danger btn-light" (click)="editLogEntry=null">
-            Cancel Changes
-          </button>
-        </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text">{{degree}}:</span>
+        <input type="number" min="1" max="10" class="form-control" name="degree" [(ngModel)]="editLogEntry.degree"
+          placeholder="Measure between 1 and 10" />
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Amount:</span>
+        <input class="form-control" type="number" name="amount" [(ngModel)]="editLogEntry.amount" />
+        <select class="form-control" name="units" [(ngModel)]="editLogEntry.unit.id">
+          <option *ngFor="let unit of units" value="{{unit.id}}">
+            {{ unit.name }}
+          </option>
+        </select>
+        <span class="input-group-text">:Units</span>
+      </div>
+
+      <div class="input-group mb-3">
+        <button class="btn btn-outline-dark btn-light" (click)="updateLogEntry(editLogEntry)">
+          Submit Changes
+        </button>
+        <button class="btn btn-outline-danger btn-light" (click)="editLogEntry=null">
+          Cancel Changes
+        </button>
+      </div>
     </form>
   </div>
+
+  <div *ngIf="loadEntriesByDay.length === 0">
+    <h2>You haven't logged anything yet</h2>
+  </div>
+
+  <div *ngIf="loadEntriesByDay.length > 0">
+    <h3 class="text-center">Todays Logs</h3>
+    <table class=" shadow-lg p-1 mb-5 rounded-3 overflow-hidden bg-body-dark table table-striped table-info align-middle table-hover table-bordered">
+      <thead >
+        <tr >
+          <td >Category</td>
+          <td>Type</td>
+          <td>Description</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of logEntriesByDay" [routerLink]="'/dailyLog/' + entry.id">
+          <td>
+            {{entry.logEntryType.category?.name}}
+          </td>
+          <td>{{entry.logEntryType.name}}</td>
+          <td>{{entry.description}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-<br>
-<br>
+

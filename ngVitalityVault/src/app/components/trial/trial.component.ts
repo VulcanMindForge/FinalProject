@@ -2,7 +2,7 @@ import { Category } from './../../models/category';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, OperatorFunction, debounceTime, distinctUntilChanged, map } from 'rxjs';
@@ -20,7 +20,7 @@ import { AuthService } from '../../services/auth.service';
     standalone: true,
     templateUrl: './trial.component.html',
     styleUrl: './trial.component.css',
-    imports: [CommonModule, FormsModule, NgbTypeaheadModule, TrialComponent, LogEntryTypeComponent]
+    imports: [CommonModule, FormsModule, NgbTypeaheadModule, TrialComponent, LogEntryTypeComponent, RouterModule]
 })
 
 export class TrialComponent implements OnInit{
@@ -193,6 +193,12 @@ export class TrialComponent implements OnInit{
   }
 
   deleteTrial(tid: number) {
+    let isConfirmed = window.confirm('Are you sure you want to delete this trial?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
     this.TrialServ.destroy(tid).subscribe(
       {
         next: () => {

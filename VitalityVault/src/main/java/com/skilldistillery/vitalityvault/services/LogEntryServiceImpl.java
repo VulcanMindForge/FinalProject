@@ -1,6 +1,7 @@
 package com.skilldistillery.vitalityvault.services;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.vitalityvault.entities.LogEntry;
+import com.skilldistillery.vitalityvault.entities.Trial;
 import com.skilldistillery.vitalityvault.repositories.LogEntryRepository;
+import com.skilldistillery.vitalityvault.repositories.TrialRepository;
 import com.skilldistillery.vitalityvault.repositories.UserRepository;
 
 @Service
@@ -19,6 +22,9 @@ public class LogEntryServiceImpl implements LogEntryService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private TrialRepository trialRepo;
 
 	@Override
 	public Set<LogEntry> index(String username) {
@@ -68,7 +74,19 @@ public class LogEntryServiceImpl implements LogEntryService {
 	public List<LogEntry> findByUser_UsernameAndEntryDate(String username, LocalDate date) {
 		return logEntryRepo.findByUser_UsernameAndEntryDate(username, date);
 	}
-
 	
+	@Override
+	public List<LogEntry> findTrialLogData(int trialId, List<String> categories) {
+		Trial trial = trialRepo.findById(trialId).get();
+		
+		List<String> requiredCategories = Arrays.asList("food", "pain", "sleep", "workout");
+	    for (String category : requiredCategories) {
+	        if (!categories.contains(category)) {
+	            categories.add(category);
+	        }
+	    }
+		
+		return logEntryRepo.findByEntryDateBetweenAndLogEntryType_Category_NameIn(trial.getStartDate(), trial.getEndDate(), categories);
+	}
 
 }

@@ -1,6 +1,6 @@
-<br />
-<div *ngIf="!selected && !editTrial">
-  <div class="">
+<div class="container">
+<div *ngIf="!selected && !editTrial" >
+  <div class="m-5">
     <form>
       <div class="input-group mb-3">
         <span class="input-group-text">Category:</span>
@@ -94,7 +94,7 @@
       </div>
       <div class="input-group col">
         <a
-        href="#/profile"
+        [routerLink]="['/profile']"
         class="btn btn-outline-danger btn-light"
         (click)="resetNewEntry()"
         >
@@ -107,7 +107,7 @@
   </div>
 </div>
 
-<div class="card" *ngIf="selected">
+<div class="card m-5" *ngIf="selected">
   <div class="card-body">
     <div class="row align-items-top">
       <div class="col">
@@ -121,12 +121,12 @@
         <button class="btn btn-outline-dark btn-light" (click)="setEditTrial()">
           Edit
         </button>
-        <a class="btn btn-outline-danger btn-light" href="#/profile"> Return </a>
+        <a class="btn btn-outline-success btn-light" [routerLink]="['/profile']"> Return to Profile </a>
         <button
-        class="btn btn-outline-success btn-light"
-        (click)="selected = null"
+        class="btn btn-outline-danger btn-light"
+        (click)="deleteTrial(selected.id)"
         >
-        Create
+        Delete Trial
       </button>
     </div>
       <div class="col">

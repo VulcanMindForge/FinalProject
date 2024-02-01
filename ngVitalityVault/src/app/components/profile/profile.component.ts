@@ -18,7 +18,7 @@ import { TrialService } from '../../services/trial.service';
 })
 export class ProfileComponent {
   updateUser: User | null = null;
-selectedDate: any;
+  selectedDate: any;
 
   constructor(
     private authServ: AuthService,
@@ -95,6 +95,7 @@ selectedDate: any;
   }
 
   loadEntriesByDay(date: string){
+    console.log(date);
     this.logEntryServ.indexByDate(date).subscribe({
       next: (entries) => {
         this.logEntriesByDay = entries;

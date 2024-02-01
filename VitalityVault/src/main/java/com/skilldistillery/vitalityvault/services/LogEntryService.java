@@ -21,5 +21,6 @@ public interface LogEntryService {
 	public boolean destroy(String username, int logId);
 
 	public List<LogEntry> findByUser_UsernameAndEntryDate(String username, LocalDate date);
-
+	
+	public List<LogEntry> findTrialLogData(int trialId, List<String> categories);
 }

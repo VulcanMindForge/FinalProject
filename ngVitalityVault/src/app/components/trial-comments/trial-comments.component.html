@@ -1,3 +1,4 @@
+<div class="container">
 <div *ngFor="let trial of publishedTrials" class="card mb-3 m-2">
   <div class="card-header" (click)="toggleExpansion(trial.id)">
     {{ trial.title }}
@@ -15,8 +16,8 @@
 
 
     <!-- Chart Section -->
-    <div class="chart-container">
-      <h2 class="text-center">Line Chart</h2>
+    <div class="chart-container rounded" style="background-color: rgb(177, 175, 175);">
+      <h2 class="text-center">Trial Results</h2>
       <!-- Chart.js Line Chart -->
       <canvas #chartCanvas id="{{trial.id}}"></canvas>
     </div>
@@ -43,3 +44,4 @@
 </div>
 <br>
 <br>
+</div>

@@ -2,6 +2,7 @@ package com.skilldistillery.vitalityvault.controllers;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.vitalityvault.entities.LogEntry;
+import com.skilldistillery.vitalityvault.entities.Trial;
 import com.skilldistillery.vitalityvault.services.LogEntryService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,6 +45,12 @@ public class LogEntryController {
 			res.setStatus(404);
 		}
 		return log;
+	}
+	
+	@GetMapping("logs/published/{trialId}")
+	List<LogEntry> indexPublished(HttpServletRequest req, HttpServletResponse res,  @PathVariable("trialId") int id) {
+		List<String> cats = new ArrayList<>();
+		return logEntryServ.findTrialLogData(id, cats);
 	}
 
 	@PostMapping("logs")

@@ -16,7 +16,7 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'trials/published', component: TrialCommentsComponent},
-  {path: 'dailyLog', component: DailyLogComponent},
+  {path: 'dailyLogs', component: DailyLogComponent},
   {path: 'dailyLog/:logId', component: DailyLogComponent},
   {path: 'trials', component: TrialComponent},
   {path: 'trials/:trialId', component: TrialComponent},

@@ -1,15 +1,13 @@
-body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f8f8f8;
-  padding: 20px;
-}
-
-h1, h3 {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
 .container {
   margin-top: 20px;
+}
+
+#bg {
+  background-image: url(https://media.istockphoto.com/id/1208571277/vector/mountain-hiking-with-a-dog.jpg?s=612x612&w=0&k=20&c=_eSmMZZm03nzAAdwgTQxh4nLPdMkSQAWzOcP7igf_gE=);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: auto;
+  background-position: center;
 }
 
 .row {
@@ -18,28 +16,22 @@ h1, h3 {
   align-items: center;
 }
 
-.card {
-  border-radius: 10px;
-  width: auto;
-  transition: transform 0.3s ease-in-out;
+#homeSection1 .card {
+  transition: all 0.3s ease-in-out;
+  opacity: 0.01; /* Set initial opacity */
+  border: 1px solid transparent; /* Add a transparent border */
 }
 
-.card:hover {
+#homeSection1 .card:hover {
   transform: scale(1.05);
+  opacity: 1; /* Set opacity on hover */
+  border-color: #007bff; /* Change border color on hover */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Add a box shadow on hover */
 }
 
-#homeSection1,
 #homeSection2 {
   background-size: cover;
   background-repeat: no-repeat;
   width: auto;
   background-position: center;
-}
-
-#homeSection1 {
-  background-image: url('https://img.freepik.com/free-photo/chance-dream-strong-life-live-love-positivity_53876-124722.jpg?size=626&ext=jpg');
-}
-
-#homeSection2 {
-  background-image: url('https://t4.ftcdn.net/jpg/01/17/50/49/360_F_117504933_9F6FUj8oK1YeOCPLSOXYJC6Z49i4fmyf.jpg');
 }

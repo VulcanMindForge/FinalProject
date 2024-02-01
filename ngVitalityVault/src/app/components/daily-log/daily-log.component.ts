@@ -5,7 +5,7 @@ import { Chart } from 'chart.js/auto';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LogEntryService } from '../../services/logentry.service';
 import { Unit } from '../../models/unit';
 import { CategoryService } from '../../services/category.service';
@@ -23,7 +23,7 @@ import dayjs from 'dayjs';
   standalone: true,
   templateUrl: './daily-log.component.html',
   styleUrls: ['./daily-log.component.css'],
-  imports: [CommonModule, FormsModule, NgbTypeaheadModule, LogEntryTypeComponent, NgChartsModule]
+  imports: [CommonModule, FormsModule, NgbTypeaheadModule, LogEntryTypeComponent, NgChartsModule, RouterModule]
 })
 
 export class DailyLogComponent implements OnInit {
@@ -45,6 +45,10 @@ export class DailyLogComponent implements OnInit {
   datePipe: DatePipe = new DatePipe("en-US");
   chart: any;
   degree: string = "Quality";
+  logEntriesByDay: LogEntry[] = [];
+  today = new Date().toISOString().split('T')[0];
+  isCreated = false;
+
 
   constructor(
     private router: Router,
@@ -52,7 +56,7 @@ export class DailyLogComponent implements OnInit {
     private LogEntryServ: LogEntryService,
     private logEntryTypeServ: LogEntryTypeService,
     private categoryServ: CategoryService,
-    private unitServ: UnitService
+    private unitServ: UnitService,
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +65,7 @@ export class DailyLogComponent implements OnInit {
     this.loadCategories();
     this.loadUnits();
     this.createChart();
+    this.loadEntriesByDay(this.today);
 
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
@@ -90,12 +95,31 @@ export class DailyLogComponent implements OnInit {
     });
   }
 
+  confirmCreation() {
+    this.isCreated = false;
+  }
+
+  loadEntriesByDay(date: string){
+    this.LogEntryServ.indexByDate(date).subscribe({
+      next: (entries) => {
+        this.logEntriesByDay = entries;
+      },
+      error: (oops) => {
+        console.error(
+          'ProfileComponent.logentries error: error getting log entries'
+        );
+        console.error(oops);
+      },
+    });
+  }
+
+
   search: OperatorFunction<string, readonly LogEntryType[]> = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map((term) =>
-        term.length < 2 ? [] : this.logEntryTypes.filter((entryType) => entryType.name.toLowerCase().indexOf(entryType.name.toLowerCase()) > -1).slice(0, 10),
+        term.length < 1 ? [] : this.logEntryTypes.filter((entryType) => entryType.name.toLowerCase().indexOf(entryType.name.toLowerCase()) > -1).slice(0, 10),
       ),
     );
 
@@ -147,6 +171,9 @@ export class DailyLogComponent implements OnInit {
     });
   }
 
+  resetSelected() {
+    this.selected = null;
+    }
 
   handleChartClick(event: MouseEvent, chartElements: any[]): void {
     if (chartElements && chartElements.length > 0) {
@@ -188,13 +215,21 @@ export class DailyLogComponent implements OnInit {
       }
     });
 
-    let labels = Array.from(groupedData.keys());
-    let sleepData = labels.map(date => this.average(groupedData.get(date)?.sleep || []));
-    let painData = labels.map(date => this.average(groupedData.get(date)?.pain || []));
-    let activityData = labels.map(date => this.average(groupedData.get(date)?.activity || []));
-    let foodData = labels.map(date => this.average(groupedData.get(date)?.food || []));
+    // Sort labels based on logEntry.entryDate
+    let sortedLabels = Array.from(groupedData.keys()).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
-    this.chart.data.labels = labels;
+    let sleepData = sortedLabels.map(date => this.average(groupedData.get(date)?.sleep || []));
+    let painData = sortedLabels.map(date => this.average(groupedData.get(date)?.pain || []));
+    let activityData = sortedLabels.map(date => this.average(groupedData.get(date)?.activity || []));
+    let foodData = sortedLabels.map(date => this.average(groupedData.get(date)?.food || []));
+
+    // Filter out 0 or null values
+    sleepData = sleepData.filter(value => value !== 0 && value !== null);
+    painData = painData.filter(value => value !== 0 && value !== null);
+    activityData = activityData.filter(value => value !== 0 && value !== null);
+    foodData = foodData.filter(value => value !== 0 && value !== null);
+
+    this.chart.data.labels = sortedLabels;
     this.chart.data.datasets[0].data = sleepData;
     this.chart.data.datasets[1].data = painData;
     this.chart.data.datasets[2].data = activityData;
@@ -202,6 +237,7 @@ export class DailyLogComponent implements OnInit {
 
     this.chart.update();
   }
+
 
   average(arr: number[]): number {
     if (arr.length === 0) return 0;
@@ -280,7 +316,9 @@ export class DailyLogComponent implements OnInit {
       this.LogEntryServ.create(newLogEntry).subscribe({
         next: (createdLogEntry: LogEntry) => {
           this.loadLogEntrys();
+          this.isCreated = true;
           this.newLogEntry = new LogEntry();
+
           this.LogEntryServ.show(createdLogEntry.id).subscribe({
             next: (log: LogEntry) => {
               this.selected = log;
@@ -314,6 +352,12 @@ export class DailyLogComponent implements OnInit {
   }
 
   deleteLogEntry(tid: number) {
+    let isConfirmed = window.confirm('Are you sure you want to delete this log entry?');
+
+    if (!isConfirmed) {
+      return;
+    }
+
     this.LogEntryServ.destroy(tid).subscribe({
       next: () => {
         this.logEntrys = this.logEntrys.filter(LogEntry => LogEntry.id !== tid);
