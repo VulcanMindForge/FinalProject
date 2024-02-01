@@ -25,36 +25,51 @@ The **Vitality Vault** app empowers users to manage their health comprehensively
 ### Sleep Monitoring:
 - Develop functionality for users to log daily sleep patterns, allowing input for duration and quality of sleep.
 
-### Health Insights and Recommendations:
-- Analyze user data to provide personalized health insights and recommendations, with a notification system for insights.
 
 ### Community Engagement:
-- Implement a community platform for users to connect, share achievements, and participate in discussions, including features like likes, comments, and user profiles.
+- Implement a community platform for users to connect, share achievements, and participate in discussions on trial progress and results.
 
-### Data Export and Sharing:
-- Develop an export feature for users to download their health data (e.g., CSV) and implement secure sharing options for healthcare professionals.
+
+## API Endpoints:
+| Endpoint                     | HTTP Method | Description                                            |
+| ---------------------------- | ------------| ------------------------------------------------------ |
+| /register                    | POST        | Register a new user                                    |
+| /authenticate                | GET         | Authenticate a user                                    |
+| /api/user                    | PUT         | Update user profile                                    |
+| /api/categories              | GET         | Retrieve all categories                                |
+| /api/categories/{catId}      | GET         | Retrieve a specific category by ID                      |
+| /api/logs                    | GET         | Retrieve all logs for the authenticated user            |
+| /api/logs/{logId}            | GET         | Retrieve a specific log entry by ID                     |
+| /api/logs/published/{trialId}| GET         | Retrieve published logs for a specific trial             |
+| /api/logs                    | POST        | Create a new log entry                                  |
+| /api/logs/{tid}              | PUT         | Update a specific log entry by ID                       |
+| /api/logs/{logId}            | DELETE      | Delete a specific log entry by ID                       |
+| /api/logs/date/{date}        | GET         | Retrieve logs for a specific date                       |
+| /api/entrytypes              | GET         | Retrieve all log entry types                             |
+| /api/entrytypes/{typeId}     | GET         | Retrieve a specific log entry type by ID                |
+| /api/entrytypes/category/{categoryName}| GET  | Retrieve log entry types by category                    |
+| /api/entrytypes              | POST        | Create a new log entry type                             |
+| /api/entrytypes/{typeId}     | PUT         | Update a specific log entry type by ID                  |
+| /api/entrytypes/{typeId}     | DELETE      | Delete a specific log entry type by ID                  |
+| /api/trials/published        | GET         | Retrieve all published trials                           |
+| /api/trials                  | GET         | Retrieve all trials for the authenticated user          |
+| /api/trials/{trialId}        | GET         | Retrieve a specific trial by ID                          |
+| /api/trials                  | POST        | Create a new trial                                      |
+| /api/trials/{trialId}        | PUT         | Update a specific trial by ID                           |
+| /api/trials/{trialId}        | DELETE      | Delete a specific trial by ID                           |
+| /api/trials/published/{trialId}| POST      | Create a new comment for a specific published trial      |
+| /api/units                   | GET         | Retrieve all units                                      |
+| /api/units/{unitId}          | GET         | Retrieve a specific unit by ID                           |
+
 
 ## Getting Started:
 To get started with the **Vitality Vault** app, follow these steps:
+- Register an account
+- Update your profile with desired information
+- Begin adding daily log entries. Search for Entry Types or create your own
+- If desired, start a trial for any new diet, workout, or medication you are using
+- Enjoy!
 
-1. **Clone the Repository:**
-    ```bash
-    git clone https://github.com/your-username/VitalityVault.git
-    ```
-
-2. **Installation:**
-    ```bash
-    cd VitalityVault
-    npm install
-    ```
-
-3. **Run the App:**
-    ```sql
-    npm start
-    ```
-
-4. **Access the App:**
-    Open your browser and go to [http://localhost:8069](http://localhost:8069).
 
 ## Technologies Used:
 ### Frontend:
