@@ -36,20 +36,20 @@ public class LogEntryType {
 	@JsonIgnore
 	private List<LogEntry> logEntrys;
 
-	@OneToOne(mappedBy = "logEntryType")
+	@OneToMany(mappedBy = "logEntryType")
 	@JsonIgnore
-	private Trial trial;
+	private List<Trial> trials;
 
 	public LogEntryType() {
 		super();
 	}
 
-	public Trial getTrial() {
-		return trial;
+	public List<Trial> getTrials() {
+		return trials;
 	}
 
-	public void setTrial(Trial trial) {
-		this.trial = trial;
+	public void setTrials(List<Trial> trials) {
+		this.trials = trials;
 	}
 
 	public Category getCategory() {
@@ -86,6 +86,27 @@ public class LogEntryType {
 		if (logEntrys != null && logEntrys.contains(logEntry)) {
 			logEntrys.remove(logEntry);
 			logEntry.setLogEntryType(null);
+		}
+	}
+
+	public void addTrial(Trial trial) {
+		if (trials == null) {
+			trials = new ArrayList<>();
+		}
+		if (!trials.contains(trial)) {
+			trials.add(trial);
+			if (trial.getUser() != null) {
+				trial.getUser().removeTrial(trial);
+			}
+			trial.setLogEntryType(this);
+		}
+
+	}
+
+	public void removeTrial(Trial trial) {
+		if (trials != null && trials.contains(trial)) {
+			trials.remove(trial);
+			trial.setUser(null);
 		}
 	}
 

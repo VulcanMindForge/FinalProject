@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `trial` (
   `title` VARCHAR(100) NULL,
   `published` TINYINT(1) NULL,
   `log_entry_type_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`, `log_entry_type_id`),
   INDEX `fk_trial_user1_idx` (`user_id` ASC),
   INDEX `fk_trial_log_entry_type1_idx` (`log_entry_type_id` ASC),
   CONSTRAINT `fk_trial_user1`
@@ -223,8 +223,11 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 START TRANSACTION;
 USE `vitalityvaultdb`;
 INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'admin', 'admin', NULL, 'male', 'admin', NULL, 'admin@admin.com', NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (2, 'kettlebellking', 'crossfit', 1, NULL, 'Ido', 'Crossfit', '2000-01-30', 'male', 'I\'m a huge crossfitter. I eat sleep and breathe crossfit.', 'https://stock.adobe.com/search?k=crossfit&asset_id=242396695', 'kettlebellking@crossfit.com', NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (3, 'iminpain', 'pain', 1, NULL, 'Ihave', 'Lotsofpain', '1960-01-30', 'female', 'I have lots of pain and do lots of trials and take lots of medications', 'https://stock.adobe.com/search?k=rx+symbol&asset_id=87767692', 'painandmeds@pain.com', NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (2, 'FitExplorer23', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'Sarah', 'Johnson', '2000-01-30', 'female', 'Fitness enthusiast and adventure seeker. Sarah loves exploring new workout routines and healthy recipes. As a busy professional, she relies on our platform to streamline her supplement regimen and track her progress on the journey to a balanced and active lifestyle.', 'https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'sarahjohnson@email.com', '5\'8\"', '150 lbs');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (3, 'WellnessWarrior', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'Michael', 'Rodriguez', '1960-01-30', 'male', 'Dedicated to optimizing health through holistic practices, Michael is passionate about fitness and mindfulness. As a regular user of our platform, he relies on the medication tracking feature to manage his health routine seamlessly, allowing him more time to focus on his wellness journey.', 'https://stock.adobe.com/search?k=rx+symbol&asset_id=87767692', 'michael.rodriguez@email.com', '6\'2\"', '200 lbs');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (4, 'MindfulMover', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'Emily', 'Chen', '1980-01-30', 'female', 'Yoga enthusiast and mental wellness advocate, Emily embraces a balanced lifestyle. Using our platform, she combines mindful movement with personalized supplement tracking, creating a holistic approach to health. Join Emily on her journey to cultivate a harmonious mind-body connection.', 'https://images.pexels.com/photos/355863/pexels-photo-355863.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'emily.chen@email.com', '5\'4\"', '120 lbs');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (5, 'ActiveExplorer', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'Alex', 'Thompson', '1990-01-30', 'male', 'Outdoor enthusiast and fitness lover, Alex is on a mission to conquer new physical challenges. Through our platform, he effortlessly manages his workout routines and supplement intake, enabling him to stay active and reach his fitness goals. Join Alex as he explores the world one step at a time.\nOutdoor enthusiast and fitness lover, Alex is on a mission to conquer new physical challenges. Through our platform, he effortlessly manages his workout routines and supplement intake, enabling him to stay active and reach his fitness goals. Join Alex as he explores the world one step at a time.\nOutdoor enthusiast and fitness lover, Alex is on a mission to conquer new physical challenges. Through our platform, he effortlessly manages his workout routines and supplement intake, enabling him to stay active and reach his fitness goals. Join Alex as he explores the world one step at a time.', 'https://images.pexels.com/photos/2469122/pexels-photo-2469122.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'alex.thompson@email.com', '6\'0\"', '180 lbs');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `first_name`, `last_name`, `birthdate`, `sex`, `biography`, `image_url`, `email`, `height`, `weight`) VALUES (6, 'NutritionNinja', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 1, NULL, 'Olivia', 'Davis', '1995-01-30', 'female', 'Nutritionist and wellness coach, Olivia is dedicated to helping others achieve their health goals. As a user of our platform, she leverages the medication and supplement tracking features to stay organized and informed, providing valuable insights to her clients on their own wellness journeys. Join Olivia in the pursuit of a balanced and nourished life.', 'https://images.pexels.com/photos/8844387/pexels-photo-8844387.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'olivia.davis@email.com', '5\'6', '140 lbs');
 
 COMMIT;
 
@@ -249,9 +252,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (1, 'Oatmeal', NULL, 1);
-INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (2, 'Kettlebell Swings', '10x200', 2);
-INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (3, 'Lower Back Pain', 'center of back', 4);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (1, 'Weights', 'Strong Lifts 5x5', 2);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (2, 'Protein', 'Unflavored. Zero Sugar. Pure Whey', 6);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (3, 'Sleep', 'New Memory Foam', 3);
+INSERT INTO `log_entry_type` (`id`, `name`, `description`, `category_id`) VALUES (4, 'Zzquill', 'Sleep Meds', 5);
 
 COMMIT;
 
@@ -288,9 +292,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (1, 1, NULL, NULL, NULL, 'Brown Sugar', NULL, 1, '1', 1, NULL);
-INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (2, 2, NULL, NULL, '2024-01-30', 'I did 4 hrs of kettlebell swings', NULL, 2, NULL, NULL, NULL);
-INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (3, 3, NULL, NULL, '2024-01-30', 'I had immense pain in my lower back', 10, 3, NULL, NULL, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (2, 2, NULL, NULL, '2024-01-19', 'Protein Shake', 1, 2, '3', 9, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (3, 1, NULL, NULL, '2024-01-20', 'Cardio. The worst. Crushed 5 miles', 9, 2, '20', 16, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (4, 2, NULL, NULL, '2024-01-20', 'Protein Shake', 1, 2, '3', 9, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (5, 1, NULL, NULL, '2024-01-21', 'Upper Body. No spotter.', 10, 2, '10', 14, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (6, 2, NULL, NULL, '2024-01-21', 'Protein Shake', 1, 2, '3', 9, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (7, 3, NULL, NULL, '2024-01-22', 'Mattress was a little stiff.', 5, 3, '6', 15, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (8, 3, NULL, NULL, '2024-01-23', 'Slept better. Starting to break in', 7, 3, '8', 15, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (9, 3, NULL, NULL, '2024-01-24', 'Tossed and turned. Worried about final presentation.', 3, 3, '4', 15, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (10, 3, NULL, NULL, '2024-01-25', 'I\'m certain I didn\'t move at all', 10, 3, '12', 15, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (11, 3, NULL, NULL, '2024-01-26', 'Mattress was a good choice', 8, 3, '8', 15, NULL);
+INSERT INTO `log_entry` (`id`, `log_entry_type_id`, `create_date`, `last_update`, `entry_date`, `description`, `degree`, `user_id`, `amount`, `unit_id`, `entry_time`) VALUES (12, 4, NULL, NULL, '2024-01-26', 'Zzqul', 1, 3, '10', 5, NULL);
 
 COMMIT;
 
@@ -300,9 +312,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `vitalityvaultdb`;
-INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (1, NULL, 'testing', 1, NULL, NULL, NULL, 'TEST', 0, 1);
-INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (2, NULL, 'I want to exclusively do kettlebell swings and see how ripped I get', 2, NULL, '2024-01-01', '2024-02-02', 'Kettlebell Kingdom', 1, 2);
-INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (3, NULL, 'I want to see if lower back stretches reduce pain', 3, NULL, '2024-01-30', '2024-02-28', 'Lower Back Stretches', 1, 3);
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (1, NULL, 'I want to see how ripped I get from taking 5 supplements', 2, NULL, '2024-01-19', '2024-01-30', 'Jacked', 1, 1);
+INSERT INTO `trial` (`id`, `create_date`, `purpose`, `user_id`, `last_update`, `start_date`, `end_date`, `title`, `published`, `log_entry_type_id`) VALUES (2, NULL, 'I want to track my sleep patterns in my new mattress', 3, NULL, '2024-01-22', '2024-01-30', 'New Mattress', 1, 2);
 
 COMMIT;
 
@@ -315,18 +326,6 @@ USE `vitalityvaultdb`;
 INSERT INTO `trial_comment` (`id`, `content`, `content_date`, `user_id`) VALUES (1, 'Was good', '2024-01-25', 1);
 INSERT INTO `trial_comment` (`id`, `content`, `content_date`, `user_id`) VALUES (2, 'Crushed it', '2024-01-30', 2);
 INSERT INTO `trial_comment` (`id`, `content`, `content_date`, `user_id`) VALUES (3, 'Pain was bad', '2024-01-30', 3);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `trial_has_trial_comment`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `vitalityvaultdb`;
-INSERT INTO `trial_has_trial_comment` (`trial_id`, `trial_comment_id`) VALUES (1, 1);
-INSERT INTO `trial_has_trial_comment` (`trial_id`, `trial_comment_id`) VALUES (2, 2);
-INSERT INTO `trial_has_trial_comment` (`trial_id`, `trial_comment_id`) VALUES (3, 3);
 
 COMMIT;
 
