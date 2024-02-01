@@ -1,5 +1,5 @@
 <div class="row align-items-top m-5">
-  <div class="card col col-md my-4 " style="background-color: lightblue">
+  <div class="card rounded-3 col col-md my-4 " style="background-color: lightblue">
     <div *ngIf="!updateUser">
       <div class="card-body">
         <h3>Welcome, {{ user.firstName }} {{ user.lastName }}</h3>
@@ -91,7 +91,7 @@
   </div>
   <div class="col-md-1"></div>
 
-  <div id="section2" class="card col-md my-4" style="background-color: lightblue">
+  <div id="section2" class="card rounded-3 col-md my-4" style="background-color: lightblue">
     <div class="card-body">
       <span>
         <h1>Start New Trial</h1>
@@ -100,10 +100,10 @@
       <br>
       <br>
       <div *ngIf="trials.length>0">
-        <table class=" shadow-lg p-1 mb-5 bg-body-dark rounded table table-striped table-info align-middle table-hover table-bordered">
-          <thead>
-            <tr>
-              <td>Title</td>
+        <table class=" shadow-lg p-1 mb-5 rounded-3 overflow-hidden table table-striped table-info align-middle table-hover  ">
+          <thead >
+            <tr >
+              <td >Title</td>
               <td>Purpose</td>
               <td [colSpan]="2">Dates</td>
             </tr>
@@ -126,10 +126,10 @@
   <button class="btn btn-outline-success" (click)="loadEntriesByDay(selectedDate)">View Past Logs</button>
 </div>
 <div *ngIf="loadEntriesByDay.length>0">
-    <table class=" shadow-lg p-1 mb-5 bg-body-dark rounded table table-striped table-info align-middle table-hover table-bordered">
-      <thead>
-        <tr>
-          <td>Category</td>
+    <table class=" shadow-lg p-1 mb-5 rounded-3 overflow-hidden bg-body-dark table table-striped table-info align-middle table-hover table-bordered">
+      <thead >
+        <tr >
+          <td >Category</td>
           <td>Type</td>
           <td>Description</td>
         </tr>
