@@ -54,7 +54,7 @@ public class Trial {
 	@JoinTable(name = "trial_has_trial_comment", joinColumns = @JoinColumn(name = "trial_id"), inverseJoinColumns = @JoinColumn(name = "trial_comment_id"))
 	private List<TrialComment> comments;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "log_entry_type_id")
 	private LogEntryType logEntryType;
 
